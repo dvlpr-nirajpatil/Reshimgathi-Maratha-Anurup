@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "630636854551",
+    "project_id": "reshimgathi-baed8",
+    "storage_bucket": "reshimgathi-baed8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630636854551:android:4972b7f276eea2f0ab4b52",
+        "android_client_info": {
+          "package_name": "com.example.reshimgathi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ2KTw4QixNoCjlWWM4SaxxV9K2Bap1II"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
