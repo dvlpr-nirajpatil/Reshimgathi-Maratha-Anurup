@@ -24,7 +24,7 @@ Column UploadDocument(BuildContext context) {
                 size: 60,
               ),
               15.heightBox,
-              "Upload your images here".text.color(darkGrey).size(16).make()
+              "Upload Document images here".text.color(darkGrey).size(16).make()
             ],
           ),
         ),

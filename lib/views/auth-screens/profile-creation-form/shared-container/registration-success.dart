@@ -1,6 +1,11 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/views/home/home.dart';
 
 Container registrationSuccessScreen() {
+  Future.delayed(Duration(seconds: 2), () {
+    Get.to(() => Home());
+  });
+
   return Container(
     child: Column(
       // mainAxisAlignment: MainAxisAlignment.center,
