@@ -1,8 +1,8 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/views/auth-screens/landing-screen/landing_screen.dart';
-
 import 'package:reshimgathi/views/auth-screens/splash-screen/components/poster_widget.dart';
+import 'package:reshimgathi/views/home/home.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -11,7 +11,9 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(
       Duration(milliseconds: 2000),
       () {
+
         Get.off(() => LandingScreen(), transition: Transition.fadeIn);
+
       },
     );
   }
@@ -57,11 +59,17 @@ class SplashScreen extends StatelessWidget {
                 Positioned(
                   top: 90,
                   left: 20,
-                  child: Image.asset(
-                    igAppLogo,
-                    width: context.width * 0.8,
-                  ),
-                )
+                  child: Image.asset(igAppLogo, width: context.width * 0.8),
+                ),
+                Positioned(
+                    bottom: -80,
+                    right: 50,
+                    child: "मराठा अनुरुप"
+                        .text
+                        .fontFamily(marathiBold)
+                        .size(12)
+                        .white
+                        .make())
               ],
             ),
             100.heightBox,
@@ -72,7 +80,7 @@ class SplashScreen extends StatelessWidget {
                 .fontFamily(marathiBold)
                 .white
                 .make(),
-            130.heightBox,
+            110.heightBox,
             Stack(
               clipBehavior: Clip.none,
               alignment: Alignment.center,
