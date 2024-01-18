@@ -5,6 +5,7 @@ Color pinkColor = const Color(0xffFF4D82);
 Color lightPinkColor = const Color(0xffFF96B5);
 Color faintPinkColor = const Color(0xffFFC7D8);
 Color lightGrey = const Color(0xffECEDEF);
+
 Color darkGrayColor = Colors.grey.shade600;
 Color whiteColor = Colors.white;
 Color blackColor = Colors.black;
@@ -12,6 +13,9 @@ Color blackColor = Colors.black;
 Color borderColor = const Color(0xffD9D9D9);
 
 Color inactiveBottomAppBarIconAndLabelColor = Colors.grey.shade600;
+
+Color darkGrey = Color.fromARGB(255, 197, 198, 201);
+
 
 Color yellowBannerColor = Color(0xffF9CC00);
 Color RedBannerColor = Color(0xffC22F20);
