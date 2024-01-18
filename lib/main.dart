@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/firebase_options.dart';
 import 'package:reshimgathi/views/auth-screens/splash-screen/splash_screen.dart';
 
@@ -16,6 +17,7 @@ class Reshimgathi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(fontFamily: regular),
       home: SplashScreen(),
     );
   }
