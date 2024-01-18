@@ -17,6 +17,7 @@ class Reshimgathi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: regular),
       home: SplashScreen(),
     );

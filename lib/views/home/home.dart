@@ -13,7 +13,6 @@ class Home extends StatelessWidget {
   List screens = [
     const HomeScreen(),
     const SavedProfileScreen(),
-    const NewsScreen(),
     const ProfileScreen()
   ];
 

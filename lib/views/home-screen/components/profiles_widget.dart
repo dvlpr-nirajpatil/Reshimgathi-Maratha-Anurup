@@ -1,6 +1,7 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/models/profile_details_model.dart';
+import 'package:reshimgathi/views/profile-screen/profile_detail_screen.dart';
 
 class ProfileCardWidget extends StatelessWidget {
   ProfileCardWidget({super.key, required this.data});
@@ -56,6 +57,13 @@ class ProfileCardWidget extends StatelessWidget {
           ).onTap(() {}),
         )
       ],
-    );
+    ).onTap(() {
+      Get.to(
+          () => ProfileDetailScreen(
+                data: data,
+              ),
+          transition: Transition.rightToLeftWithFade,
+          duration: Duration(milliseconds: 500));
+    });
   }
 }

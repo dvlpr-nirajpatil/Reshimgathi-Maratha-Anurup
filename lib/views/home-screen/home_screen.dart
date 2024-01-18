@@ -93,7 +93,8 @@ class HomeScreen extends StatelessWidget {
                       itemCount: controller.Matches.length,
                       itemBuilder: (context, index) {
                         return ProfileCardWidget(
-                            data: controller.Matches[index]);
+                          data: controller.Matches[index],
+                        );
                       },
                     ),
                   ],
