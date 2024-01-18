@@ -16,7 +16,6 @@ Color inactiveBottomAppBarIconAndLabelColor = Colors.grey.shade600;
 
 Color darkGrey = Color.fromARGB(255, 197, 198, 201);
 
-
 Color yellowBannerColor = Color(0xffF9CC00);
 Color RedBannerColor = Color(0xffC22F20);
 // ignore: non_constant_identifier_names
