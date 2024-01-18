@@ -1,6 +1,7 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
-import 'package:reshimgathi/views/auth-screens/signin-screen/signin_screen.dart';
+import 'package:reshimgathi/views/auth-screens/landing-screen/landing_screen.dart';
+
 import 'package:reshimgathi/views/auth-screens/splash-screen/components/poster_widget.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(
       Duration(milliseconds: 2000),
       () {
-        Get.off(() => SignInScreen(), transition: Transition.fadeIn);
+        Get.off(() => LandingScreen(), transition: Transition.fadeIn);
       },
     );
   }
