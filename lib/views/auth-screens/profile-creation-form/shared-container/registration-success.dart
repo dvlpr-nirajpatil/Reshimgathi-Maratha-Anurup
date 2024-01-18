@@ -3,7 +3,7 @@ import 'package:reshimgathi/views/home/home.dart';
 
 Container registrationSuccessScreen() {
   Future.delayed(Duration(seconds: 2), () {
-    Get.to(() => Home());
+    Get.to(() => Home(), transition: Transition.rightToLeftWithFade);
   });
 
   return Container(

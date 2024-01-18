@@ -12,21 +12,9 @@ class ProfileCreationScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         scrolledUnderElevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            9,
-            (index) => Container(
-              margin: EdgeInsets.only(right: 5),
-              child: CircleAvatar(
-                radius: 5,
-                backgroundColor: index == 0 ? pinkColor : lightGrey,
-              ),
-            ),
-          ),
-        ),
       ),
       body: Obx(
         () => Container(
@@ -59,7 +47,6 @@ class ProfileCreationScreen extends StatelessWidget {
               ? SizedBox()
               : customAuthScreenButton(context, title: "continue", ontap: () {
                   controller.ScreenNo += 1;
-                  print(controller.ScreenNo.value);
                 }),
         ),
       ),

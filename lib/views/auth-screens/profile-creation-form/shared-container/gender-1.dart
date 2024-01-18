@@ -2,9 +2,10 @@ import 'package:reshimgathi/consts/consts.dart';
 
 Column genderCheck() {
   return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       "I Am ".text.size(24).semiBold.make(),
-      50.heightBox,
+      20.heightBox,
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -13,7 +14,7 @@ Column genderCheck() {
             width: 150,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              color: pinkColor,
+              color: lightPinkColor,
             ),
           ),
           20.widthBox,
@@ -22,7 +23,7 @@ Column genderCheck() {
             width: 150,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              color: pinkColor,
+              color: lightPinkColor,
             ),
           ),
         ],

@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
 import 'package:reshimgathi/views/home-screen/home_screen.dart';
-import 'package:reshimgathi/views/news/news_screen.dart';
+
 import 'package:reshimgathi/views/profile/profile_screen.dart';
 import 'package:reshimgathi/views/saved-profiles/saved_profile_screen.dart';
 

@@ -2,6 +2,7 @@ import 'package:reshimgathi/consts/consts.dart';
 
 Container customAuthScreenButton(BuildContext context, {title, ontap}) {
   return Container(
+    margin: EdgeInsets.symmetric(horizontal: 10),
     width: context.screenWidth,
     child: ElevatedButton(
       style: ButtonStyle(

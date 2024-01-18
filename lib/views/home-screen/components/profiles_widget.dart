@@ -63,7 +63,7 @@ class ProfileCardWidget extends StatelessWidget {
                 data: data,
               ),
           transition: Transition.rightToLeftWithFade,
-          duration: Duration(milliseconds: 500));
+          duration: Duration(milliseconds: 300));
     });
   }
 }

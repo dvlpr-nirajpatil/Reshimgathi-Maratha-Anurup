@@ -1,5 +1,6 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/shared-widget/custom_auth_screens_button.dart';
+import 'package:reshimgathi/views/auth-screens/profile-creation-form/profile_creation_form.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -34,7 +35,12 @@ class LandingScreen extends StatelessWidget {
                       .align(TextAlign.center)
                       .make(),
                   20.heightBox,
-                  customAuthScreenButton(context, title: "Create an Account")
+                  customAuthScreenButton(context, title: "Create an Account",
+                      ontap: () {
+                    Get.to(() => ProfileCreationScreen(),
+                        transition: Transition.rightToLeftWithFade,
+                        duration: Duration(milliseconds: 300));
+                  })
                 ],
               ),
             ),
