@@ -6,6 +6,7 @@ Color lightPinkColor = const Color(0xffFF96B5);
 Color faintPinkColor = const Color(0xffFFC7D8);
 Color lightGrey = const Color(0xffECEDEF);
 Color borderColor = const Color(0xffD9D9D9);
+Color lightTextColor = const Color(0xff8C8080);
 
 Color inactiveBottomAppBarIconAndLabelColor = Colors.grey.shade800;
 

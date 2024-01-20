@@ -3,19 +3,12 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
 import 'package:reshimgathi/views/home-screen/home_screen.dart';
-import 'package:reshimgathi/views/news/news_screen.dart';
 import 'package:reshimgathi/views/profile/profile_screen.dart';
-import 'package:reshimgathi/views/saved-profiles/saved_profile_screen.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
 
-  List screens = [
-    const HomeScreen(),
-    const SavedProfileScreen(),
-    const NewsScreen(),
-    const ProfileScreen()
-  ];
+  List screens = [const HomeScreen(), const ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +27,13 @@ class Home extends StatelessWidget {
                     bottomNavigationBarItems[index]['icon'],
                     size: 30,
                     color: controller.selectedScreenIndex.value == index
-                        ? pinkColor
+                        ? lightPinkColor
                         : inactiveBottomAppBarIconAndLabelColor,
                   ),
                   "${bottomNavigationBarItems[index]['title']}"
                       .text
                       .color(controller.selectedScreenIndex.value == index
-                          ? pinkColor
+                          ? lightPinkColor
                           : inactiveBottomAppBarIconAndLabelColor)
                       .make()
                 ],

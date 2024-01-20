@@ -23,4 +23,15 @@ class HomeScreenController extends GetxController {
         location: "Dhule",
         imgUrl: igGirl2),
   ];
+
+  List prefs = [
+    ["Groom", true.obs],
+    ["Bride", true.obs],
+    ["Divorse", true.obs],
+    ["Widow", true.obs],
+  ];
+
+  // filter options
+  RxInt min_age_value = 20.obs;
+  RxInt max_age_value = 25.obs;
 }

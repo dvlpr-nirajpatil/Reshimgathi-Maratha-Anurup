@@ -4,6 +4,7 @@ import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
 
 import 'package:reshimgathi/views/home-screen/components/profiles_widget.dart';
+import 'package:reshimgathi/views/home-screen/set_pref/set_preferences_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -74,7 +75,11 @@ class HomeScreen extends StatelessWidget {
                     .roundedSM
                     .make()
                     .onTap(() {
-                  openSetPreferences(context);
+                  Get.to(
+                    () => SetPreferencesScreen(),
+                    transition: Transition.downToUp,
+                    duration: Duration(milliseconds: 400),
+                  );
                 })
               ],
             ),
