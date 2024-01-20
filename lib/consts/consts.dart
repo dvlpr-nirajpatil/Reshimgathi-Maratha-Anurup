@@ -7,3 +7,15 @@ export 'package:firebase_core/firebase_core.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:reshimgathi/consts/image_urls.dart';
 export 'package:reshimgathi/consts/padding_margins.dart';
+export 'package:reshimgathi/shared-widget/custom_textfield.dart';
+export 'package:reshimgathi/shared-widget/custom_auth_screens_button.dart';
+
+export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/personal_info.dart';
+export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/professional-info.dart';
+export 'package:reshimgathi/controller/profile_form.dart';
+export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/contact-information.dart';
+export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/expectation-information.dart';
+export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/registration-success.dart';
+export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/family-background.dart';
+export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/resindential-information.dart';
+export 'package:dotted_border/dotted_border.dart';
