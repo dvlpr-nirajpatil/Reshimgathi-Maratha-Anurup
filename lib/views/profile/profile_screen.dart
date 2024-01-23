@@ -1,4 +1,6 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/routes.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
@@ -104,7 +106,8 @@ class ProfileScreen extends StatelessWidget {
                     await authController.userSignOut();
                     authController.reset();
                     homeController.reset();
-                    Get.offAll(() => SignInScreen());
+                    // ignore: use_build_context_synchronously
+                    router.go('/SignIn');
                   },
                   title: "Sign Out".text.make(),
                   trailing: Icon(

@@ -6,3 +6,4 @@ User? user = auth.currentUser;
 
 // collection
 const String registerCollection = "userRegister";
+const String adminCollection = "adminRegister";

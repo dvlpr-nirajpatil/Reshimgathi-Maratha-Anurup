@@ -6,6 +6,7 @@ import 'package:reshimgathi/views/profile/profile_screen.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
+  static String id = "Home";
 
   List screens = [const HomeScreen(), const ProfileScreen()];
 

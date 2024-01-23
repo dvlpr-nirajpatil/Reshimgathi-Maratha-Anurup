@@ -1,9 +1,10 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/home/home.dart';
+import 'package:reshimgathi/views/auth-screens/profile-creation-form/verification_waiting_screen.dart';
 
-Container registrationSuccessScreen() {
+Container registrationSuccessScreen(context) {
   Future.delayed(Duration(seconds: 2), () {
-    Get.to(() => Home(), transition: Transition.rightToLeftWithFade);
+    GoRouter.of(context).pushReplacementNamed(VerificationPendingScreen.id);
   });
 
   return Container(

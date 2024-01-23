@@ -5,6 +5,7 @@ import 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-cont
 
 class ProfileCreationScreen extends StatelessWidget {
   const ProfileCreationScreen({super.key});
+  static String id = "ProfileCreationScreen";
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +19,29 @@ class ProfileCreationScreen extends StatelessWidget {
       ),
       body: Obx(
         () => Container(
-            padding:
-                screenPadding.copyWith(top: (80 * 100) / context.screenHeight),
-            child: controller.ScreenNo == 0
-                ? genderCheck()
-                : controller.ScreenNo == 1
-                    ? personalInformation()
-                    : controller.ScreenNo == 2
-                        ? professionalInformation()
-                        : controller.ScreenNo == 3
-                            ? familyBackground(controller)
-                            : controller.ScreenNo == 4
-                                ? ResidentialInformation()
-                                : controller.ScreenNo == 5
-                                    ? ContactInformation()
-                                    : controller.ScreenNo == 6
-                                        ? ExpectationsInformation()
-                                        : controller.ScreenNo == 7
-                                            ? UplodImage(context)
-                                            : controller.ScreenNo == 8
-                                                ? UploadDocument(context)
-                                                : registrationSuccessScreen()),
+          padding:
+              screenPadding.copyWith(top: (80 * 100) / context.screenHeight),
+          child: controller.ScreenNo == 0
+              ? genderCheck()
+              : controller.ScreenNo == 1
+                  ? personalInformation()
+                  : controller.ScreenNo == 2
+                      ? professionalInformation()
+                      : controller.ScreenNo == 3
+                          ? familyBackground(controller)
+                          : controller.ScreenNo == 4
+                              ? ResidentialInformation()
+                              : controller.ScreenNo == 5
+                                  ? ContactInformation()
+                                  : controller.ScreenNo == 6
+                                      ? ExpectationsInformation()
+                                      : controller.ScreenNo == 7
+                                          ? UplodImage(context)
+                                          : controller.ScreenNo == 8
+                                              ? UploadDocument(context)
+                                              : registrationSuccessScreen(
+                                                  context),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,

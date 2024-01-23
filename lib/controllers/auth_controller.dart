@@ -1,8 +1,9 @@
-import 'dart:developer';
-
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/firebase_consts.dart';
+import 'package:reshimgathi/consts/routes.dart';
 import 'package:reshimgathi/shared-widget/custom_snackbar.dart';
+
 import 'package:reshimgathi/views/auth-screens/profile-creation-form/payment_getway_screen.dart';
 import 'package:reshimgathi/views/auth-screens/profile-creation-form/profile_creation_form.dart';
 import 'package:reshimgathi/views/auth-screens/profile-creation-form/verification_waiting_screen.dart';
@@ -14,23 +15,17 @@ class AuthController extends ChangeNotifier {
   var userDetails;
   bool is_loading = false;
 
-  navigateUser() async {
+  navigateUser(context) async {
     await fetchUserDetails();
-
     if (userDetails['registration'] == false) {
-      Get.offAll(
-        () => const ProfileCreationScreen(),
-      );
+      GoRouter.of(context).pushNamed(ProfileCreationScreen.id);
     } else if (userDetails['verification'] == false) {
-      Get.offAll(
-        () => const VerificationPendingScreen(),
-      );
+      GoRouter.of(context).pushNamed(VerificationPendingScreen.id);
     } else if (userDetails['membership_active'] == false) {
-      Get.offAll(
-        () => const PaymentGatwayScreen(),
-      );
+      GoRouter.of(context).pushNamed(PaymentGatwayScreen.id);
     } else {
-      Get.offAll(() => Home());
+      // GoRouter.of(context).pushNamed(Home.id);
+      router.go('/home');
     }
   }
 

@@ -1,12 +1,10 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/shared-widget/custom_auth_screens_button.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/profile_creation_form.dart';
 import 'package:reshimgathi/views/auth-screens/signin-screen/signin_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
-
+  static String id = "LandingScreen";
   @override
   Widget build(BuildContext context) {
     var authController = Provider.of<AuthController>(context, listen: false);

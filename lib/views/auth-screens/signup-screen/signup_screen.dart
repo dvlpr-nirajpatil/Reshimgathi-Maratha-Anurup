@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/consts/typography.dart';
@@ -6,6 +7,8 @@ import 'package:reshimgathi/views/auth-screens/profile-creation-form/profile_cre
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
+
+  static String id = "SignUpScreen";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -112,7 +115,7 @@ class SignupScreen extends StatelessWidget {
                         .color(pinkColor)
                         .make()
                         .onTap(() {
-                      Get.back();
+                      GoRouter.of(context).pop();
                     }),
                   ],
                 ),

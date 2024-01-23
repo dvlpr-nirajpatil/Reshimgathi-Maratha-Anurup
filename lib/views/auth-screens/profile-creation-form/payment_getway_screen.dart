@@ -1,23 +1,29 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/services/firestore_services.dart';
-import 'package:reshimgathi/views/home-screen/home_screen.dart';
+import 'package:reshimgathi/views/home/home.dart';
 
 class PaymentGatwayScreen extends StatelessWidget {
   const PaymentGatwayScreen({super.key});
+  static String id = "PaymentGatewayScreen";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment Gateway'),
+        title: const Text('Payment Gateway'),
       ),
       body: StreamBuilder(
           stream: FirestoreServices.getUser(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
             if (snapshot.hasData) {
               var data = snapshot.data!.docs[0];
               if (data['membership_active'] == true) {
-                Get.to(() => HomeScreen());
+                Future.delayed(const Duration(seconds: 1),
+                    () => GoRouter.of(context).pushReplacementNamed(Home.id));
               }
             }
             return Padding(

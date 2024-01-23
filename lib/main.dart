@@ -1,9 +1,9 @@
+import 'package:reshimgathi/consts/routes.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
 import 'package:reshimgathi/firebase_options.dart';
-import 'package:reshimgathi/views/auth-screens/splash-screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,8 @@ class Reshimgathi extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthController()),
         ChangeNotifierProvider(create: (_) => HomeScreenController()),
       ],
-      child: GetMaterialApp(
+      child: MaterialApp.router(
+        routerConfig: router,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           textSelectionTheme:
@@ -46,7 +47,6 @@ class Reshimgathi extends StatelessWidget {
           ),
           fontFamily: regular,
         ),
-        home: const SplashScreen(),
       ),
     );
   }

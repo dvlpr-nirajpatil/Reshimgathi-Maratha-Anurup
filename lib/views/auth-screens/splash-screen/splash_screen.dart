@@ -5,8 +5,7 @@ import 'package:reshimgathi/controllers/auth_controller.dart';
 import 'package:reshimgathi/views/auth-screens/landing-screen/landing_screen.dart';
 import 'package:reshimgathi/views/auth-screens/signin-screen/signin_screen.dart';
 import 'package:reshimgathi/views/auth-screens/splash-screen/components/poster_widget.dart';
-import 'package:reshimgathi/views/home-screen/home_screen.dart';
-import 'package:reshimgathi/views/home/home.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
@@ -21,17 +20,17 @@ class SplashScreen extends StatelessWidget {
       () async {
         bool? isUserComesFirstTime = await controller.isUserComesFirstTime();
         if (isUserComesFirstTime == true) {
-          Get.off(() => const LandingScreen(), transition: Transition.fadeIn);
+          GoRouter.of(context).goNamed(LandingScreen.id);
         } else {
-          auth.userChanges().listen((user) {
-            if (user != null) {
-              controller.navigateUser();
-            } else {
-              Get.off(() => SignInScreen());
-            }
-          });
-
-          Get.off(() => SignInScreen(), transition: Transition.fadeIn);
+          auth.userChanges().listen(
+            (user) {
+              if (user != null) {
+                controller.navigateUser(context);
+              } else {
+                GoRouter.of(context).pushReplacementNamed(SignInScreen.id);
+              }
+            },
+          );
         }
       },
     );

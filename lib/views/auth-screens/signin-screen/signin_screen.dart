@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
@@ -9,6 +10,8 @@ import 'package:reshimgathi/views/home/home.dart';
 
 // ignore: must_be_immutable
 class SignInScreen extends StatelessWidget {
+  static String id = "SignInScreen";
+
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
@@ -88,38 +91,13 @@ class SignInScreen extends StatelessWidget {
                             .then(
                           (value) async {
                             if (value != null) {
-                              await authController.fetchUserDetails();
-                              if (authController.userDetails["registration"] ==
-                                  false) {
-                                Get.to(() => ProfileCreationScreen());
-                                return;
-                              } else if (authController
-                                          .userDetails["registration"] ==
-                                      true &&
-                                  authController.userDetails["verification"] ==
-                                      false) {
-                                Get.to(() => VerificationPendingScreen());
-                                return;
-                              } else if (authController
-                                          .userDetails["registration"] ==
-                                      true &&
-                                  authController.userDetails["verification"] ==
-                                      true &&
-                                  authController
-                                          .userDetails["membership_active"] ==
-                                      false) {
-                                Get.to(() => PaymentGatwayScreen());
-                                return;
-                              } else {
-                                Get.offAll(() => Home());
-                                return;
-                              }
+                              await authController.navigateUser(context);
                             }
-                            controller.is_loading = false;
-                            authController.notifyListeners();
                           },
                         );
                       }
+                      controller.is_loading = false;
+                      authController.notifyListeners();
                     },
                     child: controller.is_loading
                         ? const SizedBox(
@@ -143,7 +121,7 @@ class SignInScreen extends StatelessWidget {
                       .fontFamily(semiBold)
                       .make()
                       .onTap(() {
-                    Get.to(() => SignupScreen());
+                    GoRouter.of(context).pushNamed(SignupScreen.id);
                   })
                 ],
               ),
