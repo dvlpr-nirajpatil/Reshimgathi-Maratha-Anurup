@@ -1,5 +1,8 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
+import 'package:reshimgathi/controllers/auth_controller.dart';
+import 'package:reshimgathi/controllers/home_screen_controller.dart';
+import 'package:reshimgathi/views/auth-screens/signin-screen/signin_screen.dart';
 import 'package:reshimgathi/views/profile/change_password/change_password_screen.dart';
 import 'package:reshimgathi/views/profile/contact_screen/contact_us_sceen.dart';
 import 'package:reshimgathi/views/profile/saved_profiles/saved_profiles_screen.dart';
@@ -9,6 +12,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var authController = Provider.of<AuthController>(context, listen: false);
+    var homeController =
+        Provider.of<HomeScreenController>(context, listen: false);
     return Scaffold(
       body: Container(
         padding: screenPadding,
@@ -29,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     "Niraj Patil".text.size(18).fontFamily(semiBold).make(),
-                    "REG123456789".text.make()
+                    "${authController.userDetails['reg_id']}".text.make()
                   ],
                 )
               ],
@@ -94,6 +100,12 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const Divider(),
                 ListTile(
+                  onTap: () async {
+                    await authController.userSignOut();
+                    authController.reset();
+                    homeController.reset();
+                    Get.offAll(() => SignInScreen());
+                  },
                   title: "Sign Out".text.make(),
                   trailing: Icon(
                     Icons.arrow_forward_ios,

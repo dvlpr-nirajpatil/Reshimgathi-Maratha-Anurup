@@ -11,12 +11,13 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(HomeScreenController());
+    var controller = Provider.of<HomeScreenController>(context, listen: false);
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
-        child: Obx(
-          () => Row(
+        child:
+            Consumer<HomeScreenController>(builder: (context, provider, xxx) {
+          return Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(
               bottomNavigationBarItems.length,
@@ -25,25 +26,29 @@ class Home extends StatelessWidget {
                   Icon(
                     bottomNavigationBarItems[index]['icon'],
                     size: 30,
-                    color: controller.selectedScreenIndex.value == index
+                    color: provider.selectedScreenIndex == index
                         ? lightPinkColor
                         : inactiveBottomAppBarIconAndLabelColor,
                   ),
                   "${bottomNavigationBarItems[index]['title']}"
                       .text
-                      .color(controller.selectedScreenIndex.value == index
+                      .color(provider.selectedScreenIndex == index
                           ? lightPinkColor
                           : inactiveBottomAppBarIconAndLabelColor)
                       .make()
                 ],
               ).onTap(() {
-                controller.selectedScreenIndex(index);
+                controller.setScreenIndex = index;
               }),
             ),
-          ),
-        ),
+          );
+        }),
       ),
-      body: Obx(() => screens[controller.selectedScreenIndex.value]),
+      body: Consumer<HomeScreenController>(
+        builder: (context, provider, xxx) {
+          return screens[controller.selectedScreenIndex];
+        },
+      ),
     );
   }
 }

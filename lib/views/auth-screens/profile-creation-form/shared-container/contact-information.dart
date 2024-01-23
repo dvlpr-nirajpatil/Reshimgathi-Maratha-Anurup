@@ -7,18 +7,18 @@ Container ContactInformation() {
     children: [
       "Contact Information".text.size(24).semiBold.make(),
       20.heightBox,
-      customTextfield(
-        title: "Phone No 1",
+      customTextFormField(
+        label: "Phone No 1",
         hint: "+91 8483728477",
         textInput: TextInputType.number,
       ),
-      customTextfield(
-        title: "Phone No 2",
+      customTextFormField(
+        label: "Phone No 2",
         hint: "+91 8483728477",
         textInput: TextInputType.number,
       ),
-      customTextfield(
-        title: "Email",
+      customTextFormField(
+        label: "Email",
         hint: "dev.adityaaher@gmail.com",
       ),
     ],

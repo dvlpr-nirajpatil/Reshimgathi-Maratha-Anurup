@@ -6,18 +6,18 @@ Column ExpectationsInformation() {
     children: [
       "Expectations Information".text.size(24).semiBold.make(),
       20.heightBox,
-      customTextfield(title: "Education", hint: "BE Computer"),
-      customTextfield(
-        title: "Max age difference",
+      customTextFormField(label: "Education", hint: "BE Computer"),
+      customTextFormField(
+        label: "Max age difference",
         hint: "2 ",
         textInput: TextInputType.number,
       ),
-      customTextfield(
-        title: "Preferred City",
+      customTextFormField(
+        label: "Preferred City",
         hint: "Pune ",
       ),
-      customTextfield(
-        title: "Horoscope needed ?",
+      customTextFormField(
+        label: "Horoscope needed ?",
         hint: "Yes / No ",
       ),
     ],

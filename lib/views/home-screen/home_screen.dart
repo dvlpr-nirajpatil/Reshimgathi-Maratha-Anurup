@@ -1,28 +1,16 @@
 import 'package:reshimgathi/consts/consts.dart';
-
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
-
 import 'package:reshimgathi/views/home-screen/components/profiles_widget.dart';
 import 'package:reshimgathi/views/home-screen/set_pref/set_preferences_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  openSetPreferences(context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Container(
-          height: context.height,
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<HomeScreenController>();
+    var controller = Provider.of<HomeScreenController>(context, listen: false);
+    ;
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 80, left: 20, right: 20),
@@ -74,13 +62,12 @@ class HomeScreen extends StatelessWidget {
                     .size(50, 50)
                     .roundedSM
                     .make()
-                    .onTap(() {
-                  Get.to(
-                    () => SetPreferencesScreen(),
-                    transition: Transition.downToUp,
-                    duration: Duration(milliseconds: 400),
-                  );
-                })
+                    .onTap(
+                  () {
+                    Get.to(() => SetPreferencesScreen(),
+                        transition: Transition.downToUp);
+                  },
+                )
               ],
             ),
             20.heightBox,

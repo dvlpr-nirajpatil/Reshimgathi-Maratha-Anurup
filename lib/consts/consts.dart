@@ -9,7 +9,7 @@ export 'package:reshimgathi/consts/image_urls.dart';
 export 'package:reshimgathi/consts/padding_margins.dart';
 export 'package:reshimgathi/shared-widget/custom_textfield.dart';
 export 'package:reshimgathi/shared-widget/custom_auth_screens_button.dart';
-
+export 'package:provider/provider.dart';
 export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/personal_info.dart';
 export 'package:reshimgathi/views/auth-screens/profile-creation-form/shared-container/professional-info.dart';
 export 'package:reshimgathi/controller/profile_form.dart';

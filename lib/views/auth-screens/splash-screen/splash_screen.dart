@@ -1,31 +1,48 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/firebase_consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
+import 'package:reshimgathi/controllers/auth_controller.dart';
 import 'package:reshimgathi/views/auth-screens/landing-screen/landing_screen.dart';
+import 'package:reshimgathi/views/auth-screens/signin-screen/signin_screen.dart';
 import 'package:reshimgathi/views/auth-screens/splash-screen/components/poster_widget.dart';
+import 'package:reshimgathi/views/home-screen/home_screen.dart';
 import 'package:reshimgathi/views/home/home.dart';
 
+// ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
-  ChangeScreen() {
+  // ignore: non_constant_identifier_names
+  ChangeScreen(context) {
+    var controller = Provider.of<AuthController>(context, listen: false);
+
     Future.delayed(
-      Duration(milliseconds: 2000),
-      () {
+      const Duration(milliseconds: 2000),
+      () async {
+        bool? isUserComesFirstTime = await controller.isUserComesFirstTime();
+        if (isUserComesFirstTime == true) {
+          Get.off(() => const LandingScreen(), transition: Transition.fadeIn);
+        } else {
+          auth.userChanges().listen((user) {
+            if (user != null) {
+              controller.navigateUser();
+            } else {
+              Get.off(() => SignInScreen());
+            }
+          });
 
-        Get.off(() => LandingScreen(), transition: Transition.fadeIn);
-
+          Get.off(() => SignInScreen(), transition: Transition.fadeIn);
+        }
       },
     );
   }
 
-  DateTime now = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
-    ChangeScreen();
+    ChangeScreen(context);
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: 100),
+        padding: const EdgeInsets.only(top: 100),
         width: context.width,
         height: context.height,
         decoration: BoxDecoration(
@@ -116,7 +133,7 @@ class SplashScreen extends StatelessWidget {
                 Positioned(
                   bottom: 105,
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(

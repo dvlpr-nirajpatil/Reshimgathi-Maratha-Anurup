@@ -30,8 +30,8 @@ Column UploadDocument(BuildContext context) {
         ),
       ),
       20.heightBox,
-      customTextfield(
-          title: "Certificate Serial Number", hint: "Enter serial number ")
+      customTextFormField(
+          label: "Certificate Serial Number", hint: "Enter serial number ")
     ],
   );
 }

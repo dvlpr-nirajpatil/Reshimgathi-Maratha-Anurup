@@ -31,3 +31,6 @@ List<ProfileDetails> Matches = [
 
 List occupation = ["Engineer", "Doctor", "MBA"];
 List location = ["Pune", "Mumbai", "Nashik", "Dhule"];
+final RegExp emailRegex = RegExp(
+  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+);

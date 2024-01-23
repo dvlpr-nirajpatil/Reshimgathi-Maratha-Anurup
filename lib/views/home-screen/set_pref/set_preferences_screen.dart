@@ -11,7 +11,7 @@ class SetPreferencesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<HomeScreenController>();
+    var controller = Provider.of<HomeScreenController>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -56,14 +56,14 @@ class SetPreferencesScreen extends StatelessWidget {
               20.heightBox,
               "Age".text.color(lightTextColor).make(),
               15.heightBox,
-              Obx(
-                () => Column(
+              Consumer<HomeScreenController>(builder: (context, provider, xxx) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child:
-                          "Between ${controller.min_age_value} to ${controller.max_age_value}"
+                          "Between ${provider.min_age_value} to ${provider.max_age_value}"
                               .text
                               .make(),
                     ),
@@ -72,11 +72,12 @@ class SetPreferencesScreen extends StatelessWidget {
                       max: 65,
                       inactiveColor: lightGrey,
                       activeColor: pinkColor,
-                      values: RangeValues(controller.min_age_value.toDouble(),
-                          controller.max_age_value.toDouble()),
+                      values: RangeValues(provider.min_age_value.toDouble(),
+                          provider.max_age_value.toDouble()),
                       onChanged: (value) {
-                        controller.min_age_value(value.start.toInt());
-                        controller.max_age_value(value.end.toInt());
+                        provider.min_age_value = value.start.toInt();
+                        provider.max_age_value = value.end.toInt();
+                        provider.notifyListeners();
                       },
                     ),
                   ],
@@ -87,8 +88,8 @@ class SetPreferencesScreen extends StatelessWidget {
                     .padding(
                       EdgeInsets.symmetric(vertical: 10),
                     )
-                    .make(),
-              ),
+                    .make();
+              }),
               20.heightBox,
               "Occupation".text.color(lightTextColor).make(),
               15.heightBox,
@@ -191,23 +192,23 @@ class SetPreferencesScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Padding customCheckBox({title, value, onChanged}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          "$title".text.make(),
-          Checkbox(
-            value: value,
-            onChanged: onChanged,
-            checkColor: Colors.white,
-            activeColor: pinkColor,
-            side: BorderSide(color: pinkColor),
-          )
-        ],
-      ),
-    );
-  }
+Padding customCheckBox({title, value, onChanged}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 6),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        "$title".text.make(),
+        Checkbox(
+          value: value,
+          onChanged: onChanged,
+          checkColor: Colors.white,
+          activeColor: pinkColor,
+          side: BorderSide(color: pinkColor),
+        )
+      ],
+    ),
+  );
 }

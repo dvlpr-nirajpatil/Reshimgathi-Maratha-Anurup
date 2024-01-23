@@ -1,23 +1,24 @@
 import 'package:reshimgathi/consts/consts.dart';
 
-Column customTextfield(
-    {title, hint, ispass = false, textInput = TextInputType.text}) {
+customTextFormField(
+    {label,
+    hint,
+    ispass = false,
+    textInput = TextInputType.text,
+    validator,
+    controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      "$title".text.size(18).make(),
+      "$label".text.size(18).make(),
       10.heightBox,
-      TextField(
+      TextFormField(
+        controller: controller,
+        validator: validator,
         keyboardType: textInput,
         // controller: controller,
         obscureText: ispass,
-        decoration: InputDecoration(
-            hintText: "$hint",
-            hintStyle: TextStyle(fontSize: 16, color: darkGrey),
-            isDense: true,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8))),
       ),
-      15.heightBox,
     ],
-  );
+  ).marginSymmetric(vertical: 5);
 }

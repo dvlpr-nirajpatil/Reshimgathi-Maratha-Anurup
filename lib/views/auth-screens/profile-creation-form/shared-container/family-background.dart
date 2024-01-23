@@ -10,18 +10,18 @@ SingleChildScrollView familyBackground(ProfileFormController controller) {
           children: [
             "Family Background".text.size(24).semiBold.make(),
             35.heightBox,
-            customTextfield(title: "Father Name", hint: "Yuvraj"),
+            customTextFormField(label: "Father Name", hint: "Yuvraj"),
             10.heightBox,
-            customTextfield(title: "Father Occupation", hint: "Note Press"),
+            customTextFormField(label: "Father Occupation", hint: "Note Press"),
             10.heightBox,
-            customTextfield(
-                title: "Father's Company Name", hint: "Nashik Note Press"),
+            customTextFormField(
+                label: "Father's Company Name", hint: "Nashik Note Press"),
             10.heightBox,
-            customTextfield(title: "Father's Job Location", hint: "Nashik"),
+            customTextFormField(label: "Father's Job Location", hint: "Nashik"),
             10.heightBox,
-            customTextfield(title: "Mother Name", hint: "Sunita"),
+            customTextFormField(label: "Mother Name", hint: "Sunita"),
             10.heightBox,
-            customTextfield(title: "Mother Occupation", hint: "Housewife"),
+            customTextFormField(label: "Mother Occupation", hint: "Housewife"),
             10.heightBox,
             Row(
               children: [

@@ -7,28 +7,28 @@ SingleChildScrollView ResidentialInformation() {
       children: [
         "Residential Information".text.size(24).semiBold.make(),
         20.heightBox,
-        customTextfield(
-          title: "Flat, House no, Apartment",
+        customTextFormField(
+          label: "Flat, House no, Apartment",
           hint: "sail zill ro-house no 2",
         ),
-        customTextfield(
-          title: "Landmark",
+        customTextFormField(
+          label: "Landmark",
           hint: "Behind Minatai thakare school",
         ),
-        customTextfield(
-          title: "Area",
+        customTextFormField(
+          label: "Area",
           hint: "DGP Nagar 2",
         ),
-        customTextfield(
-          title: "City / Town",
+        customTextFormField(
+          label: "City / Town",
           hint: "Nashik",
         ),
-        customTextfield(
-          title: "State",
+        customTextFormField(
+          label: "State",
           hint: "Maharashtra",
         ),
-        customTextfield(
-            title: "Pincode", hint: "422010", textInput: TextInputType.number),
+        customTextFormField(
+            label: "Pincode", hint: "422010", textInput: TextInputType.number),
       ],
     ),
   );

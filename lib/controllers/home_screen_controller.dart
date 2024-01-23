@@ -1,8 +1,21 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/models/profile_details_model.dart';
 
-class HomeScreenController extends GetxController {
-  RxInt selectedScreenIndex = 0.obs;
+class HomeScreenController extends ChangeNotifier {
+  int _selectedScreenIndex = 0;
+
+  set setScreenIndex(int x) {
+    _selectedScreenIndex = x;
+    notifyListeners();
+  }
+
+  void reset() {
+    _selectedScreenIndex = 0;
+    notifyListeners();
+  }
+
+  int get selectedScreenIndex => _selectedScreenIndex;
+
   List<ProfileDetails> Matches = [
     ProfileDetails(
       name: "Isha Gupta",
@@ -35,6 +48,6 @@ class HomeScreenController extends GetxController {
   ];
 
   // filter options
-  RxInt min_age_value = 20.obs;
-  RxInt max_age_value = 25.obs;
+  int min_age_value = 20;
+  int max_age_value = 25;
 }
