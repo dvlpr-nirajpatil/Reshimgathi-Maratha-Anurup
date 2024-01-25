@@ -8,6 +8,50 @@ List bottomNavigationBarItems = [
   {"icon": Icons.person, "title": "Profile"},
 ];
 
+List<String> feets = [
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+];
+
+List<String> inches = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12',
+];
+
+List<String> bloodGroup = [
+  'A+',
+  'A-',
+  'B+',
+  'B-',
+  'AB+',
+  'AB-',
+  'O+',
+  'O-',
+];
+
+List<String> yesNo = ["Yes", "No"];
+
+List<String> casts = ["Maratha 96k", "Maratha Kunbi"];
+
+List<String> MaritalStatus = ["Unmarried", "Divorcee", "Widow", "Widower"];
+
+List<String> genders = ['Male', 'Female'];
+
 List<ProfileDetails> Matches = [
   ProfileDetails(
       name: "Isha Gupta",

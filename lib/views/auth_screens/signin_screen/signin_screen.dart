@@ -1,12 +1,8 @@
-import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/payment_getway_screen.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/profile_creation_form.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/verification_waiting_screen.dart';
+
 import 'package:reshimgathi/views/auth-screens/signup-screen/signup_screen.dart';
-import 'package:reshimgathi/views/home/home.dart';
 
 // ignore: must_be_immutable
 class SignInScreen extends StatelessWidget {
@@ -78,8 +74,7 @@ class SignInScreen extends StatelessWidget {
               Consumer<AuthController>(builder: (context, controller, xxx) {
                 return FilledButton(
                     onPressed: () async {
-                      controller.is_loading = true;
-                      authController.notifyListeners();
+                      controller.isLoading = true;
                       if (_formKey.currentState!.validate()) {
                         // Form is valid, perform sign-in logic here
                         String email = _emailField.text;
@@ -96,8 +91,9 @@ class SignInScreen extends StatelessWidget {
                           },
                         );
                       }
-                      controller.is_loading = false;
-                      authController.notifyListeners();
+                      Future.delayed(Duration(seconds: 1), () {
+                        controller.isLoading = false;
+                      });
                     },
                     child: controller.is_loading
                         ? const SizedBox(
@@ -121,7 +117,7 @@ class SignInScreen extends StatelessWidget {
                       .fontFamily(semiBold)
                       .make()
                       .onTap(() {
-                    GoRouter.of(context).pushNamed(SignupScreen.id);
+                    Get.to(() => SignupScreen());
                   })
                 ],
               ),

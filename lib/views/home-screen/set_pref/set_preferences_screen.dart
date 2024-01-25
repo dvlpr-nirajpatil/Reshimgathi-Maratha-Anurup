@@ -2,6 +2,7 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
+import 'package:reshimgathi/views/home/home.dart';
 
 class SetPreferencesScreen extends StatelessWidget {
   SetPreferencesScreen({super.key});

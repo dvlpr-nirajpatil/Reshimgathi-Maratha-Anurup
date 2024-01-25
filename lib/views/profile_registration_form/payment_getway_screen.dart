@@ -1,4 +1,3 @@
-import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/services/firestore_services.dart';
 import 'package:reshimgathi/views/home/home.dart';
@@ -22,8 +21,12 @@ class PaymentGatwayScreen extends StatelessWidget {
             if (snapshot.hasData) {
               var data = snapshot.data!.docs[0];
               if (data['membership_active'] == true) {
-                Future.delayed(const Duration(seconds: 1),
-                    () => GoRouter.of(context).pushReplacementNamed(Home.id));
+                Future.delayed(
+                  const Duration(seconds: 1),
+                  () => Get.off(
+                    () => Home(),
+                  ),
+                );
               }
             }
             return Padding(
@@ -32,17 +35,17 @@ class PaymentGatwayScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.credit_card,
                     size: 100,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       // Add your payment logic here
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
                       child: Text(
                         'Make Payment',
                         style: TextStyle(fontSize: 18),

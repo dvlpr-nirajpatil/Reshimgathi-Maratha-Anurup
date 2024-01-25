@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/strings.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/services/firestore_services.dart';
 import 'package:reshimgathi/views/auth-screens/profile-creation-form/payment_getway_screen.dart';
@@ -26,28 +29,34 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen> {
             if (snapshot.hasData) {
               var data = snapshot.data!.docs[0];
               if (data['verification'] == true) {
-                Future.delayed(
-                    const Duration(seconds: 1),
-                    () => GoRouter.of(context)
-                        .pushReplacementNamed(PaymentGatwayScreen.id));
+                Future.delayed(const Duration(seconds: 1),
+                    () => Get.off(() => const PaymentGatwayScreen()));
               }
             }
-            return Center(
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: double.infinity,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.pending_actions_outlined,
-                    size: 100,
-                    color: pinkColor,
+                  const Center(
+                    child: Image(
+                      width: 200,
+                      image: AssetImage(igUnderVerification),
+                    ),
                   ),
-                  10.heightBox,
-                  "Verification Pending"
+                  60.heightBox,
+                  "Profile Verification in Progress"
                       .text
-                      .size(18)
+                      .size(16)
                       .color(pinkColor)
                       .fontFamily(semiBold)
-                      .make()
+                      .make(),
+                  5.heightBox,
+                  verificationMsg.text.align(TextAlign.justify).make(),
+                  5.heightBox,
+                  "$marathiAppName, $orgName".text.color(pinkColor).make(),
                 ],
               ),
             );

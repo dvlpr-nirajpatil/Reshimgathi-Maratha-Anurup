@@ -1,9 +1,7 @@
-import 'package:reshimgathi/consts/routes.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/typography.dart';
-import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/controllers/home_screen_controller.dart';
-import 'package:reshimgathi/firebase_options.dart';
+import 'package:reshimgathi/controllers/profile_screen_controller.dart';
+import 'package:reshimgathi/views/auth-screens/profile-creation-form/registration_screen.dart';
+import 'package:reshimgathi/views/auth-screens/profile-creation-form/upload_photos_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,33 +18,17 @@ class Reshimgathi extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthController()),
         ChangeNotifierProvider(create: (_) => HomeScreenController()),
+        ChangeNotifierProvider(create: (_) => ProfileScreenController()),
+        ChangeNotifierProvider(create: (_) => ProfileRegistrationController()),
       ],
-      child: MaterialApp.router(
-        routerConfig: router,
+      child: GetMaterialApp(
+        // home: const SplashScreen(),
+        // home: RegistrationScreen(),
+        // home: ProfessionalInfoScreen(),
+        // home: RegistrationScreen(),
+        home: RegistrationScreen(),
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          textSelectionTheme:
-              TextSelectionThemeData(cursorColor: lightPinkColor),
-          inputDecorationTheme: InputDecorationTheme(
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: pinkColor)),
-            hintStyle: TextStyle(fontSize: 16, color: darkGrey),
-            isDense: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          filledButtonTheme: FilledButtonThemeData(
-            style: FilledButton.styleFrom(
-                backgroundColor: pinkColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                minimumSize: const Size(double.infinity, 45)),
-          ),
-          fontFamily: regular,
-        ),
+        theme: appThemeData,
       ),
     );
   }

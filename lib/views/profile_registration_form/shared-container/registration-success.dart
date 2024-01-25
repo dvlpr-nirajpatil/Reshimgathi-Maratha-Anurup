@@ -4,7 +4,7 @@ import 'package:reshimgathi/views/auth-screens/profile-creation-form/verificatio
 
 Container registrationSuccessScreen(context) {
   Future.delayed(Duration(seconds: 2), () {
-    GoRouter.of(context).pushReplacementNamed(VerificationPendingScreen.id);
+    Get.off(() => VerificationPendingScreen());
   });
 
   return Container(

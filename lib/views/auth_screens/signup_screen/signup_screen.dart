@@ -3,7 +3,7 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/profile_creation_form.dart';
+import 'package:reshimgathi/views/auth-screens/profile-creation-form/registration_screen.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -92,7 +92,7 @@ class SignupScreen extends StatelessWidget {
                         if (value != null) {
                           await authController.storeAuthDetails(
                               name: name, email: email);
-                          Get.to(() => ProfileCreationScreen());
+                          Get.to(() => RegistrationScreen());
                         }
                       });
                     }
@@ -115,7 +115,7 @@ class SignupScreen extends StatelessWidget {
                         .color(pinkColor)
                         .make()
                         .onTap(() {
-                      GoRouter.of(context).pop();
+                      Get.back();
                     }),
                   ],
                 ),

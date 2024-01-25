@@ -106,8 +106,12 @@ class ProfileScreen extends StatelessWidget {
                     await authController.userSignOut();
                     authController.reset();
                     homeController.reset();
-                    // ignore: use_build_context_synchronously
-                    router.go('/SignIn');
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignInScreen(),
+                      ),
+                    );
                   },
                   title: "Sign Out".text.make(),
                   trailing: Icon(

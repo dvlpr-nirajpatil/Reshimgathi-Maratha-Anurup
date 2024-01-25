@@ -1,11 +1,8 @@
-import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/firebase_consts.dart';
-import 'package:reshimgathi/consts/routes.dart';
-import 'package:reshimgathi/shared-widget/custom_snackbar.dart';
 
+import 'package:reshimgathi/views/shared-widget/custom_snackbar.dart';
 import 'package:reshimgathi/views/auth-screens/profile-creation-form/payment_getway_screen.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/profile_creation_form.dart';
+import 'package:reshimgathi/views/auth-screens/profile-creation-form/registration_screen.dart';
 import 'package:reshimgathi/views/auth-screens/profile-creation-form/verification_waiting_screen.dart';
 import 'package:reshimgathi/views/home/home.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
@@ -15,17 +12,26 @@ class AuthController extends ChangeNotifier {
   var userDetails;
   bool is_loading = false;
 
+  set isLoading(bool value) {
+    is_loading = value;
+    notifyListeners();
+  }
+
   navigateUser(context) async {
     await fetchUserDetails();
     if (userDetails['registration'] == false) {
-      GoRouter.of(context).pushNamed(ProfileCreationScreen.id);
+      Get.off(() => RegistrationScreen());
+      // GoRouter.of(context).pushNamed(ProfileCreationScreen.id);
     } else if (userDetails['verification'] == false) {
-      GoRouter.of(context).pushNamed(VerificationPendingScreen.id);
+      Get.off(() => VerificationPendingScreen());
+      // GoRouter.of(context).pushNamed(VerificationPendingScreen.id);
     } else if (userDetails['membership_active'] == false) {
-      GoRouter.of(context).pushNamed(PaymentGatwayScreen.id);
+      Get.off(() => PaymentGatwayScreen());
+      // GoRouter.of(context).pushNamed(PaymentGatwayScreen.id);
     } else {
       // GoRouter.of(context).pushNamed(Home.id);
-      router.go('/home');
+      // router.go('/home');
+      Get.off(() => Home());
     }
   }
 

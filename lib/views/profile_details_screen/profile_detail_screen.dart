@@ -10,12 +10,13 @@ class ProfileDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(ProfileScreenController());
+    var controller =
+        Provider.of<ProfileScreenController>(context, listen: false);
 
     var swiper = VxSwiper(
       autoPlay: true,
       onPageChanged: (value) {
-        controller.imageIndex(value);
+        controller.imageIndex = value;
       },
       aspectRatio: 16 / 16,
       viewportFraction: 1.0,
@@ -84,10 +85,9 @@ class ProfileDetailScreen extends StatelessWidget {
                             (index) => Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: CircleAvatar(
-                                backgroundColor:
-                                    index == controller.imageIndex.value
-                                        ? pinkColor
-                                        : lightGrey,
+                                backgroundColor: index == controller.imageIndex
+                                    ? pinkColor
+                                    : lightGrey,
                                 radius: 5,
                               ).onTap(() {
                                 swiper.animateToPage(

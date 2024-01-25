@@ -2,23 +2,32 @@ import 'package:reshimgathi/consts/consts.dart';
 
 customTextFormField(
     {label,
+    ontap,
     hint,
     ispass = false,
     textInput = TextInputType.text,
     validator,
-    controller}) {
+    controller,
+    onlyread = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      "$label".text.size(18).make(),
+      "$label".text.fontFamily(semiBold).make(),
       10.heightBox,
       TextFormField(
+        readOnly: onlyread,
+        onTap: ontap,
+        decoration: InputDecoration(
+          hintText: hint,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
         controller: controller,
         validator: validator,
         keyboardType: textInput,
-        // controller: controller,
         obscureText: ispass,
       ),
     ],
-  ).marginSymmetric(vertical: 5);
+  ).marginOnly(top: 20);
 }

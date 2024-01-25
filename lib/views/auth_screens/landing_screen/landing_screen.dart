@@ -1,6 +1,4 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/views/auth-screens/signin-screen/signin_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -28,7 +26,7 @@ class LandingScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  "शोधा आपला जीवनसाथी ".text.size(30).semiBold.make(),
+                  "शोधा आपला जीवनसाथी".text.size(30).semiBold.make(),
                   30.heightBox,
                   "Find your perfect match on \nReshimgathi"
                       .text

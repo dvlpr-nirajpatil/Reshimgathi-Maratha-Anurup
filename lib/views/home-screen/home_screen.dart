@@ -64,8 +64,7 @@ class HomeScreen extends StatelessWidget {
                     .make()
                     .onTap(
                   () {
-                    Get.to(() => SetPreferencesScreen(),
-                        transition: Transition.downToUp);
+                    Get.to(() => SetPreferencesScreen());
                   },
                 )
               ],
