@@ -98,7 +98,11 @@ class SetPreferencesScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextField(
-                    decoration: InputDecoration(border: InputBorder.none),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
                   )
                       .box
                       .border(color: borderColor)
@@ -146,7 +150,11 @@ class SetPreferencesScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextField(
-                    decoration: InputDecoration(border: InputBorder.none),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
                   )
                       .box
                       .border(color: borderColor)

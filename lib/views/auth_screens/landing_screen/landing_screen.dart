@@ -8,46 +8,63 @@ class LandingScreen extends StatelessWidget {
     var authController = Provider.of<AuthController>(context, listen: false);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.asset(igLanding),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(igLanding),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: double.infinity,
+              height: context.height * 0.38,
               decoration: BoxDecoration(
-                color: Vx.white,
+                color: whiteColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
+                  topLeft: Radius.circular(22),
+                  topRight: Radius.circular(22),
                 ),
               ),
-              width: context.screenWidth,
-              height: 302,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  "शोधा आपला जीवनसाथी".text.size(30).semiBold.make(),
-                  30.heightBox,
-                  "Find your perfect match on \nReshimgathi"
+                  SizedBox(
+                    height: context.height * 0.06,
+                  ),
+                  "शोधा आपला जीवनसाथी"
                       .text
+                      .align(TextAlign.center)
+                      .fontFamily(semiBold)
+                      .size(28)
+                      .make(),
+                  SizedBox(
+                    height: context.height * 0.05,
+                  ),
+                  "Find your perfect match on\n Reshimgathi!"
+                      .text
+                      .color(lightTextColor)
                       .size(16)
-                      .gray400
                       .align(TextAlign.center)
                       .make(),
-                  20.heightBox,
-                  customAuthScreenButton(context, title: "Create an Account",
-                      ontap: () {
-                    authController.mountUser();
-                    Get.off(() => SignInScreen(),
-                        transition: Transition.rightToLeftWithFade,
-                        duration: Duration(milliseconds: 300));
-                  })
+                  const Spacer(),
+                  FilledButton(
+                    onPressed: () {
+                      Get.off(() => SignInScreen());
+                    },
+                    child: "Create an account".text.fontFamily(semiBold).make(),
+                  ),
+                  SizedBox(
+                    height: context.height * 0.05,
+                  ),
                 ],
               ),
-            ),
-          ),
-        ],
-      ).box.make(),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,4 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/typography.dart';
-import 'package:reshimgathi/controllers/auth_controller.dart';
-
 import 'package:reshimgathi/views/auth_screens/signup_screen/signup_screen.dart';
 
 // ignore: must_be_immutable
@@ -40,9 +37,7 @@ class SignInScreen extends StatelessWidget {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
                   }
-                  if (!emailRegex.hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
+
                   return null;
                 },
               ),
@@ -77,8 +72,8 @@ class SignInScreen extends StatelessWidget {
                       controller.isLoading = true;
                       if (_formKey.currentState!.validate()) {
                         // Form is valid, perform sign-in logic here
-                        String email = _emailField.text;
-                        String password = _passField.text;
+                        String email = _emailField.text.trimRight();
+                        String password = _passField.text.trimRight();
 
                         authController
                             .userSignIn(context,
@@ -91,7 +86,7 @@ class SignInScreen extends StatelessWidget {
                           },
                         );
                       }
-                      Future.delayed(Duration(seconds: 1), () {
+                      Future.delayed(const Duration(seconds: 1), () {
                         controller.isLoading = false;
                       });
                     },
@@ -106,7 +101,7 @@ class SignInScreen extends StatelessWidget {
                           )
                         : "Sign In".text.fontFamily(semiBold).size(16).make());
               }),
-              Spacer(),
+              const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

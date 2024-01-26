@@ -169,7 +169,7 @@ class UploadDocumentScreen extends StatelessWidget {
                           context, "Please upload your caste certificate");
                     } else {
                       await controller.storeDocuments();
-                      Get.to(() => const VerificationPendingScreen());
+                      Get.offAll(() => const VerificationPendingScreen());
                     }
                   },
                   child: controller.is_loading

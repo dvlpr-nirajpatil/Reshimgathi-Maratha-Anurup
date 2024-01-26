@@ -9,7 +9,8 @@ customTextFormField(
     validator,
     controller,
     onlyread = false,
-    onchange}) {
+    onchange,
+    required = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -26,7 +27,15 @@ customTextFormField(
           ),
         ),
         controller: controller,
-        validator: validator,
+        validator: required
+            ? (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter $label';
+                }
+
+                return null;
+              }
+            : null,
         keyboardType: textInput,
         obscureText: ispass,
       ),

@@ -1,6 +1,4 @@
-import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
 import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
@@ -45,21 +43,19 @@ class SignupScreen extends StatelessWidget {
                   },
                   controller: _nameField,
                   label: "Name",
-                  hint: "Aditya Aher",
+                  hint: "Enter your name",
                 ),
                 customTextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
                     }
-                    if (!emailRegex.hasMatch(value)) {
-                      return 'Please enter a valid email address';
-                    }
+
                     return null;
                   },
                   controller: _emailField,
                   label: "Email",
-                  hint: "adityaaher@gmail.com",
+                  hint: "Enter your email",
                 ),
                 customTextFormField(
                   validator: (value) {
@@ -74,7 +70,7 @@ class SignupScreen extends StatelessWidget {
                   },
                   controller: _passField,
                   label: "Password",
-                  hint: "********",
+                  hint: "Enter password",
                   ispass: true,
                 ),
                 30.heightBox,
@@ -82,9 +78,9 @@ class SignupScreen extends StatelessWidget {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       // Form is valid, perform sign-in logic here
-                      String email = _emailField.text;
-                      String password = _passField.text;
-                      String name = _nameField.text;
+                      String email = _emailField.text.trimRight();
+                      String password = _passField.text.trimRight();
+                      String name = _nameField.text.trimRight();
 
                       await authController
                           .userSignUp(context, email: email, password: password)
@@ -92,7 +88,7 @@ class SignupScreen extends StatelessWidget {
                         if (value != null) {
                           await authController.storeAuthDetails(
                               name: name, email: email);
-                          Get.to(() => RegistrationScreen());
+                          Get.offAll(() => RegistrationScreen());
                         }
                       });
                     }
@@ -109,16 +105,11 @@ class SignupScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Already Have an Account? "),
-                    "Sign in"
-                        .text
-                        .fontFamily(semiBold)
-                        .color(pinkColor)
-                        .make()
-                        .onTap(() {
-                      Get.back();
-                    }),
+                    "Sign in".text.fontFamily(semiBold).color(pinkColor).make()
                   ],
-                ),
+                ).onTap(() {
+                  Get.back();
+                }),
                 60.heightBox,
               ],
             ),

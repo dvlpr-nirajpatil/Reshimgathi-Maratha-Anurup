@@ -33,7 +33,8 @@ class HomeScreen extends StatelessWidget {
                       Expanded(
                         child: TextField(
                           decoration: InputDecoration(
-                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
                             hintText: "Search",
                             hintStyle: TextStyle(
                               color: borderColor,

@@ -38,12 +38,11 @@ class FamilyInfoScreen extends StatelessWidget {
                   controller: controller.model.fatherNameController,
                   label: "Father's Name",
                   hint: "Enter your father's name"),
-              20.heightBox,
-              "Is Father Alive ?".text.fontFamily(semiBold).make(),
-              10.heightBox,
+
               Consumer<ProfileRegistrationController>(
                 builder: (context, controller, xxx) {
                   return customDropDownButton(
+                      label: "Is Father Alive ?",
                       hint: "Yes / No",
                       selectedValue: controller.model.isFatherAlive,
                       onchange: (value) {
@@ -67,12 +66,11 @@ class FamilyInfoScreen extends StatelessWidget {
                   controller: controller.model.motherNameController,
                   label: "Mother's Name",
                   hint: "Enter your mother's name"),
-              20.heightBox,
-              "Is Mother Alive ?".text.fontFamily(semiBold).make(),
-              10.heightBox,
+
               Consumer<ProfileRegistrationController>(
                 builder: (context, controller, xxx) {
                   return customDropDownButton(
+                      label: "Is Mother Alive ?",
                       hint: "Yes / No",
                       selectedValue: controller.model.isMotherAlive,
                       onchange: (value) {

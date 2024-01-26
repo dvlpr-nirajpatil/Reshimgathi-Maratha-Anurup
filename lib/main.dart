@@ -21,6 +21,7 @@ class Reshimgathi extends StatelessWidget {
       ],
       child: GetMaterialApp(
         home: const SplashScreen(),
+        // home: LandingScreen(),
         // home: Home(),
         // home: RegistrationScreen(),
         // home: ProfessionalInfoScreen(),
