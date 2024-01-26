@@ -2,7 +2,7 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
 
-import 'package:reshimgathi/views/auth-screens/signup-screen/signup_screen.dart';
+import 'package:reshimgathi/views/auth_screens/signup_screen/signup_screen.dart';
 
 // ignore: must_be_immutable
 class SignInScreen extends StatelessWidget {

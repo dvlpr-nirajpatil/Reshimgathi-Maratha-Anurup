@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
-Column heightPicker(BuildContext context,
+heightPicker(BuildContext context,
     {feetController, inchController, prefix = ""}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       "${prefix}Height".text.fontFamily(semiBold).make(),
       10.heightBox,
@@ -56,5 +56,5 @@ Column heightPicker(BuildContext context,
         ],
       ),
     ],
-  );
+  ).paddingOnly(top: 20);
 }

@@ -5,7 +5,8 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/strings.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/services/firestore_services.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/payment_getway_screen.dart';
+import 'package:reshimgathi/views/home/home.dart';
+import 'package:reshimgathi/views/profile_registration_form/payment_getway_screen.dart';
 
 class VerificationPendingScreen extends StatefulWidget {
   const VerificationPendingScreen({super.key});
@@ -28,9 +29,9 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen> {
             }
             if (snapshot.hasData) {
               var data = snapshot.data!.docs[0];
-              if (data['verification'] == true) {
-                Future.delayed(const Duration(seconds: 1),
-                    () => Get.off(() => const PaymentGatwayScreen()));
+              if (data['profile_status']['verification'] == true) {
+                Future.delayed(
+                    const Duration(seconds: 1), () => Get.off(() => Home()));
               }
             }
             return Container(

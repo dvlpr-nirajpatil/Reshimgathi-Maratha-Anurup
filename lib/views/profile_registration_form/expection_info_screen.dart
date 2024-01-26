@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/upload_photos_screen.dart';
+import 'package:reshimgathi/views/profile_registration_form/upload_photos_screen.dart';
 
 class ExpectionScreen extends StatelessWidget {
   const ExpectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var controller =
+        Provider.of<ProfileRegistrationController>(context, listen: false);
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -15,10 +17,26 @@ class ExpectionScreen extends StatelessWidget {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            20.heightBox,
             "Expections".text.fontFamily(semiBold).size(18).make(),
+            customTextFormField(
+                controller: controller.model.expectedEducationController,
+                label: "Expected Education",
+                hint: "Enter education seperated by ,"),
+            heightPicker(context,
+                inchController:
+                    controller.model.prefferedHeightInInchesController,
+                feetController:
+                    controller.model.prefferedHeightInFeetController),
+            customTextFormField(
+                controller: controller.model.prefferedOccupationController,
+                label: "Preffered Occupation",
+                hint: "Engineer, Doctor, Business Man"),
+            customTextFormField(
+              controller: controller.model.prefferedLocationController,
+              label: "Preffered Location",
+              hint: "Mumbai, Pune, Banglore",
+            ),
             15.heightBox,
-            heightPicker(context, prefix: "Preffered "),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -27,22 +45,14 @@ class ExpectionScreen extends StatelessWidget {
                   width: 50,
                   height: 50,
                   child: TextFormField(
+                    controller:
+                        controller.model.prefferedMaxAgeDifferenceController,
                     onChanged: (val) {},
                     textAlign: TextAlign.center,
                   ),
                 )
               ],
             ).paddingOnly(top: 5),
-            customTextFormField(
-                label: "Expected Education",
-                hint: "Enter education seperated by ,"),
-            customTextFormField(
-                label: "Preffered Occupation",
-                hint: "Engineer, Doctor, Business Man"),
-            customTextFormField(
-              label: "Preffered Location",
-              hint: "Mumbai, Pune, Banglore",
-            ),
             20.heightBox,
             "Marital Status".text.fontFamily(semiBold).make(),
             10.heightBox,
@@ -50,9 +60,10 @@ class ExpectionScreen extends StatelessWidget {
               builder: (context, controller, xxx) {
                 return customDropDownButton(
                     hint: "Select Marital Status",
-                    selectedValue: controller.selectedMaritalStatus,
+                    selectedValue:
+                        controller.model.prefferedMaritalStatusSelector,
                     onchange: (value) {
-                      controller.updateMaterialStatus = value;
+                      controller.setPreferedMaritalStatus = value;
                     },
                     list: MaritalStatus);
               },
@@ -63,9 +74,11 @@ class ExpectionScreen extends StatelessWidget {
             Consumer<ProfileRegistrationController>(
               builder: (context, controller, xxx) {
                 return customDropDownButton(
-                    selectedValue: controller.selectedPhysicalDisabilities,
+                    hint: "Please select your preference",
+                    selectedValue:
+                        controller.model.prefferedMangalAcceptedSelector,
                     onchange: (value) {
-                      controller.updatePhysicalDisabilities = value;
+                      controller.setPreferedMangal = value;
                     },
                     list: yesNo);
               },
@@ -76,19 +89,35 @@ class ExpectionScreen extends StatelessWidget {
             Consumer<ProfileRegistrationController>(
               builder: (context, controller, xxx) {
                 return customDropDownButton(
-                    selectedValue: controller.selectedPhysicalDisabilities,
+                    hint: "Please select your preference",
+                    selectedValue: controller.model.prefferedHandicapedSelector,
                     onchange: (value) {
-                      controller.updatePhysicalDisabilities = value;
+                      controller.setPreferedHandicaped = value;
                     },
                     list: yesNo);
               },
             ),
-            FilledButton(
-                    onPressed: () {
-                      Get.to(() => UploadPhotosScreen());
-                    },
-                    child: "Continue".text.fontFamily(semiBold).make())
-                .marginSymmetric(vertical: 40),
+            Consumer<ProfileRegistrationController>(
+                builder: (context, controller, x) {
+              return FilledButton(
+                      onPressed: () async {
+                        await controller.storeExpectationInfo();
+                        Get.to(() => UploadPhotosScreen());
+                      },
+                      child: controller.is_loading
+                          ? SizedBox(
+                              width: 10,
+                              height: 10,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: whiteColor,
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            )
+                          : "Continue".text.fontFamily(semiBold).make())
+                  .marginSymmetric(vertical: 40);
+            }),
           ],
         )),
       ),

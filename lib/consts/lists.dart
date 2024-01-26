@@ -44,6 +44,21 @@ List<String> bloodGroup = [
   'O-',
 ];
 
+List<String> rasList = [
+  "मेष",
+  "वृषभ",
+  "मिथुन",
+  "कर्क",
+  "सिंह",
+  "कन्या",
+  "तूळ",
+  "वृश्चिक",
+  "धनु",
+  "मकर",
+  "कुंभ",
+  "मीन",
+];
+
 List<String> yesNo = ["Yes", "No"];
 
 List<String> casts = ["Maratha 96k", "Maratha Kunbi"];

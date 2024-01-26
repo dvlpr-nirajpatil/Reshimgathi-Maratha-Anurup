@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter_svg/svg.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/upload_document.dart';
-import 'package:reshimgathi/views/shared-widget/custom_snackbar.dart';
 
 class UploadPhotosScreen extends StatelessWidget {
   const UploadPhotosScreen({super.key});
@@ -23,7 +20,7 @@ class UploadPhotosScreen extends StatelessWidget {
             60.heightBox,
             Consumer<ProfileRegistrationController>(
                 builder: (context, controller, xxx) {
-              return controller.uploadImages!.length == 0
+              return controller.model.uploadImages!.length == 0
                   ? DottedBorder(
                       color: pinkColor,
                       child: Container(
@@ -51,7 +48,7 @@ class UploadPhotosScreen extends StatelessWidget {
                   : GridView.builder(
                       padding: EdgeInsets.all(0),
                       shrinkWrap: true,
-                      itemCount: controller.uploadImages!.length + 1,
+                      itemCount: controller.model.uploadImages!.length + 1,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           mainAxisSpacing: 10,
@@ -60,7 +57,7 @@ class UploadPhotosScreen extends StatelessWidget {
                         return Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            index == controller.uploadImages!.length
+                            index == controller.model.uploadImages!.length
                                 ? Container(
                                     child: Center(
                                       child: Icon(
@@ -79,14 +76,14 @@ class UploadPhotosScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(6)),
                                     child: Image.file(
-                                      File(
-                                          controller.uploadImages![index].path),
+                                      File(controller
+                                          .model.uploadImages![index].path),
                                       fit: BoxFit.cover,
                                     ),
                                     width: 100,
                                     height: 100,
                                   ),
-                            index == controller.uploadImages!.length
+                            index == controller.model.uploadImages!.length
                                 ? SizedBox()
                                 : Positioned(
                                     top: -5,
@@ -107,16 +104,29 @@ class UploadPhotosScreen extends StatelessWidget {
                       });
             }),
             Spacer(),
-            FilledButton(
-              onPressed: () {
-                if (controller.uploadImages?.length == 0) {
-                  showSnackbar(context, "Please upload your Photos");
-                } else {
-                  Get.to(() => UploadDocumentScreen());
-                }
-              },
-              child: "Continue".text.fontFamily(semiBold).make(),
-            ).marginSymmetric(vertical: 35)
+            Consumer<ProfileRegistrationController>(
+                builder: (context, controller, xxx) {
+              return FilledButton(
+                onPressed: () async {
+                  if (controller.model.uploadImages?.length == 0) {
+                    showSnackbar(context, "Please upload your Photos");
+                  } else {
+                    await controller.storeImages();
+                    Get.to(() => UploadDocumentScreen());
+                  }
+                },
+                child: controller.is_loading == true
+                    ? SizedBox(
+                        width: 10,
+                        height: 10,
+                        child: CircularProgressIndicator(
+                          color: whiteColor,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : "Continue".text.fontFamily(semiBold).make(),
+              ).marginSymmetric(vertical: 35);
+            })
           ],
         ),
       ),

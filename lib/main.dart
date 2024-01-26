@@ -1,7 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/controllers/profile_screen_controller.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/registration_screen.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/upload_photos_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,11 +20,12 @@ class Reshimgathi extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfileRegistrationController()),
       ],
       child: GetMaterialApp(
-        // home: const SplashScreen(),
+        home: const SplashScreen(),
+        // home: Home(),
         // home: RegistrationScreen(),
         // home: ProfessionalInfoScreen(),
         // home: RegistrationScreen(),
-        home: RegistrationScreen(),
+        // home: RegistrationScreen(),
         debugShowCheckedModeBanner: false,
         theme: appThemeData,
       ),

@@ -1,15 +1,7 @@
 import 'package:reshimgathi/consts/consts.dart';
 
-import 'package:reshimgathi/views/shared-widget/custom_snackbar.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/payment_getway_screen.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/registration_screen.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/verification_waiting_screen.dart';
-import 'package:reshimgathi/views/home/home.dart';
-import 'package:secure_shared_preferences/secure_shared_pref.dart';
-
 class AuthController extends ChangeNotifier {
-  // ignore: prefer_typing_uninitialized_variables
-  var userDetails;
+  late var userDetails;
   bool is_loading = false;
 
   set isLoading(bool value) {
@@ -19,18 +11,31 @@ class AuthController extends ChangeNotifier {
 
   navigateUser(context) async {
     await fetchUserDetails();
-    if (userDetails['registration'] == false) {
-      Get.off(() => RegistrationScreen());
-      // GoRouter.of(context).pushNamed(ProfileCreationScreen.id);
-    } else if (userDetails['verification'] == false) {
-      Get.off(() => VerificationPendingScreen());
-      // GoRouter.of(context).pushNamed(VerificationPendingScreen.id);
-    } else if (userDetails['membership_active'] == false) {
-      Get.off(() => PaymentGatwayScreen());
-      // GoRouter.of(context).pushNamed(PaymentGatwayScreen.id);
+    if (userDetails['profile_status']['registration'] == false) {
+      if (userDetails['registration_status']['personal'] == false) {
+        Get.off(() => RegistrationScreen());
+      } else if (userDetails['registration_status']['professional'] == false) {
+        Get.off(() => const ProfessionalInfoScreen());
+      } else if (userDetails['registration_status']['family'] == false) {
+        Get.off(() => const FamilyInfoScreen());
+      } else if (userDetails['registration_status']['residential'] == false) {
+        Get.off(() => ResidentialInformation());
+      } else if (userDetails['registration_status']['contact'] == false) {
+        Get.off(() => const ContactInfoScreen());
+      } else if (userDetails['registration_status']['expectations'] == false) {
+        Get.off(() => const ExpectionScreen());
+      } else if (userDetails['registration_status']['upload_images'] == false) {
+        Get.off(() => const UploadPhotosScreen());
+      } else if (userDetails['registration_status']['upload_docs'] == false) {
+        Get.off(() => const UploadDocumentScreen());
+      } else {
+        Get.off(() => const VerificationPendingScreen());
+      }
+    } else if (userDetails['profile_status']['verification'] == false) {
+      Get.off(() => const VerificationPendingScreen());
+    } else if (userDetails['profile_status']['membership_active'] == false) {
+      Get.off(() => const PaymentGatwayScreen());
     } else {
-      // GoRouter.of(context).pushNamed(Home.id);
-      // router.go('/home');
       Get.off(() => Home());
     }
   }
@@ -74,10 +79,13 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<String> generateRegistrationId() async {
-    QuerySnapshot querySnapshot =
-        await database.collection(registerCollection).get();
+    var count;
+    await database.collection(registerCollection).count().get().then((value) {
+      print(value.count);
+      count = value.count;
+    });
 
-    int numberOfDocuments = querySnapshot.size + 1;
+    int numberOfDocuments = count + 1;
     String year = DateTime.now().year.toString().substring(2);
     String registrationNumber = numberOfDocuments.toString();
     registrationNumber = registrationNumber.padLeft(5, "0");
@@ -86,15 +94,27 @@ class AuthController extends ChangeNotifier {
   }
 
   storeAuthDetails({name, email}) async {
-    await database.collection(registerCollection).add(
+    await database.collection(registerCollection).doc(user!.uid).set(
       {
         "uid": user!.uid,
         "reg_id": await generateRegistrationId(),
-        "name": name,
-        "email": email,
-        "registration": false,
-        "verification": false,
-        "membership_active": false
+        "username": name,
+        "login_email": email,
+        "profile_status": {
+          "registration": false,
+          "verification": false,
+          "membership_active": false
+        },
+        "registration_status": {
+          "personal": false,
+          "professional": false,
+          "family": false,
+          "residential": false,
+          "contact": false,
+          "expectations": false,
+          "upload_images": false,
+          "upload_docs": false,
+        }
       },
     );
   }

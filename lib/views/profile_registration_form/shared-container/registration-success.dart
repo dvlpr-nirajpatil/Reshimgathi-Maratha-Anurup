@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/verification_waiting_screen.dart';
+import 'package:reshimgathi/views/profile_registration_form/verification_waiting_screen.dart';
 
 Container registrationSuccessScreen(context) {
   Future.delayed(Duration(seconds: 2), () {

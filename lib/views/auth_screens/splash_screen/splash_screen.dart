@@ -1,5 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/auth-screens/splash-screen/components/splash_screen_poster.dart';
+import 'package:reshimgathi/views/auth_screens/splash_screen/components/splash_screen_poster.dart';
 
 // ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {

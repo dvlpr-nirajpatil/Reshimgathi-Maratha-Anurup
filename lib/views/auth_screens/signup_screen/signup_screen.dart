@@ -3,7 +3,7 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/views/auth-screens/profile-creation-form/registration_screen.dart';
+import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});

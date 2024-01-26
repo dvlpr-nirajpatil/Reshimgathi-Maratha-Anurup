@@ -1,7 +1,6 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/models/profile_details_model.dart';
-import 'package:reshimgathi/views/profile-screen/profile_detail_screen.dart';
+import 'package:reshimgathi/views/profile_details_screen/profile_detail_screen.dart';
 
 class ProfileCardWidget extends StatelessWidget {
   ProfileCardWidget({super.key, required this.data});

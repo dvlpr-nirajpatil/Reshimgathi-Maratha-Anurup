@@ -8,13 +8,15 @@ customTextFormField(
     textInput = TextInputType.text,
     validator,
     controller,
-    onlyread = false}) {
+    onlyread = false,
+    onchange}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       "$label".text.fontFamily(semiBold).make(),
       10.heightBox,
       TextFormField(
+        onChanged: onchange,
         readOnly: onlyread,
         onTap: ontap,
         decoration: InputDecoration(
