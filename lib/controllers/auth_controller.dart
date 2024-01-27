@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
 
 class AuthController extends ChangeNotifier {
   late var userDetails;
@@ -19,7 +20,7 @@ class AuthController extends ChangeNotifier {
       } else if (userDetails['registration_status']['family'] == false) {
         Get.off(() => const FamilyInfoScreen());
       } else if (userDetails['registration_status']['residential'] == false) {
-        Get.off(() => ResidentialInformation());
+        Get.off(() => const ResidentialInfoScreen());
       } else if (userDetails['registration_status']['contact'] == false) {
         Get.off(() => const ContactInfoScreen());
       } else if (userDetails['registration_status']['expectations'] == false) {

@@ -1,5 +1,6 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/controllers/profile_screen_controller.dart';
+import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,12 +22,14 @@ class Reshimgathi extends StatelessWidget {
       ],
       child: GetMaterialApp(
         home: const SplashScreen(),
+        // home: ResidentialInfoScreen(),
         // home: LandingScreen(),
         // home: Home(),
         // home: RegistrationScreen(),
         // home: ProfessionalInfoScreen(),
+        // home: ExpectionScreen(),
         // home: RegistrationScreen(),
-        // home: RegistrationScreen(),
+
         debugShowCheckedModeBanner: false,
         theme: appThemeData,
       ),

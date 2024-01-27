@@ -2,7 +2,6 @@ import 'package:reshimgathi/consts/consts.dart';
 
 Container splashScreenPoster(BuildContext context) {
   return Container(
-    padding: const EdgeInsets.only(top: 100),
     width: context.width,
     height: context.height,
     decoration: BoxDecoration(
@@ -10,6 +9,9 @@ Container splashScreenPoster(BuildContext context) {
     ),
     child: Column(
       children: [
+        SizedBox(
+          height: context.height * 0.1,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,13 +36,13 @@ Container splashScreenPoster(BuildContext context) {
               ),
             ),
             Positioned(
-              top: 90,
+              top: context.height * 0.115,
               left: 20,
               child: Image.asset(igAppLogo, width: context.width * 0.8),
             ),
             Positioned(
-                bottom: -80,
-                right: 50,
+                bottom: -context.height * 0.1,
+                right: context.width * 0.03,
                 child: "मराठा अनुरुप"
                     .text
                     .fontFamily(marathiBold)
@@ -49,15 +51,15 @@ Container splashScreenPoster(BuildContext context) {
                     .make())
           ],
         ),
-        100.heightBox,
+        Spacer(),
         "वधु-वर सुची "
             .text
             .align(TextAlign.center)
-            .size(32)
+            .size(28)
             .fontFamily(marathiBold)
             .white
             .make(),
-        110.heightBox,
+        Spacer(),
         Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,
@@ -104,6 +106,9 @@ Container splashScreenPoster(BuildContext context) {
               ),
             ),
           ],
+        ),
+        SizedBox(
+          height: context.height * 0.03,
         )
       ],
     ),

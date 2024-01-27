@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/profile_registration_form/upload_photos_screen.dart';
 
 class ExpectionScreen extends StatelessWidget {
   const ExpectionScreen({super.key});
@@ -53,12 +51,10 @@ class ExpectionScreen extends StatelessWidget {
                 )
               ],
             ).paddingOnly(top: 5),
-            20.heightBox,
-            "Marital Status".text.fontFamily(semiBold).make(),
-            10.heightBox,
             Consumer<ProfileRegistrationController>(
               builder: (context, controller, xxx) {
                 return customDropDownButton(
+                    label: "Marital Status",
                     hint: "Select Marital Status",
                     selectedValue:
                         controller.model.prefferedMaritalStatusSelector,
@@ -68,12 +64,10 @@ class ExpectionScreen extends StatelessWidget {
                     list: MaritalStatus);
               },
             ),
-            20.heightBox,
-            "Mangal Accepted".text.fontFamily(semiBold).make(),
-            10.heightBox,
             Consumer<ProfileRegistrationController>(
               builder: (context, controller, xxx) {
                 return customDropDownButton(
+                    label: "Mangal Accepted",
                     hint: "Please select your preference",
                     selectedValue:
                         controller.model.prefferedMangalAcceptedSelector,
@@ -83,12 +77,10 @@ class ExpectionScreen extends StatelessWidget {
                     list: yesNo);
               },
             ),
-            20.heightBox,
-            "Handicaped Accepted".text.fontFamily(semiBold).make(),
-            10.heightBox,
             Consumer<ProfileRegistrationController>(
               builder: (context, controller, xxx) {
                 return customDropDownButton(
+                    label: "Handicap Accepted",
                     hint: "Please select your preference",
                     selectedValue: controller.model.prefferedHandicapedSelector,
                     onchange: (value) {
