@@ -36,10 +36,10 @@ class ProfileRegisterModel extends ChangeNotifier {
 
   // Family background information Screen variable
   TextEditingController fatherNameController = TextEditingController();
-  TextEditingController fatherIsAliveController = TextEditingController();
+
   TextEditingController fatherOccupationController = TextEditingController();
   TextEditingController motherNameController = TextEditingController();
-  TextEditingController motherIsAliveController = TextEditingController();
+
   TextEditingController motherOccupationController = TextEditingController();
   TextEditingController guardianNameController = TextEditingController();
   TextEditingController brotherCountController = TextEditingController();

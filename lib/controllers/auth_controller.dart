@@ -165,6 +165,7 @@ class AuthController extends ChangeNotifier {
 
   Future<void> userSignOut() async {
     await auth.signOut();
+    user = null;
   }
 
   Future<void> forgetPassword(context, email) async {

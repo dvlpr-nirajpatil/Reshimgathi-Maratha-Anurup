@@ -70,7 +70,7 @@ class ProfessionalInfoScreen extends StatelessWidget {
                                   width: 10,
                                   height: 10,
                                   child: const CircularProgressIndicator(
-                                      color: Colors.white),
+                                      strokeWidth: 2, color: Colors.white),
                                 )
                               : "Continue".text.fontFamily(semiBold).make())
                       .marginSymmetric(vertical: 40);

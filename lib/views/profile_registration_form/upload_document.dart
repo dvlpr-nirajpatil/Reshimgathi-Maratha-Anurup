@@ -87,6 +87,7 @@ class UploadDocumentScreen extends StatelessWidget {
                                   ],
                                 ),
                           customTextFormField(
+                            textInput: TextInputType.number,
                             label: "Adhar Card Number",
                             hint: "Enter adhar Number",
                           )
@@ -170,7 +171,7 @@ class UploadDocumentScreen extends StatelessWidget {
                             showSnackbar(context,
                                 "Please upload your caste certificate");
                           } else {
-                            await controller.storeDocuments();
+                            controller.storeDocuments();
                             Get.offAll(() => const VerificationPendingScreen());
                           }
                         }

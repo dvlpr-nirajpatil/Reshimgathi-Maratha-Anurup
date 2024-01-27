@@ -189,7 +189,9 @@ class RegistrationScreen extends StatelessWidget {
                             width: 10,
                             height: 10,
                             child: const CircularProgressIndicator(
-                                color: Colors.white),
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
                           )
                         : "Continue".text.fontFamily(semiBold).make(),
                   ).marginSymmetric(vertical: 40);

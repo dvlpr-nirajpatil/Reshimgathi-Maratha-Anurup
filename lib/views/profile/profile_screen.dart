@@ -1,5 +1,4 @@
 import 'package:reshimgathi/consts/consts.dart';
-
 import 'package:reshimgathi/views/profile/change_password/change_password_screen.dart';
 import 'package:reshimgathi/views/profile/contact_screen/contact_us_sceen.dart';
 import 'package:reshimgathi/views/profile/saved_profiles/saved_profiles_screen.dart';
@@ -31,7 +30,11 @@ class ProfileScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    "Niraj Patil".text.size(18).fontFamily(semiBold).make(),
+                    "${authController.userDetails['username']}"
+                        .text
+                        .size(18)
+                        .fontFamily(semiBold)
+                        .make(),
                     "${authController.userDetails['reg_id']}".text.make()
                   ],
                 )
@@ -101,12 +104,7 @@ class ProfileScreen extends StatelessWidget {
                     await authController.userSignOut();
                     authController.reset();
                     homeController.reset();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignInScreen(),
-                      ),
-                    );
+                    Get.offAll(() => SplashScreen());
                   },
                   title: "Sign Out".text.make(),
                   trailing: Icon(

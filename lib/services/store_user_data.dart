@@ -74,10 +74,10 @@ class UserRegistrationApi {
             documentSnapshot.data() as Map<String, dynamic>;
 
         userData['father_name'] = model.fatherNameController.text;
-        userData['is_father_alive'] = model.isFatherAlive;
+
         userData['father_occupation'] = model.fatherOccupationController.text;
         userData['mother_name'] = model.motherNameController.text;
-        userData['is_mother_alive'] = model.isMotherAlive;
+
         userData['mother_occupation'] = model.motherOccupationController.text;
         userData['guardian_name'] = model.guardianNameController.text;
         userData['sisters_info'] = model.getSistersDetails();

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter_svg/svg.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/shared-widget/pregress_hud.dart';
 
@@ -125,7 +125,7 @@ class UploadPhotosScreen extends StatelessWidget {
                     onPressed: () async {
                       controller.loading = true;
                       if (controller.model.uploadImages?.length != 0) {
-                        await controller.storeImages();
+                        controller.storeImages();
                       }
 
                       Get.to(() => UploadDocumentScreen());
