@@ -4,8 +4,10 @@ import 'package:reshimgathi/models/profile_registration_model.dart';
 class UserRegistrationApi {
   static Future<void> storePersonalDetails(ProfileRegisterModel model) async {
     try {
-      DocumentSnapshot documentSnapshot =
-          await database.collection(registerCollection).doc(user!.uid).get();
+      DocumentSnapshot documentSnapshot = await database
+          .collection(registerCollection)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
       if (documentSnapshot.exists) {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
@@ -32,7 +34,7 @@ class UserRegistrationApi {
 
         await database
             .collection(registerCollection)
-            .doc(user!.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .update(userData);
       }
     } catch (e) {
@@ -43,8 +45,10 @@ class UserRegistrationApi {
   static Future<void> storeProfessionalDetails(
       ProfileRegisterModel model) async {
     try {
-      DocumentSnapshot documentSnapshot =
-          await database.collection(registerCollection).doc(user!.uid).get();
+      DocumentSnapshot documentSnapshot = await database
+          .collection(registerCollection)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
       if (documentSnapshot.exists) {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
@@ -57,7 +61,7 @@ class UserRegistrationApi {
 
         await database
             .collection(registerCollection)
-            .doc(user!.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .update(userData);
       }
     } catch (e) {
@@ -67,8 +71,10 @@ class UserRegistrationApi {
 
   static Future<void> storeFamilyDetails(ProfileRegisterModel model) async {
     try {
-      DocumentSnapshot documentSnapshot =
-          await database.collection(registerCollection).doc(user!.uid).get();
+      DocumentSnapshot documentSnapshot = await database
+          .collection(registerCollection)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
       if (documentSnapshot.exists) {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
@@ -87,7 +93,7 @@ class UserRegistrationApi {
 
         await database
             .collection(registerCollection)
-            .doc(user!.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .update(userData);
       }
     } catch (e) {
@@ -98,8 +104,10 @@ class UserRegistrationApi {
   static Future<void> storeResidentialInformation(
       ProfileRegisterModel model) async {
     try {
-      DocumentSnapshot documentSnapshot =
-          await database.collection(registerCollection).doc(user!.uid).get();
+      DocumentSnapshot documentSnapshot = await database
+          .collection(registerCollection)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
       if (documentSnapshot.exists) {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
@@ -115,7 +123,7 @@ class UserRegistrationApi {
 
         await database
             .collection(registerCollection)
-            .doc(user!.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .update(userData);
       }
     } catch (e) {
@@ -126,8 +134,10 @@ class UserRegistrationApi {
   static Future<void> storeContactInformation(
       ProfileRegisterModel model) async {
     try {
-      DocumentSnapshot documentSnapshot =
-          await database.collection(registerCollection).doc(user!.uid).get();
+      DocumentSnapshot documentSnapshot = await database
+          .collection(registerCollection)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
       if (documentSnapshot.exists) {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
@@ -141,7 +151,7 @@ class UserRegistrationApi {
 
         await database
             .collection(registerCollection)
-            .doc(user!.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .update(userData);
       }
     } catch (e) {
@@ -151,8 +161,10 @@ class UserRegistrationApi {
 
   static Future<void> storeExpectationInfo(ProfileRegisterModel model) async {
     try {
-      DocumentSnapshot documentSnapshot =
-          await database.collection(registerCollection).doc(user!.uid).get();
+      DocumentSnapshot documentSnapshot = await database
+          .collection(registerCollection)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
       if (documentSnapshot.exists) {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
@@ -175,7 +187,7 @@ class UserRegistrationApi {
 
         await database
             .collection(registerCollection)
-            .doc(user!.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .update(userData);
       }
     } catch (e) {

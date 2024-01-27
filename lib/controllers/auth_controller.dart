@@ -52,7 +52,7 @@ class AuthController extends ChangeNotifier {
   Future<void> fetchUserDetails() async {
     QuerySnapshot querySnapshot = await database
         .collection(registerCollection)
-        .where('uid', isEqualTo: user!.uid)
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     userDetails = querySnapshot.docs[0].data() as Map<String, dynamic>;
@@ -96,9 +96,9 @@ class AuthController extends ChangeNotifier {
   }
 
   storeAuthDetails({name, email}) async {
-    await database.collection(registerCollection).doc(user!.uid).set(
+    await database.collection(registerCollection).doc().set(
       {
-        "uid": user!.uid,
+        "uid": FirebaseAuth.instance.currentUser!.uid,
         "reg_id": await generateRegistrationId(),
         "username": name,
         "login_email": email,
@@ -125,8 +125,8 @@ class AuthController extends ChangeNotifier {
       {String? email, String? password}) async {
     UserCredential? user;
     try {
-      user = await auth.signInWithEmailAndPassword(
-          email: email!, password: password!);
+      user = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email!, password: password!);
     } on FirebaseAuthException catch (e) {
       if (e.code == "INVALID_LOGIN_CREDENTIALS") {
         showSnackbar(context,
@@ -148,8 +148,8 @@ class AuthController extends ChangeNotifier {
       {String? email, String? password}) async {
     UserCredential? user;
     try {
-      user = await auth.createUserWithEmailAndPassword(
-          email: email!, password: password!);
+      user = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email!, password: password!);
     } on FirebaseAuthException catch (e) {
       print(e.code);
       if (e.code == "invalid-email") {
@@ -164,8 +164,7 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> userSignOut() async {
-    await auth.signOut();
-    user = null;
+    await FirebaseAuth.instance.signOut();
   }
 
   Future<void> forgetPassword(context, email) async {
