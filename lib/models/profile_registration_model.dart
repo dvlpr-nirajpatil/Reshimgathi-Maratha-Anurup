@@ -127,6 +127,7 @@ class ProfileRegisterModel extends ChangeNotifier {
       mama.add({
         "name": i.name!,
         "contact_no": i.contactNo!,
+        "occupation": i.occupation!
       });
     }
 

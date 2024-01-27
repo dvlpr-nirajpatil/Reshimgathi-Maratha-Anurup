@@ -1,6 +1,7 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/controllers/profile_screen_controller.dart';
 import 'package:reshimgathi/views/auth_screens/forget_password/forget_password.dart';
+import 'package:reshimgathi/views/profile/profile_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
 
 void main() async {
@@ -23,10 +24,12 @@ class Reshimgathi extends StatelessWidget {
       ],
       child: GetMaterialApp(
         home: const SplashScreen(),
+
         // home: ForgetPassword(),
         // home: ResidentialInfoScreen(),
         // home: LandingScreen(),
         // home: Home(),
+        // home: ProfileScreen(),
         // home: RegistrationScreen(),
         // home: ProfessionalInfoScreen(),
         // home: ExpectionScreen(),

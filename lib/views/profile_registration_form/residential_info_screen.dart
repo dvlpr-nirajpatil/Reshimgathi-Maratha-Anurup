@@ -1,9 +1,9 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/profile_registration_form/contact_info_screen.dart';
 
 class ResidentialInfoScreen extends StatelessWidget {
-  const ResidentialInfoScreen({super.key});
+  ResidentialInfoScreen({super.key});
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var controller =
@@ -13,62 +13,74 @@ class ResidentialInfoScreen extends StatelessWidget {
         width: double.infinity,
         padding: screenPadding.copyWith(),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              20.heightBox,
-              "Residential Information"
-                  .text
-                  .fontFamily(semiBold)
-                  .size(18)
-                  .make(),
-              customTextFormField(
-                controller: controller.model.addressLine1ResidentialController,
-                label: "Address-1",
-              ),
-              customTextFormField(
-                controller: controller.model.areaResidentialController,
-                label: "Area",
-              ),
-              customTextFormField(
-                controller: controller.model.landmarkResidentialController,
-                label: "Landmark",
-              ),
-              customTextFormField(
-                controller: controller.model.cityResidentialController,
-                label: "City",
-              ),
-              customTextFormField(
-                controller: controller.model.stateResidentialController,
-                label: "State",
-              ),
-              customTextFormField(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                20.heightBox,
+                "Residential Information"
+                    .text
+                    .fontFamily(semiBold)
+                    .size(18)
+                    .make(),
+                customTextFormField(
+                  required: true,
+                  controller:
+                      controller.model.addressLine1ResidentialController,
+                  label: "Address-1",
+                ),
+                customTextFormField(
+                  required: true,
+                  controller: controller.model.areaResidentialController,
+                  label: "Area",
+                ),
+                customTextFormField(
+                  required: true,
+                  controller: controller.model.landmarkResidentialController,
+                  label: "Landmark",
+                ),
+                customTextFormField(
+                  required: true,
+                  controller: controller.model.cityResidentialController,
+                  label: "City",
+                ),
+                customTextFormField(
+                  required: true,
+                  controller: controller.model.stateResidentialController,
+                  label: "State",
+                ),
+                customTextFormField(
+                  required: true,
+                  textInput: TextInputType.number,
                   controller: controller.model.pincodeResidentialController,
                   label: "Pincode",
-                  textInput: TextInputType.number),
-              10.heightBox,
-              Consumer<ProfileRegistrationController>(
-                  builder: (context, provider, xx) {
-                return FilledButton(
-                        onPressed: () async {
-                          await controller.storeResidentialInformation();
-                          Get.to(() => ContactInfoScreen());
-                        },
-                        child: controller.is_loading
-                            ? Center(
-                                child: SizedBox(
-                                  height: 10,
-                                  width: 10,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 5,
+                ),
+                Consumer<ProfileRegistrationController>(
+                    builder: (context, provider, xx) {
+                  return FilledButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              await controller.storeResidentialInformation();
+                              Get.to(() => ContactInfoScreen());
+                            }
+                          },
+                          child: controller.is_loading
+                              ? Center(
+                                  child: SizedBox(
+                                    height: 10,
+                                    width: 10,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    ),
                                   ),
-                                ),
-                              )
-                            : "Continue".text.fontFamily(semiBold).make())
-                    .marginSymmetric(vertical: 40);
-              }),
-            ],
+                                )
+                              : "Continue".text.fontFamily(semiBold).make())
+                      .marginSymmetric(vertical: 40);
+                }),
+              ],
+            ),
           ),
         ),
       ),

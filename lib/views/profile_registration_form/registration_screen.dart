@@ -192,7 +192,7 @@ class RegistrationScreen extends StatelessWidget {
                                 color: Colors.white),
                           )
                         : "Continue".text.fontFamily(semiBold).make(),
-                  ).marginSymmetric(vertical: 30);
+                  ).marginSymmetric(vertical: 40);
                 })
               ],
             ),

@@ -77,11 +77,16 @@ class ProfileRegistrationController extends ChangeNotifier {
   }
 
   pickImages() async {
-    List<XFile> pickedImages = await picker.pickMultiImage();
-
+    List<XFile> pickedImages = await picker.pickMultiImage(imageQuality: 70);
     if (pickedImages.length != 0) {
-      model.uploadImages!.addAll(pickedImages);
-      notifyListeners();
+      for (XFile image in pickedImages) {
+        if (model.uploadImages!.length <= 3) {
+          model.uploadImages!.add(image);
+          notifyListeners();
+        } else {
+          break;
+        }
+      }
     }
   }
 

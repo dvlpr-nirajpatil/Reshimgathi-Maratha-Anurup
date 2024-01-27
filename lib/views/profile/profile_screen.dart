@@ -1,10 +1,5 @@
-import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/routes.dart';
-import 'package:reshimgathi/consts/typography.dart';
-import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/controllers/home_screen_controller.dart';
-import 'package:reshimgathi/views/auth_screens/signin_screen/signin_screen.dart';
+
 import 'package:reshimgathi/views/profile/change_password/change_password_screen.dart';
 import 'package:reshimgathi/views/profile/contact_screen/contact_us_sceen.dart';
 import 'package:reshimgathi/views/profile/saved_profiles/saved_profiles_screen.dart';

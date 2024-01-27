@@ -77,26 +77,24 @@ class ProfileDetailScreen extends StatelessWidget {
                     swiper,
                     Positioned(
                       bottom: 10,
-                      child: Obx(
-                        () => Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(
-                            3,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(3.0),
-                              child: CircleAvatar(
-                                backgroundColor: index == controller.imageIndex
-                                    ? pinkColor
-                                    : lightGrey,
-                                radius: 5,
-                              ).onTap(() {
-                                swiper.animateToPage(
-                                  index,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.easeIn,
-                                );
-                              }),
-                            ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          3,
+                          (index) => Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: CircleAvatar(
+                              backgroundColor: index == controller.imageIndex
+                                  ? pinkColor
+                                  : lightGrey,
+                              radius: 5,
+                            ).onTap(() {
+                              swiper.animateToPage(
+                                index,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.easeIn,
+                              );
+                            }),
                           ),
                         ),
                       ),

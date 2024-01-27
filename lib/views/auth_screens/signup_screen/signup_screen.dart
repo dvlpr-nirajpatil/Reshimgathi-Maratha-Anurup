@@ -1,7 +1,4 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/typography.dart';
-import 'package:reshimgathi/controllers/auth_controller.dart';
-import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -34,6 +31,7 @@ class SignupScreen extends StatelessWidget {
                 "Create an account".text.size(24).semiBold.make(),
                 30.heightBox,
                 customTextFormField(
+                  required: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';
@@ -46,6 +44,7 @@ class SignupScreen extends StatelessWidget {
                   hint: "Enter your name",
                 ),
                 customTextFormField(
+                  required: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -58,6 +57,7 @@ class SignupScreen extends StatelessWidget {
                   hint: "Enter your email",
                 ),
                 customTextFormField(
+                  required: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -74,27 +74,39 @@ class SignupScreen extends StatelessWidget {
                   ispass: true,
                 ),
                 30.heightBox,
-                FilledButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      // Form is valid, perform sign-in logic here
-                      String email = _emailField.text.trimRight();
-                      String password = _passField.text.trimRight();
-                      String name = _nameField.text.trimRight();
+                Consumer<AuthController>(builder: (context, controller, xxx) {
+                  return FilledButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        controller.isLoading = true;
+                        // Form is valid, perform sign-in logic here
+                        String email = _emailField.text.trimRight();
+                        String password = _passField.text.trimRight();
+                        String name = _nameField.text.trimRight();
 
-                      await authController
-                          .userSignUp(context, email: email, password: password)
-                          .then((value) async {
-                        if (value != null) {
-                          await authController.storeAuthDetails(
-                              name: name, email: email);
-                          Get.offAll(() => RegistrationScreen());
-                        }
-                      });
-                    }
-                  },
-                  child: "Sign Up".text.fontFamily(semiBold).size(16).make(),
-                ),
+                        await authController
+                            .userSignUp(context,
+                                email: email, password: password)
+                            .then((value) async {
+                          if (value != null) {
+                            await authController.storeAuthDetails(
+                                name: name, email: email);
+                            Get.offAll(() => RegistrationScreen());
+                          }
+                        });
+                      }
+                      controller.isLoading = false;
+                    },
+                    child: controller.is_loading
+                        ? SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: CircularProgressIndicator(
+                                color: whiteColor, strokeWidth: 2),
+                          )
+                        : "Sign Up".text.fontFamily(semiBold).size(16).make(),
+                  );
+                }),
                 20.heightBox,
                 Divider(
                   thickness: 0.8,

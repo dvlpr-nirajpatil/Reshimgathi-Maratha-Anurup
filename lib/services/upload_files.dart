@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
-import 'package:reshimgathi/consts/firebase_consts.dart';
+import 'package:reshimgathi/consts/consts.dart';
 
 class FireStorage {
   static Future<String> fileUpload(XFile doc, pat) async {
@@ -56,6 +56,13 @@ class FireStorage {
 
   static UploadDocuments(XFile adhar, XFile caste) async {
     try {
+      DateTime dateTime = DateTime.now();
+      String day = dateTime.day.toString().padLeft(2, '0');
+      String month = dateTime.month.toString().padLeft(2, '0');
+      String year = dateTime.year.toString();
+      String hour = dateTime.hour.toString().padLeft(2, '0');
+      String minute = dateTime.minute.toString().padLeft(2, '0');
+
       DocumentSnapshot documentSnapshot =
           await database.collection(registerCollection).doc(user!.uid).get();
       if (documentSnapshot.exists) {
@@ -69,6 +76,7 @@ class FireStorage {
 
         userData['registration_status']['upload_docs'] = true;
         userData['profile_status']['registration'] = true;
+        userData['registration_date'] = "$day-$month-$year  $hour:$minute";
 
         await database
             .collection(registerCollection)

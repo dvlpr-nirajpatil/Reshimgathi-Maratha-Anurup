@@ -16,29 +16,31 @@ class AuthController extends ChangeNotifier {
       if (userDetails['registration_status']['personal'] == false) {
         Get.off(() => RegistrationScreen());
       } else if (userDetails['registration_status']['professional'] == false) {
-        Get.off(() => const ProfessionalInfoScreen());
+        Get.off(() => ProfessionalInfoScreen());
       } else if (userDetails['registration_status']['family'] == false) {
-        Get.off(() => const FamilyInfoScreen());
+        Get.off(() => FamilyInfoScreen());
       } else if (userDetails['registration_status']['residential'] == false) {
-        Get.off(() => const ResidentialInfoScreen());
+        Get.off(() => ResidentialInfoScreen());
       } else if (userDetails['registration_status']['contact'] == false) {
-        Get.off(() => const ContactInfoScreen());
+        Get.off(() => ContactInfoScreen());
       } else if (userDetails['registration_status']['expectations'] == false) {
-        Get.off(() => const ExpectionScreen());
+        Get.off(() => ExpectionScreen());
       } else if (userDetails['registration_status']['upload_images'] == false) {
         Get.off(() => const UploadPhotosScreen());
       } else if (userDetails['registration_status']['upload_docs'] == false) {
-        Get.off(() => const UploadDocumentScreen());
+        Get.off(() => UploadDocumentScreen());
       } else {
         Get.off(() => const VerificationPendingScreen());
       }
     } else if (userDetails['profile_status']['verification'] == false) {
       Get.off(() => const VerificationPendingScreen());
-    } else if (userDetails['profile_status']['membership_active'] == false) {
-      Get.off(() => const PaymentGatwayScreen());
     } else {
       Get.off(() => Home());
     }
+
+    // else if (userDetails['profile_status']['membership_active'] == false) {
+    //   Get.off(() => const PaymentGatwayScreen());
+    // }
   }
 
   void reset() {
@@ -82,7 +84,6 @@ class AuthController extends ChangeNotifier {
   Future<String> generateRegistrationId() async {
     var count;
     await database.collection(registerCollection).count().get().then((value) {
-      print(value.count);
       count = value.count;
     });
 
@@ -127,7 +128,6 @@ class AuthController extends ChangeNotifier {
       user = await auth.signInWithEmailAndPassword(
           email: email!, password: password!);
     } on FirebaseAuthException catch (e) {
-      print(e.code);
       if (e.code == "INVALID_LOGIN_CREDENTIALS") {
         showSnackbar(context,
             "Incorrect login credentials. Please check and try again.");
@@ -137,6 +137,8 @@ class AuthController extends ChangeNotifier {
         showSnackbar(context, "Invalid email address.");
       } else if (e.code == "channel-error") {
         showSnackbar(context, "Something went wrong check your credentials.");
+      } else {
+        showSnackbar(context, "Something went wrong .");
       }
     }
     return user;
@@ -145,15 +147,17 @@ class AuthController extends ChangeNotifier {
   Future<UserCredential?> userSignUp(context,
       {String? email, String? password}) async {
     UserCredential? user;
-
     try {
       user = await auth.createUserWithEmailAndPassword(
           email: email!, password: password!);
     } on FirebaseAuthException catch (e) {
-      print("error code :" + e.code);
-
-      if (e.code == "email-already-in-use") {
-        showSnackbar(context, "The email you entered is already registered.");
+      print(e.code);
+      if (e.code == "invalid-email") {
+        showSnackbar(context, "Invalid Email id.");
+      } else if (e.code == "email-already-in-use") {
+        showSnackbar(context, "This email id already exists!");
+      } else if (e.code == "weak-password") {
+        showSnackbar(context, "weak password! Please enter a strong password");
       }
     }
     return user;
