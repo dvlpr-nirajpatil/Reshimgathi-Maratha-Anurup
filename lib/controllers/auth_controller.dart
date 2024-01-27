@@ -155,4 +155,14 @@ class AuthController extends ChangeNotifier {
   Future<void> userSignOut() async {
     await auth.signOut();
   }
+
+  Future<void> forgetPassword(context, email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      showSnackbar(context,
+          "We've just sent a password reset email to your registered email address. Please check your inbox and follow the instructions to reset your password. If you don't see the email, kindly check your spam folder. For any assistance, feel free to contact our support team.");
+    } on FirebaseAuthException catch (e) {
+      showSnackbar(context, "Check your email.");
+    }
+  }
 }

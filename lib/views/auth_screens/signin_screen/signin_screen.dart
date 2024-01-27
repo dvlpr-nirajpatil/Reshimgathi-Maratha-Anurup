@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/views/auth_screens/forget_password/forget_password.dart';
 import 'package:reshimgathi/views/auth_screens/signup_screen/signup_screen.dart';
 
 // ignore: must_be_immutable
@@ -63,7 +64,9 @@ class SignInScreen extends StatelessWidget {
                     .color(pinkColor)
                     .size(14)
                     .make()
-                    .onTap(() {}),
+                    .onTap(() {
+                  Get.to(() => ForgetPassword());
+                }),
               ),
               15.heightBox,
               Consumer<AuthController>(builder: (context, controller, xxx) {
