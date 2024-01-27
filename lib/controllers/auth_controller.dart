@@ -96,7 +96,10 @@ class AuthController extends ChangeNotifier {
   }
 
   storeAuthDetails({name, email}) async {
-    await database.collection(registerCollection).doc().set(
+    await database
+        .collection(registerCollection)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set(
       {
         "uid": FirebaseAuth.instance.currentUser!.uid,
         "reg_id": await generateRegistrationId(),

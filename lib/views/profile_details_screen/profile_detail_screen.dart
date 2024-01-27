@@ -6,7 +6,43 @@ import 'package:reshimgathi/models/profile_details_model.dart';
 class ProfileDetailScreen extends StatelessWidget {
   ProfileDetailScreen({super.key, required this.data});
 
-  ProfileDetails data;
+  dynamic data;
+
+  String convertToYYYYMMDD(String inputDate) {
+    List<String> parts = inputDate.split("-");
+    if (parts.length == 3) {
+      String day = parts[0];
+      String month = parts[1];
+      String year = parts[2];
+      return "$year-$month-$day";
+    } else {
+      // Invalid date format
+      return inputDate;
+    }
+  }
+
+  int calculateAge() {
+    // Parse the birthdate string into a DateTime object
+
+    String dob = data['birth_date'];
+
+    DateTime birthDate = DateTime.parse(convertToYYYYMMDD(dob));
+
+    // Get the current date
+    DateTime currentDate = DateTime.now();
+
+    // Calculate the difference in years
+    int age = currentDate.year - birthDate.year;
+
+    // Check if the birthday has occurred this year
+    if (currentDate.month < birthDate.month ||
+        (currentDate.month == birthDate.month &&
+            currentDate.day < birthDate.day)) {
+      age--;
+    }
+
+    return age;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,24 +50,24 @@ class ProfileDetailScreen extends StatelessWidget {
         Provider.of<ProfileScreenController>(context, listen: false);
 
     var swiper = VxSwiper(
-      autoPlay: true,
+      autoPlay: data['images'].length > 1 ? true : false,
       onPageChanged: (value) {
-        controller.imageIndex = value;
+        controller.setImageIndex = value;
       },
       aspectRatio: 16 / 16,
       viewportFraction: 1.0,
       items: List.generate(
-        3,
+        data['images'].length,
         (index) => Container(
           clipBehavior: Clip.antiAlias,
           width: context.width,
           height: context.height * 0.5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Image.asset(
-            data.imgUrl!,
+          decoration: BoxDecoration(),
+          child: Image(
             fit: BoxFit.contain,
+            image: NetworkImage(
+              data['images'][index],
+            ),
           ),
         ),
       ),
@@ -75,30 +111,36 @@ class ProfileDetailScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   children: [
                     swiper,
-                    Positioned(
-                      bottom: 10,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          3,
-                          (index) => Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: CircleAvatar(
-                              backgroundColor: index == controller.imageIndex
-                                  ? pinkColor
-                                  : lightGrey,
-                              radius: 5,
-                            ).onTap(() {
-                              swiper.animateToPage(
-                                index,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.easeIn,
-                              );
-                            }),
+                    Consumer<ProfileScreenController>(builder: (
+                      context,
+                      controller,
+                      xxx,
+                    ) {
+                      return Positioned(
+                        bottom: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            data['images'].length,
+                            (index) => Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: CircleAvatar(
+                                backgroundColor: index == controller.imageIndex
+                                    ? pinkColor
+                                    : lightGrey,
+                                radius: 5,
+                              ).onTap(() {
+                                swiper.animateToPage(
+                                  index,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.easeIn,
+                                );
+                              }),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -108,8 +150,12 @@ class ProfileDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     20.heightBox,
-                    "${data.name}, ${data.age}".text.size(18).semiBold.make(),
-                    "${data.occupation}".text.color(darkGrayColor).make(),
+                    "${data['first_name']} ${data['last_name']}, ${calculateAge().toString()}"
+                        .text
+                        .size(18)
+                        .semiBold
+                        .make(),
+                    "${data['occupation']}".text.color(darkGrayColor).make(),
                     7.heightBox,
                     Divider(
                       thickness: 0.5,
@@ -123,24 +169,34 @@ class ProfileDetailScreen extends StatelessWidget {
                         1: FlexColumnWidth(1.8),
                       },
                       children: [
-                        tableRowMethod(key: "Name", value: "Shraddha Pandit"),
                         tableRowMethod(
-                            key: "Email", value: "shraddhapandit@gmail.com"),
-                        tableRowMethod(key: "D.O.B", value: "21 sept. 1997"),
-                        tableRowMethod(key: "Birth Time", value: "6:39 PM"),
-                        tableRowMethod(key: "Height", value: "5.2 Inch"),
+                            key: "Name",
+                            value:
+                                "${data['first_name']} ${data['last_name']}"),
+                        tableRowMethod(key: "Email", value: "${data['email']}"),
                         tableRowMethod(
-                            key: "Education",
-                            value: "BE (ELECTRICAL), JETKING"),
+                            key: "D.O.B", value: "${data['birth_date']}"),
                         tableRowMethod(
-                            key: "Occupation",
-                            value: "NETWORK SECURITY ASSOCIATE, IBM, PUNE"),
-                        tableRowMethod(key: "Income", value: "Not specified"),
-                        tableRowMethod(key: "Blood Group", value: "AB+"),
-                        tableRowMethod(key: "City & State", value: "Nashik"),
+                            key: "Birth Time", value: "${data['birth_time']}"),
+                        tableRowMethod(
+                            key: "Height",
+                            value:
+                                "${data['height']['feet']}'${data['height']['inch']}"),
+                        tableRowMethod(
+                            key: "Education", value: "${data['education']}"),
+                        tableRowMethod(
+                            key: "Occupation", value: "${data['occupation']}"),
+                        tableRowMethod(
+                            key: "Income", value: "${data['annual_income']}"),
+                        tableRowMethod(
+                            key: "Blood Group",
+                            value: "${data['blood_group']}"),
+                        tableRowMethod(
+                            key: "City & State", value: "${data['location']}"),
                         tableRowMethod(key: "Complexion", value: "Gora"),
                         tableRowMethod(
-                            key: "Marital Staus", value: "Unmarried"),
+                            key: "Marital Staus",
+                            value: "${data['marital_status']}"),
                       ],
                     ),
                     15.heightBox,
@@ -156,9 +212,10 @@ class ProfileDetailScreen extends StatelessWidget {
                         1: FlexColumnWidth(1.8),
                       },
                       children: [
-                        tableRowMethod(key: "Father", value: "Lt.Mr.Chavan"),
                         tableRowMethod(
-                            key: "Mother", value: "Yes, SMT. CHAVAN"),
+                            key: "Father", value: "${data['father_name']}"),
+                        tableRowMethod(
+                            key: "Mother", value: "${data['mother_name']}"),
                         tableRowMethod(
                             key: "Brother", value: "2, BOTH UNMARRIED"),
                         tableRowMethod(key: "Sister", value: "-"),

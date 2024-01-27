@@ -19,7 +19,7 @@ class UserRegistrationApi {
         userData['birth_name'] = model.birthNameController.text;
         userData['birth_place'] = model.birthPlaceController.text;
         userData['birth_place'] = model.birthPlaceController.text;
-        userData['ras'] = model.rasController.text;
+        userData['ras'] = model.selectedRas;
         userData['height'] = {
           'feet': model.heightInFeetController.text,
           'inch': model.heightInInchesController.text,

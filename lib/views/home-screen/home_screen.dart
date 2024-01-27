@@ -78,15 +78,39 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     "Matches".text.size(22).fontFamily(semiBold).make(),
                     20.heightBox,
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.all(0),
-                      itemCount: controller.Matches.length,
-                      itemBuilder: (context, index) {
-                        return ProfileCardWidget(
-                          data: controller.Matches[index],
-                        );
+                    StreamBuilder<QuerySnapshot>(
+                      stream: database
+                          .collection('userRegister')
+                          .where('profile_status', isEqualTo: {
+                        'membership_active': false,
+                        'verification': true,
+                        'registration': true,
+                      }).snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.docs.isEmpty) {
+                          return Center(
+                              child: Text('No user registers found.'));
+                        } else {
+                          return ListView.builder(
+                            padding: EdgeInsets.all(0),
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              var document = snapshot.data!.docs[index].data();
+
+                              // Customize this widget based on your document structure
+                              return ProfileCardWidget(data: document);
+                            },
+                          );
+                        }
                       },
                     ),
                   ],
