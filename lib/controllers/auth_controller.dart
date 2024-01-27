@@ -127,9 +127,16 @@ class AuthController extends ChangeNotifier {
       user = await auth.signInWithEmailAndPassword(
           email: email!, password: password!);
     } on FirebaseAuthException catch (e) {
+      print(e.code);
       if (e.code == "INVALID_LOGIN_CREDENTIALS") {
         showSnackbar(context,
             "Incorrect login credentials. Please check and try again.");
+      } else if (e.code == "invalid-credential") {
+        showSnackbar(context, "Email address does not exist.");
+      } else if (e.code == "invalid-email") {
+        showSnackbar(context, "Invalid email address.");
+      } else if (e.code == "channel-error") {
+        showSnackbar(context, "Something went wrong check your credentials.");
       }
     }
     return user;
