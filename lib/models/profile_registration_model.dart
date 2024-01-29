@@ -133,4 +133,18 @@ class ProfileRegisterModel extends ChangeNotifier {
 
     return mama;
   }
+
+  // Future<void> _fetchDataFromSharedPrefernce() async {
+  //   var pref = await SecureSharedPref.getInstance();
+  //   firstName.text = await pref.getString('firstName') ?? "";
+  //   lastName.text = await pref.getString('lastName') ?? "";
+  //   email.text = await pref.getString('email') ?? "";
+  // }
+
+  // storeDataInSharedPreference() async {
+  //   var pref = await SecureSharedPref.getInstance();
+  //   pref.putString("firstName", firstName.text);
+  //   pref.putString("lastName", lastName.text);
+  //   pref.putString("email", email.text);
+  // }
 }
