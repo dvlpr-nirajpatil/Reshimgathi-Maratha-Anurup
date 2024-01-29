@@ -24,8 +24,8 @@ class ProfileRegisterModel extends ChangeNotifier {
   String? selectedRas;
   String? selectedBloodGrp;
   String? selectedMaritalStatus;
-  String selectedPhysicalDisabilities = "No";
-  String? selectedCaste = "Maratha 96k";
+  String? selectedPhysicalDisabilities;
+  String? selectedCaste;
 
   // Professional information screeen variable
   TextEditingController educationController = TextEditingController();

@@ -171,7 +171,7 @@ class UploadDocumentScreen extends StatelessWidget {
                             showSnackbar(context,
                                 "Please upload your caste certificate");
                           } else {
-                            controller.storeDocuments();
+                            await controller.storeDocuments();
                             Get.offAll(() => const VerificationPendingScreen());
                           }
                         }

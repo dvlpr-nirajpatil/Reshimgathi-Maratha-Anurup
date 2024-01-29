@@ -32,6 +32,7 @@ class SignInScreen extends StatelessWidget {
               "Hello Again!".text.size(24).semiBold.make(),
               25.heightBox,
               customTextFormField(
+                required: true,
                 label: "Email",
                 controller: _emailField,
                 validator: (value) {
@@ -43,6 +44,7 @@ class SignInScreen extends StatelessWidget {
                 },
               ),
               customTextFormField(
+                required: true,
                 ispass: true,
                 label: "password",
                 controller: _passField,
@@ -72,8 +74,8 @@ class SignInScreen extends StatelessWidget {
               Consumer<AuthController>(builder: (context, controller, xxx) {
                 return FilledButton(
                     onPressed: () async {
-                      controller.isLoading = true;
                       if (_formKey.currentState!.validate()) {
+                        controller.isLoading = true;
                         // Form is valid, perform sign-in logic here
                         String email = _emailField.text.trimRight();
                         String password = _passField.text.trimRight();

@@ -97,7 +97,7 @@ class RegistrationScreen extends StatelessWidget {
                   builder: (context, controller, xxx) {
                     return customDropDownButton(
                         label: "Rashi",
-                        hint: "Select your Ras",
+                        hint: "Select your Rashi",
                         selectedValue: controller.model.selectedRas,
                         onchange: (value) {
                           controller.updateRas = value;
@@ -185,10 +185,10 @@ class RegistrationScreen extends StatelessWidget {
                       }
                     },
                     child: controller.is_loading
-                        ? SizedBox(
+                        ? const SizedBox(
                             width: 10,
                             height: 10,
-                            child: const CircularProgressIndicator(
+                            child: CircularProgressIndicator(
                               color: Colors.white,
                               strokeWidth: 2,
                             ),
