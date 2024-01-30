@@ -25,7 +25,19 @@ class UploadDocumentScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     30.heightBox,
-                    "Upload Document".text.fontFamily(semiBold).size(18).make(),
+                    Row(
+                      children: [
+                        Icon(Icons.arrow_back).onTap(() {
+                          Get.back();
+                        }),
+                        15.widthBox,
+                        "Upload Documents"
+                            .text
+                            .fontFamily(semiBold)
+                            .size(18)
+                            .make(),
+                      ],
+                    ),
                     30.heightBox,
                     Form(
                       key: _formKey,
@@ -171,8 +183,9 @@ class UploadDocumentScreen extends StatelessWidget {
                             showSnackbar(context,
                                 "Please upload your caste certificate");
                           } else {
-                            await controller.storeDocuments();
-                            Get.offAll(() => const VerificationPendingScreen());
+                            // await controller.storeDocuments();
+                            controller.updateRegistrationStatus(8);
+                            Get.back();
                           }
                         }
                       },

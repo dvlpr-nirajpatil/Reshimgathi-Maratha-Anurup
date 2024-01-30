@@ -33,7 +33,7 @@ export 'package:reshimgathi/views/profile_registration_form/upload_document.dart
 export 'package:reshimgathi/views/profile_registration_form/upload_photos_screen.dart';
 export 'package:reshimgathi/views/shared-widget/custom_snackbar.dart';
 export 'package:reshimgathi/views/profile_registration_form/payment_getway_screen.dart';
-export 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
+export 'package:reshimgathi/views/profile_registration_form/personal_info_screen.dart';
 export 'package:reshimgathi/views/profile_registration_form/verification_waiting_screen.dart';
 export 'package:reshimgathi/views/home/home.dart';
 export 'package:secure_shared_preferences/secure_shared_pref.dart';

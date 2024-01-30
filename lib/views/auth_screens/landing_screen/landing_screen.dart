@@ -12,7 +12,9 @@ class LandingScreen extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(igLanding),
+            image: AssetImage(
+              igLanding,
+            ),
           ),
         ),
         child: Column(

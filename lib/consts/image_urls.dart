@@ -10,6 +10,7 @@ const igGirl2 = 'assets/images/girl3.jpg';
 const igGradient = 'assets/images/blackGradient.png';
 
 const igLanding = 'assets/images/landing-background.png';
+const igLanding1 = 'assets/images/background_1.jpg';
 const igUnderVerification = 'assets/images/verification.gif';
 
 const icUpload = "assets/images/upload.svg";

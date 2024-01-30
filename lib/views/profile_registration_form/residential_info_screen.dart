@@ -18,12 +18,20 @@ class ResidentialInfoScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Row(
+                  children: [
+                    Icon(Icons.arrow_back).onTap(() {
+                      Get.back();
+                    }),
+                    15.widthBox,
+                    "Residential Information"
+                        .text
+                        .fontFamily(semiBold)
+                        .size(18)
+                        .make(),
+                  ],
+                ),
                 20.heightBox,
-                "Residential Information"
-                    .text
-                    .fontFamily(semiBold)
-                    .size(18)
-                    .make(),
                 customTextFormField(
                   required: true,
                   controller:
@@ -61,8 +69,8 @@ class ResidentialInfoScreen extends StatelessWidget {
                   return FilledButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              await controller.storeResidentialInformation();
-                              Get.to(() => ContactInfoScreen());
+                              await controller.updateRegistrationStatus(4);
+                              Get.off(() => ContactInfoScreen());
                             }
                           },
                           child: controller.is_loading

@@ -18,7 +18,16 @@ class ExpectionScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              "Expections".text.fontFamily(semiBold).size(18).make(),
+              Row(
+                children: [
+                  Icon(Icons.arrow_back).onTap(() {
+                    Get.back();
+                  }),
+                  15.widthBox,
+                  "Expectations".text.fontFamily(semiBold).size(18).make(),
+                ],
+              ),
+              20.heightBox,
               customTextFormField(
                   required: true,
                   controller: controller.model.expectedEducationController,
@@ -64,7 +73,7 @@ class ExpectionScreen extends StatelessWidget {
                       selectedValue:
                           controller.model.prefferedMaritalStatusSelector,
                       onchange: (value) {
-                        controller.setPreferedMaritalStatus = value;
+                        controller.model.prefferedMaritalStatusSelector = value;
                       },
                       list: MaritalStatus);
                 },
@@ -77,7 +86,8 @@ class ExpectionScreen extends StatelessWidget {
                       selectedValue:
                           controller.model.prefferedMangalAcceptedSelector,
                       onchange: (value) {
-                        controller.setPreferedMangal = value;
+                        controller.model.prefferedMangalAcceptedSelector =
+                            value;
                       },
                       list: yesNo);
                 },
@@ -90,7 +100,7 @@ class ExpectionScreen extends StatelessWidget {
                       selectedValue:
                           controller.model.prefferedHandicapedSelector,
                       onchange: (value) {
-                        controller.setPreferedHandicaped = value;
+                        controller.model.selectedPhysicalDisabilities = value;
                       },
                       list: yesNo);
                 },
@@ -100,8 +110,8 @@ class ExpectionScreen extends StatelessWidget {
                 return FilledButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            await controller.storeExpectationInfo();
-                            Get.to(() => UploadPhotosScreen());
+                            await controller.updateRegistrationStatus(6);
+                            Get.off(() => UploadPhotosScreen());
                           }
                         },
                         child: controller.is_loading

@@ -28,11 +28,20 @@ class ContactInfoScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         20.heightBox,
-                        "Contact Information"
-                            .text
-                            .fontFamily(semiBold)
-                            .size(18)
-                            .make(),
+                        Row(
+                          children: [
+                            Icon(Icons.arrow_back).onTap(() {
+                              Get.back();
+                            }),
+                            15.widthBox,
+                            "Contact Information"
+                                .text
+                                .fontFamily(semiBold)
+                                .size(18)
+                                .make(),
+                          ],
+                        ),
+                        20.heightBox,
                         customTextFormField(
                           textInput: TextInputType.number,
                           controller:
@@ -67,8 +76,8 @@ class ContactInfoScreen extends StatelessWidget {
               return FilledButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await controller.storeContactInformation();
-                          Get.to(() => ExpectionScreen());
+                          await controller.updateRegistrationStatus(5);
+                          Get.off(() => ExpectionScreen());
                         }
                       },
                       child: controller.is_loading

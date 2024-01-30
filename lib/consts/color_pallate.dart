@@ -6,6 +6,9 @@ Color lightPinkColor = const Color(0xffFF96B5);
 Color faintPinkColor = const Color(0xffFFC7D8);
 Color lightGrey = const Color(0xffECEDEF);
 
+Color greenColor = Color(0xff50AB42);
+Color redColor = Color(0xffFB4E36);
+
 Color darkGrayColor = Colors.grey.shade600;
 Color whiteColor = Colors.white;
 Color blackColor = Colors.black;

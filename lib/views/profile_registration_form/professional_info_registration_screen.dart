@@ -23,11 +23,20 @@ class ProfessionalInfoScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 20.heightBox,
-                "Professional Information"
-                    .text
-                    .fontFamily(semiBold)
-                    .size(18)
-                    .make(),
+                Row(
+                  children: [
+                    Icon(Icons.arrow_back).onTap(() {
+                      Get.back();
+                    }),
+                    15.widthBox,
+                    "Personal Information"
+                        .text
+                        .fontFamily(semiBold)
+                        .size(18)
+                        .make(),
+                  ],
+                ),
+                20.heightBox,
                 customTextFormField(
                     required: true,
                     controller: controller.model.educationController,
@@ -56,13 +65,16 @@ class ProfessionalInfoScreen extends StatelessWidget {
                   label: "Annual Income",
                   hint: "5 LPA, 6 LPA",
                 ),
+                SizedBox(
+                  height: context.height * 0.15,
+                ),
                 Consumer<ProfileRegistrationController>(
                     builder: (context, controller, xxx) {
                   return FilledButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              await controller.storeProfessionalDetails();
-                              Get.to(() => FamilyInfoScreen());
+                              await controller.updateRegistrationStatus(2);
+                              Get.off(() => FamilyInfoScreen());
                             }
                           },
                           child: controller.is_loading

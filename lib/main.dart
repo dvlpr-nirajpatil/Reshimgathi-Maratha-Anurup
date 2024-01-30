@@ -20,7 +20,12 @@ class Reshimgathi extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfileRegistrationController()),
       ],
       child: GetMaterialApp(
-        home: const SplashScreen(),
+        // home: const RegistrationScreen(),
+        home: SplashScreen(),
+        // home: LandingScreen(),
+        // home: ProfessionalInfoScreen(),
+        // home: FamilyInfoScreen(),
+        // home: ResidentialInfoScreen(),
         debugShowCheckedModeBanner: false,
         theme: appThemeData,
       ),

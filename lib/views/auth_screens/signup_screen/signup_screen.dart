@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/views/profile_registration_form/terms_and_conditions.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -91,7 +92,7 @@ class SignupScreen extends StatelessWidget {
                           if (value != null) {
                             await authController.storeAuthDetails(
                                 name: name, email: email);
-                            Get.offAll(() => RegistrationScreen());
+                            Get.offAll(() => TermsAndContions());
                           }
                         });
                       }

@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
 
 class AuthController extends ChangeNotifier {
@@ -13,25 +14,7 @@ class AuthController extends ChangeNotifier {
   navigateUser(context) async {
     await fetchUserDetails();
     if (userDetails['profile_status']['registration'] == false) {
-      if (userDetails['registration_status']['personal'] == false) {
-        Get.off(() => RegistrationScreen());
-      } else if (userDetails['registration_status']['professional'] == false) {
-        Get.off(() => ProfessionalInfoScreen());
-      } else if (userDetails['registration_status']['family'] == false) {
-        Get.off(() => FamilyInfoScreen());
-      } else if (userDetails['registration_status']['residential'] == false) {
-        Get.off(() => ResidentialInfoScreen());
-      } else if (userDetails['registration_status']['contact'] == false) {
-        Get.off(() => ContactInfoScreen());
-      } else if (userDetails['registration_status']['expectations'] == false) {
-        Get.off(() => ExpectionScreen());
-      } else if (userDetails['registration_status']['upload_images'] == false) {
-        Get.off(() => const UploadPhotosScreen());
-      } else if (userDetails['registration_status']['upload_docs'] == false) {
-        Get.off(() => UploadDocumentScreen());
-      } else {
-        Get.off(() => const VerificationPendingScreen());
-      }
+      Get.offAll(() => RegistrationScreen());
     } else if (userDetails['profile_status']['verification'] == false) {
       Get.off(() => const VerificationPendingScreen());
     } else {

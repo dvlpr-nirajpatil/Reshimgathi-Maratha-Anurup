@@ -2,6 +2,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/models/mamasDetailsModel.dart';
 import 'package:reshimgathi/models/profile_registration_model.dart';
+import 'package:reshimgathi/models/registrationStatusModel.dart';
 import 'package:reshimgathi/models/siblingsDetailsModel.dart';
 import 'package:reshimgathi/services/store_user_data.dart';
 import 'package:reshimgathi/services/upload_files.dart';
@@ -10,41 +11,93 @@ class ProfileRegistrationController extends ChangeNotifier {
   // ignore: non_constant_identifier_names
   final model = ProfileRegisterModel();
   final picker = ImagePicker();
-
   bool is_loading = false;
+  final registrationStatus = RegistrationStatusModel();
+
+  ProfileRegistrationController() {
+    fetchRegistrationStatus();
+  }
+
+  bool checkProfileCompleted() {
+    return registrationStatus.rPersonal! &&
+        registrationStatus.rProfessional! &&
+        registrationStatus.rFamily! &&
+        registrationStatus.rResidential! &&
+        registrationStatus.rContact! &&
+        registrationStatus.rExpectations! &&
+        registrationStatus.rPhotos! &&
+        registrationStatus.rDocuments!;
+  }
+
+  updateRegistrationStatus(val) async {
+    final pref = await SecureSharedPref.getInstance();
+    switch (val) {
+      case 1:
+        registrationStatus.rPersonal = true;
+        await pref.putBool('r_personal', true);
+        break;
+      case 2:
+        registrationStatus.rProfessional = true;
+        await pref.putBool('r_professional', true);
+        break;
+      case 3:
+        registrationStatus.rFamily = true;
+        await pref.putBool('r_family', true);
+        break;
+      case 4:
+        registrationStatus.rResidential = true;
+        await pref.putBool('r_residential', true);
+        break;
+      case 5:
+        registrationStatus.rContact = true;
+        await pref.putBool('r_contact', true);
+        break;
+      case 6:
+        registrationStatus.rExpectations = true;
+        await pref.putBool('r_expectations', true);
+        break;
+      case 7:
+        registrationStatus.rPhotos = true;
+        await pref.putBool('r_photos', true);
+        break;
+      case 8:
+        registrationStatus.rDocuments = true;
+        await pref.putBool('r_documents', true);
+        break;
+    }
+    notifyListeners();
+  }
+
+  fetchRegistrationStatus() async {
+    var pref = await SecureSharedPref.getInstance();
+    registrationStatus.rPersonal = await pref.getBool('r_personal') ?? false;
+    registrationStatus.rProfessional =
+        await pref.getBool('r_professional') ?? false;
+    registrationStatus.rFamily = await pref.getBool('r_family') ?? false;
+    registrationStatus.rResidential =
+        await pref.getBool('r_residential') ?? false;
+    registrationStatus.rContact = await pref.getBool('r_contact') ?? false;
+    registrationStatus.rExpectations =
+        await pref.getBool('r_expectations') ?? false;
+    registrationStatus.rPhotos = await pref.getBool('r_photos') ?? false;
+    registrationStatus.rDocuments = await pref.getBool('r_documents') ?? false;
+    notifyListeners();
+  }
+
+  bool tAndC = false;
+
+  set setTermsAndConditions(val) {
+    tAndC = val;
+    notifyListeners();
+  }
 
   set loading(bool val) {
     is_loading = val;
     notifyListeners();
   }
 
-  set updateRas(String value) {
-    model.selectedRas = value;
-    notifyListeners();
-  }
-
-  set updateSelectedGender(String value) {
-    model.selectedGender = value;
-    notifyListeners();
-  }
-
-  set updateBloodGrp(String value) {
-    model.selectedBloodGrp = value;
-    notifyListeners();
-  }
-
-  set updateMaterialStatus(String value) {
-    model.selectedMaritalStatus = value;
-    notifyListeners();
-  }
-
   set updatePhysicalDisabilities(String value) {
     model.selectedPhysicalDisabilities = value;
-    notifyListeners();
-  }
-
-  set updateCaste(String value) {
-    model.selectedCaste = value;
     notifyListeners();
   }
 
@@ -63,16 +116,6 @@ class ProfileRegistrationController extends ChangeNotifier {
   set setSisterCount(int val) {
     model.noOfSister = val;
     model.sistersInfo = List.generate(val, (index) => SibblingsDetails());
-    notifyListeners();
-  }
-
-  set setIsFatherAlive(String value) {
-    model.isFatherAlive = value;
-    notifyListeners();
-  }
-
-  set setIsMotherAlive(String value) {
-    model.isMotherAlive = value;
     notifyListeners();
   }
 
@@ -111,56 +154,47 @@ class ProfileRegistrationController extends ChangeNotifier {
     }
   }
 
-  set setPreferedMaritalStatus(String val) {
-    model.prefferedMaritalStatusSelector = val;
-    notifyListeners();
-  }
-
-  set setPreferedMangal(String val) {
-    model.prefferedMangalAcceptedSelector = val;
-    notifyListeners();
-  }
-
-  set setPreferedHandicaped(String val) {
-    model.prefferedHandicapedSelector = val;
-    notifyListeners();
-  }
-
-  storePersonalDetails() async {
+  submitProfile() async {
     loading = true;
-    await UserRegistrationApi.storePersonalDetails(model);
+    await UserRegistrationApi.SubmitUserDetails(model);
     loading = false;
   }
 
-  storeProfessionalDetails() async {
-    loading = true;
-    await UserRegistrationApi.storeProfessionalDetails(model);
-    loading = false;
-  }
+  // storePersonalDetails() async {
+  //   loading = true;
+  //   await UserRegistrationApi.storePersonalDetails(model);
+  //   loading = false;
+  // }
 
-  storeFamilyDetails() async {
-    loading = true;
-    await UserRegistrationApi.storeFamilyDetails(model);
-    loading = false;
-  }
+  // storeProfessionalDetails() async {
+  //   loading = true;
+  //   await UserRegistrationApi.storeProfessionalDetails(model);
+  //   loading = false;
+  // }
 
-  storeResidentialInformation() async {
-    loading = true;
-    await UserRegistrationApi.storeResidentialInformation(model);
-    loading = false;
-  }
+  // storeFamilyDetails() async {
+  //   loading = true;
+  //   await UserRegistrationApi.storeFamilyDetails(model);
+  //   loading = false;
+  // }
 
-  storeContactInformation() async {
-    loading = true;
-    await UserRegistrationApi.storeContactInformation(model);
-    loading = false;
-  }
+  // storeResidentialInformation() async {
+  //   loading = true;
+  //   await UserRegistrationApi.storeResidentialInformation(model);
+  //   loading = false;
+  // }
 
-  storeExpectationInfo() async {
-    loading = true;
-    await UserRegistrationApi.storeExpectationInfo(model);
-    loading = false;
-  }
+  // storeContactInformation() async {
+  //   loading = true;
+  //   await UserRegistrationApi.storeContactInformation(model);
+  //   loading = false;
+  // }
+
+  // storeExpectationInfo() async {
+  //   loading = true;
+  //   await UserRegistrationApi.storeExpectationInfo(model);
+  //   loading = false;
+  // }
 
   storeImages() async {
     loading = true;

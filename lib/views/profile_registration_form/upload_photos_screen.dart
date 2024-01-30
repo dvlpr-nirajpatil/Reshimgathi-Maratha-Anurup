@@ -20,8 +20,15 @@ class UploadPhotosScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  40.heightBox,
-                  "Upload Images".text.fontFamily(semiBold).size(18).make(),
+                  Row(
+                    children: [
+                      Icon(Icons.arrow_back).onTap(() {
+                        Get.back();
+                      }),
+                      15.widthBox,
+                      "Upload Photos".text.fontFamily(semiBold).size(18).make(),
+                    ],
+                  ),
                   60.heightBox,
                   controller.model.uploadImages!.length == 0
                       ? DottedBorder(
@@ -125,10 +132,11 @@ class UploadPhotosScreen extends StatelessWidget {
                     onPressed: () async {
                       controller.loading = true;
                       if (controller.model.uploadImages?.length != 0) {
-                        controller.storeImages();
+                        // controller.storeImages();
+                        controller.updateRegistrationStatus(7);
                       }
 
-                      Get.to(() => UploadDocumentScreen());
+                      Get.off(() => UploadDocumentScreen());
                       controller.loading = false;
                     },
                     child: controller.is_loading == true
