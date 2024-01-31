@@ -55,23 +55,23 @@ class FamilyInfoScreen extends StatelessWidget {
                 20.heightBox,
                 customTextFormField(
                     required: true,
-                    controller: controller.model.fatherNameController,
+                    controller: controller.familyDetails.fatherName,
                     label: "Father's Name",
                     hint: "Enter your father's name"),
 
                 customTextFormField(
-                    controller: controller.model.fatherOccupationController,
+                    controller: controller.familyDetails.fatherOccupation,
                     label: "Father Occupation",
                     hint: "Enter Occupation"),
 
                 customTextFormField(
                     required: true,
-                    controller: controller.model.motherNameController,
+                    controller: controller.familyDetails.motherName,
                     label: "Mother's Name",
                     hint: "Enter your mother's name"),
 
                 customTextFormField(
-                    controller: controller.model.motherOccupationController,
+                    controller: controller.familyDetails.motherOccupation,
                     label: "Mother Occupation",
                     hint: "Enter Occupation"),
 
@@ -84,6 +84,7 @@ class FamilyInfoScreen extends StatelessWidget {
                       height: 50,
                       child: TextFormField(
                         keyboardType: TextInputType.number,
+                        controller: controller.familyDetails.numberOfBrothers,
                         onChanged: (val) {
                           if (val != "") {
                             if (int.parse(val) <= 10) {
@@ -100,21 +101,21 @@ class FamilyInfoScreen extends StatelessWidget {
                 ).paddingOnly(top: 20),
                 Consumer<ProfileRegistrationController>(
                     builder: (context, controller, xxx) {
-                  return controller.model.noOfBrother > 0
+                  return controller.familyDetails.noOfBrother > 0
                       ? Column(
                           children: List.generate(
-                            controller.model.noOfBrother,
+                            controller.familyDetails.noOfBrother,
                             (index) => siblingsInforForm(
                                 occuChange: (value) {
-                                  controller.model.brothersInfo[index]
+                                  controller.familyDetails.brothersInfo[index]
                                       .occupation = value;
                                 },
                                 nameChange: (value) {
-                                  controller.model.brothersInfo[index].name =
-                                      value;
+                                  controller.familyDetails.brothersInfo[index]
+                                      .name = value;
                                 },
                                 mariChange: (value) {
-                                  controller.model.brothersInfo[index]
+                                  controller.familyDetails.brothersInfo[index]
                                       .maritalStatus = value;
                                 },
                                 title:
@@ -132,6 +133,7 @@ class FamilyInfoScreen extends StatelessWidget {
                       width: 50,
                       height: 50,
                       child: TextFormField(
+                        controller: controller.familyDetails.numberOfSisters,
                         onChanged: (val) {
                           if (val != "") {
                             if (int.parse(val) <= 10) {
@@ -149,21 +151,21 @@ class FamilyInfoScreen extends StatelessWidget {
                 // sister info
                 Consumer<ProfileRegistrationController>(
                     builder: (context, controller, xxx) {
-                  return controller.model.noOfSister > 0
+                  return controller.familyDetails.noOfSister > 0
                       ? Column(
                           children: List.generate(
-                            controller.model.noOfSister,
+                            controller.familyDetails.noOfSister,
                             (index) => siblingsInforForm(
                               occuChange: (value) {
-                                controller.model.sistersInfo[index].occupation =
-                                    value;
+                                controller.familyDetails.sistersInfo[index]
+                                    .occupation = value;
                               },
                               nameChange: (value) {
-                                controller.model.sistersInfo[index].name =
-                                    value;
+                                controller.familyDetails.sistersInfo[index]
+                                    .name = value;
                               },
                               mariChange: (value) {
-                                controller.model.sistersInfo[index]
+                                controller.familyDetails.sistersInfo[index]
                                     .maritalStatus = value;
                               },
                               title:
@@ -181,6 +183,7 @@ class FamilyInfoScreen extends StatelessWidget {
                       width: 50,
                       height: 50,
                       child: TextFormField(
+                        controller: controller.familyDetails.numberOfMama,
                         onChanged: (val) {
                           if (val != "") {
                             if (int.parse(val) <= 10) {
@@ -197,21 +200,22 @@ class FamilyInfoScreen extends StatelessWidget {
                 ).paddingOnly(top: 20),
                 Consumer<ProfileRegistrationController>(
                     builder: (context, controller, xxx) {
-                  return controller.model.noOfMama > 0
+                  return controller.familyDetails.noOfMama > 0
                       ? Column(
                           children: List.generate(
-                            controller.model.noOfMama,
+                            controller.familyDetails.noOfMama,
                             (index) => mamaInforForm(
                               occuChange: (value) {
-                                controller.model.mamasInfo[index].occupation =
-                                    value;
+                                controller.familyDetails.mamasInfo[index]
+                                    .occupation = value;
                               },
                               nameChange: (value) {
-                                controller.model.mamasInfo[index].name = value;
+                                controller.familyDetails.mamasInfo[index].name =
+                                    value;
                               },
                               mobChange: (value) {
-                                controller.model.mamasInfo[index].contactNo =
-                                    value;
+                                controller.familyDetails.mamasInfo[index]
+                                    .contactNo = value;
                               },
                               title:
                                   "${index + 1}${getNumberSuffix(index + 1)}  Mama's",
@@ -222,7 +226,7 @@ class FamilyInfoScreen extends StatelessWidget {
                 }),
                 Consumer<ProfileRegistrationController>(
                     builder: (context, controller, x) {
-                  return controller.model.noOfMama > 0
+                  return controller.familyDetails.noOfMama > 0
                       ? customTextFormField(
                           label: "Mama's Native Place",
                           hint: "Enter Native Place",
@@ -236,10 +240,11 @@ class FamilyInfoScreen extends StatelessWidget {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               await controller.updateRegistrationStatus(3);
+                              controller.familyDetails.store();
                               Get.off(() => ResidentialInfoScreen());
                             }
                           },
-                          child: controller.is_loading
+                          child: controller.isLoading
                               ? Center(
                                   child: SizedBox(
                                     height: 10,

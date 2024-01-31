@@ -44,25 +44,23 @@ class ContactInfoScreen extends StatelessWidget {
                         20.heightBox,
                         customTextFormField(
                           textInput: TextInputType.number,
-                          controller:
-                              controller.model.fatherContactNoController,
+                          controller: controller.contactDetails.fatherContactNo,
                           label: "Father's Contact No.",
                         ),
                         customTextFormField(
                           textInput: TextInputType.number,
-                          controller:
-                              controller.model.motherContactNoController,
+                          controller: controller.contactDetails.motherContactNo,
                           label: "Mother's Contact No",
                         ),
                         customTextFormField(
                           required: true,
                           textInput: TextInputType.number,
-                          controller: controller.model.whatsappNumberController,
+                          controller: controller.contactDetails.whatsappNumber,
                           label: "WhatsApp No.",
                         ),
                         customTextFormField(
                           required: true,
-                          controller: controller.model.emailAddressController,
+                          controller: controller.contactDetails.emailAddress,
                           label: "Email",
                         ),
                       ],
@@ -77,10 +75,11 @@ class ContactInfoScreen extends StatelessWidget {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           await controller.updateRegistrationStatus(5);
+                          controller.contactDetails.store();
                           Get.off(() => ExpectionScreen());
                         }
                       },
-                      child: controller.is_loading
+                      child: controller.isLoading
                           ? Center(
                               child: SizedBox(
                                 height: 10,

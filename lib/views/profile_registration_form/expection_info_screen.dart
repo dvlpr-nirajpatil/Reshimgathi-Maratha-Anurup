@@ -30,20 +30,18 @@ class ExpectionScreen extends StatelessWidget {
               20.heightBox,
               customTextFormField(
                   required: true,
-                  controller: controller.model.expectedEducationController,
+                  controller: controller.expectations.education,
                   label: "Expected Education",
                   hint: "Enter education seperated by ,"),
               heightPicker(context,
-                  inchController:
-                      controller.model.prefferedHeightInInchesController,
-                  feetController:
-                      controller.model.prefferedHeightInFeetController),
+                  inchController: controller.expectations.heightInInches,
+                  feetController: controller.expectations.heightInFeet),
               customTextFormField(
-                  controller: controller.model.prefferedOccupationController,
+                  controller: controller.expectations.occupation,
                   label: "Preffered Occupation",
                   hint: "Engineer, Doctor, Business Man"),
               customTextFormField(
-                controller: controller.model.prefferedLocationController,
+                controller: controller.expectations.location,
                 label: "Preffered Location",
                 hint: "Mumbai, Pune, Banglore",
               ),
@@ -57,8 +55,7 @@ class ExpectionScreen extends StatelessWidget {
                     height: 50,
                     child: TextFormField(
                       keyboardType: TextInputType.number,
-                      controller:
-                          controller.model.prefferedMaxAgeDifferenceController,
+                      controller: controller.expectations.maxAgeDifference,
                       onChanged: (val) {},
                       textAlign: TextAlign.center,
                     ),
@@ -70,10 +67,9 @@ class ExpectionScreen extends StatelessWidget {
                   return customDropDownButton(
                       label: "Marital Status",
                       hint: "Select Marital Status",
-                      selectedValue:
-                          controller.model.prefferedMaritalStatusSelector,
+                      selectedValue: controller.expectations.maritalStatus,
                       onchange: (value) {
-                        controller.model.prefferedMaritalStatusSelector = value;
+                        controller.expectations.maritalStatus = value;
                       },
                       list: MaritalStatus);
                 },
@@ -83,11 +79,9 @@ class ExpectionScreen extends StatelessWidget {
                   return customDropDownButton(
                       label: "Mangal Accepted",
                       hint: "Please select your preference",
-                      selectedValue:
-                          controller.model.prefferedMangalAcceptedSelector,
+                      selectedValue: controller.expectations.mangalAccepted,
                       onchange: (value) {
-                        controller.model.prefferedMangalAcceptedSelector =
-                            value;
+                        controller.expectations.mangalAccepted = value;
                       },
                       list: yesNo);
                 },
@@ -97,10 +91,9 @@ class ExpectionScreen extends StatelessWidget {
                   return customDropDownButton(
                       label: "Handicap Accepted",
                       hint: "Please select your preference",
-                      selectedValue:
-                          controller.model.prefferedHandicapedSelector,
+                      selectedValue: controller.expectations.handicap,
                       onchange: (value) {
-                        controller.model.selectedPhysicalDisabilities = value;
+                        controller.expectations.handicap = value;
                       },
                       list: yesNo);
                 },
@@ -111,10 +104,11 @@ class ExpectionScreen extends StatelessWidget {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             await controller.updateRegistrationStatus(6);
+                            controller.expectations.store();
                             Get.off(() => UploadPhotosScreen());
                           }
                         },
-                        child: controller.is_loading
+                        child: controller.isLoading
                             ? SizedBox(
                                 width: 10,
                                 height: 10,

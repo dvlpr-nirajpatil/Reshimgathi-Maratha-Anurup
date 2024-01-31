@@ -1,101 +1,135 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
+import 'package:reshimgathi/views/shared-widget/pregress_hud.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        centerTitle: false,
-        title: "Create your profile"
-            .text
-            .fontFamily(semiBold)
-            .size(24)
-            .make()
-            .paddingOnly(left: 20),
-        actions: [
-          Icon(
-            Icons.logout_outlined,
-            color: pinkColor,
-          ).paddingOnly(right: 20).onTap(() async {
-            await Provider.of<AuthController>(context, listen: false)
-                .userSignOut();
-            Get.offAll(() => SignInScreen());
-          }),
-        ],
-      ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Consumer<ProfileRegistrationController>(
-            builder: (context, controller, x) {
-          return Column(
-            children: [
-              optionsWidget(
-                  title: "Personal Information",
-                  is_completed:
-                      controller.registrationStatus.rPersonal ?? false,
-                  onTap: () {
-                    Get.to(() => PersonalInformationScreen());
-                  }),
-              optionsWidget(
-                  title: "Professional Information",
-                  is_completed:
-                      controller.registrationStatus.rProfessional ?? false,
-                  onTap: () {
-                    Get.to(() => ProfessionalInfoScreen());
-                  }),
-              optionsWidget(
-                  title: "Family Background",
-                  is_completed: controller.registrationStatus.rFamily ?? false,
-                  onTap: () {
-                    Get.to(() => FamilyInfoScreen());
-                  }),
-              optionsWidget(
-                  title: "Residential Information",
-                  is_completed:
-                      controller.registrationStatus.rResidential ?? false,
-                  onTap: () {
-                    Get.to(() => ResidentialInfoScreen());
-                  }),
-              optionsWidget(
-                  title: "Contact Details",
-                  is_completed: controller.registrationStatus.rContact ?? false,
-                  onTap: () {
-                    Get.to(() => ContactInfoScreen());
-                  }),
-              optionsWidget(
-                  title: "Expectations",
-                  is_completed:
-                      controller.registrationStatus.rExpectations ?? false,
-                  onTap: () {
-                    Get.to(() => ExpectionScreen());
-                  }),
-              optionsWidget(
-                  title: "Upload Photos",
-                  is_completed: controller.registrationStatus.rPhotos ?? false,
-                  onTap: () {
-                    Get.to(() => UploadPhotosScreen());
-                  }),
-              optionsWidget(
-                  title: "Upload Documents",
-                  is_completed:
-                      controller.registrationStatus.rDocuments ?? false,
-                  onTap: () {
-                    Get.to(() => UploadDocumentScreen());
-                  }),
-              Spacer(),
-              FilledButton(
-                      onPressed: () {},
-                      child: "Submit".text.fontFamily(semiBold).size(16).make())
-                  .paddingSymmetric(vertical: 20)
+    return Consumer<ProfileRegistrationController>(
+        builder: (context, controller, xxx) {
+      return progressHud(
+        msg: "Registering your profile",
+        vsync: controller.isLoading,
+        child: Scaffold(
+          appBar: AppBar(
+            scrolledUnderElevation: 0,
+            centerTitle: false,
+            title: "Create your profile"
+                .text
+                .fontFamily(semiBold)
+                .size(24)
+                .make()
+                .paddingOnly(left: 20),
+            actions: [
+              Icon(
+                Icons.logout_outlined,
+                color: pinkColor,
+              ).paddingOnly(right: 20).onTap(() async {
+                await Provider.of<AuthController>(context, listen: false)
+                    .userSignOut();
+                Get.offAll(() => SignInScreen());
+              }),
             ],
-          );
-        }),
-      ),
-    );
+          ),
+          body: Container(
+            padding: const EdgeInsets.all(20),
+            child: Consumer<ProfileRegistrationController>(
+                builder: (context, controller, x) {
+              return Column(
+                children: [
+                  optionsWidget(
+                      title: "Personal Information",
+                      is_completed:
+                          controller.registrationStatus.personal ?? false,
+                      onTap: () {
+                        Get.to(() => PersonalInformationScreen());
+                      }),
+                  optionsWidget(
+                      title: "Professional Information",
+                      is_completed:
+                          controller.registrationStatus.professional ?? false,
+                      onTap: () {
+                        Get.to(() => ProfessionalInfoScreen());
+                      }),
+                  optionsWidget(
+                      title: "Family Background",
+                      is_completed:
+                          controller.registrationStatus.family ?? false,
+                      onTap: () {
+                        Get.to(() => FamilyInfoScreen());
+                      }),
+                  optionsWidget(
+                      title: "Residential Information",
+                      is_completed:
+                          controller.registrationStatus.residential ?? false,
+                      onTap: () {
+                        Get.to(() => ResidentialInfoScreen());
+                      }),
+                  optionsWidget(
+                      title: "Contact Details",
+                      is_completed:
+                          controller.registrationStatus.contact ?? false,
+                      onTap: () {
+                        Get.to(() => ContactInfoScreen());
+                      }),
+                  optionsWidget(
+                      title: "Expectations",
+                      is_completed:
+                          controller.registrationStatus.expectations ?? false,
+                      onTap: () {
+                        Get.to(() => ExpectionScreen());
+                      }),
+                  optionsWidget(
+                      title: "Upload Photos",
+                      is_completed:
+                          controller.registrationStatus.photos ?? false,
+                      onTap: () {
+                        Get.to(() => UploadPhotosScreen());
+                      }),
+                  optionsWidget(
+                      title: "Upload Documents",
+                      is_completed:
+                          controller.registrationStatus.documents ?? false,
+                      onTap: () {
+                        Get.to(() => UploadDocumentScreen());
+                      }),
+                  const Spacer(),
+                  Consumer<ProfileRegistrationController>(
+                      builder: (context, controller, xx) {
+                    return FilledButton(
+                            onPressed: controller.registrationStatus
+                                    .checkProfileCompleted()
+                                ? () async {
+                                    await controller.submitUserDetails();
+                                    Get.offAll(
+                                        () => VerificationPendingScreen());
+                                  }
+                                : null,
+                            child: controller.isLoading
+                                ? const SizedBox(
+                                    width: 10,
+                                    height: 10,
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white),
+                                    ),
+                                  )
+                                : "Submit"
+                                    .text
+                                    .fontFamily(semiBold)
+                                    .size(16)
+                                    .make())
+                        .paddingSymmetric(vertical: 20);
+                  })
+                ],
+              );
+            }),
+          ),
+        ),
+      );
+    });
   }
 
   optionsWidget({title, is_completed = false, onTap}) {

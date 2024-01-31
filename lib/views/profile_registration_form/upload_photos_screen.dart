@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/shared-widget/pregress_hud.dart';
 
@@ -14,7 +13,7 @@ class UploadPhotosScreen extends StatelessWidget {
           builder: (context, controller, xxx) {
         return progressHud(
             msg: "Uploading your photos\n please wait..",
-            vsync: controller.is_loading,
+            vsync: controller.isLoading,
             child: Container(
               padding: screenPadding,
               child: Column(
@@ -30,7 +29,7 @@ class UploadPhotosScreen extends StatelessWidget {
                     ],
                   ),
                   60.heightBox,
-                  controller.model.uploadImages!.length == 0
+                  controller.images.images!.length == 0
                       ? DottedBorder(
                           color: pinkColor,
                           child: Container(
@@ -62,7 +61,7 @@ class UploadPhotosScreen extends StatelessWidget {
                       : GridView.builder(
                           padding: EdgeInsets.all(0),
                           shrinkWrap: true,
-                          itemCount: controller.model.uploadImages!.length + 1,
+                          itemCount: controller.images.images!.length + 1,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3,
@@ -73,9 +72,7 @@ class UploadPhotosScreen extends StatelessWidget {
                                 ? Stack(
                                     clipBehavior: Clip.none,
                                     children: [
-                                      index ==
-                                              controller
-                                                  .model.uploadImages!.length
+                                      index == controller.images.images!.length
                                           ? Container(
                                               child: Center(
                                                 child: Icon(
@@ -98,16 +95,14 @@ class UploadPhotosScreen extends StatelessWidget {
                                                   borderRadius:
                                                       BorderRadius.circular(6)),
                                               child: Image.file(
-                                                File(controller.model
-                                                    .uploadImages![index].path),
+                                                File(controller.images
+                                                    .images![index].path),
                                                 fit: BoxFit.cover,
                                               ),
                                               width: 100,
                                               height: 100,
                                             ),
-                                      index ==
-                                              controller
-                                                  .model.uploadImages!.length
+                                      index == controller.images.images!.length
                                           ? SizedBox()
                                           : Positioned(
                                               top: -5,
@@ -127,19 +122,20 @@ class UploadPhotosScreen extends StatelessWidget {
                                   )
                                 : SizedBox();
                           }),
-                  Spacer(),
+                  const Spacer(),
                   FilledButton(
                     onPressed: () async {
                       controller.loading = true;
-                      if (controller.model.uploadImages?.length != 0) {
+                      if (controller.images.images?.length != 0) {
                         // controller.storeImages();
                         controller.updateRegistrationStatus(7);
+                        controller.images.store();
+                        Get.off(() => UploadDocumentScreen());
                       }
 
-                      Get.off(() => UploadDocumentScreen());
                       controller.loading = false;
                     },
-                    child: controller.is_loading == true
+                    child: controller.isLoading == true
                         ? SizedBox(
                             width: 10,
                             height: 10,

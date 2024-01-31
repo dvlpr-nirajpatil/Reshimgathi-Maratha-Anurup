@@ -1,6 +1,8 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
-import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
 
 class AuthController extends ChangeNotifier {
   late var userDetails;
@@ -151,6 +153,25 @@ class AuthController extends ChangeNotifier {
 
   Future<void> userSignOut() async {
     await FirebaseAuth.instance.signOut();
+    final pref = await SecureSharedPref.getInstance();
+    await pref.clearAll();
+    await clearLocalFiles();
+  }
+
+  Future<void> clearLocalFiles() async {
+    String localPath = (await getApplicationDocumentsDirectory()).path;
+
+    // Get the path to the file where the data is stored
+    String filePath = '$localPath/stored_files.txt';
+
+    // Check if the file exists
+    if (await File(filePath).exists()) {
+      // Delete the file
+
+      await File(filePath).delete();
+
+      print("Deleted Successfully");
+    }
   }
 
   Future<void> forgetPassword(context, email) async {

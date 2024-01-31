@@ -7,6 +7,7 @@ class PersonalInformationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller =
         Provider.of<ProfileRegistrationController>(context, listen: false);
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -19,7 +20,7 @@ class PersonalInformationScreen extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: [
-                    Icon(Icons.arrow_back).onTap(() {
+                    const Icon(Icons.arrow_back).onTap(() {
                       Get.back();
                     }),
                     15.widthBox,
@@ -33,12 +34,12 @@ class PersonalInformationScreen extends StatelessWidget {
                 20.heightBox,
                 customTextFormField(
                     required: true,
-                    controller: controller.model.firstNameController,
+                    controller: controller.personalDetails.firstName,
                     label: "First Name",
                     hint: "Enter your first name"),
                 customTextFormField(
                     required: true,
-                    controller: controller.model.lastNameController,
+                    controller: controller.personalDetails.lastName,
                     label: "Last Name",
                     hint: "Enter your last name"),
                 Consumer<ProfileRegistrationController>(
@@ -46,22 +47,22 @@ class PersonalInformationScreen extends StatelessWidget {
                     return customDropDownButton(
                       label: "Gender",
                       hint: "Select your gender",
-                      selectedValue: controller.model.selectedGender,
+                      selectedValue: controller.personalDetails.gender,
                       list: genders,
                       onchange: (value) {
-                        controller.model.selectedGender = value;
+                        controller.personalDetails.gender = value;
                       },
                     );
                   },
                 ),
                 customTextFormField(
                     required: true,
-                    controller: controller.model.birthNameController,
+                    controller: controller.personalDetails.birthName,
                     label: "Birth Name",
                     hint: "Enter your Birth Name"),
                 customTextFormField(
                     required: true,
-                    controller: controller.model.birthDateController,
+                    controller: controller.personalDetails.birthDate,
                     label: "Birth Date",
                     hint: "Select Your Birthdate",
                     onlyread: true,
@@ -73,12 +74,12 @@ class PersonalInformationScreen extends StatelessWidget {
                         lastDate: DateTime.now(),
                       );
 
-                      controller.model.birthDateController.text =
+                      controller.personalDetails.birthDate.text =
                           "${pickedDate!.day.padLeft(2, '0')}-${pickedDate.month.padLeft(2, '0')}-${pickedDate.year}";
                     }),
                 customTextFormField(
                     required: true,
-                    controller: controller.model.birthTimeController,
+                    controller: controller.personalDetails.birthTime,
                     label: "Birth Time",
                     hint: "Select Your Birthtime",
                     onlyread: true,
@@ -88,7 +89,7 @@ class PersonalInformationScreen extends StatelessWidget {
                         initialTime: TimeOfDay.now(),
                         initialEntryMode: TimePickerEntryMode.input,
                       );
-                      controller.model.birthTimeController.text = pickTime!
+                      controller.personalDetails.birthTime.text = pickTime!
                                   .hour >
                               12
                           ? "${(pickTime.hour - 12).padLeft(2, '0')} : ${pickTime.minute.padLeft(2, '0')} PM"
@@ -96,7 +97,7 @@ class PersonalInformationScreen extends StatelessWidget {
                     }),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.birthPlaceController,
+                  controller: controller.personalDetails.birthPlace,
                   label: "Birth Place",
                   hint: "Enter your birth Place",
                 ),
@@ -105,9 +106,9 @@ class PersonalInformationScreen extends StatelessWidget {
                     return customDropDownButton(
                         label: "Rashi",
                         hint: "Select your Rashi",
-                        selectedValue: controller.model.selectedRas,
+                        selectedValue: controller.personalDetails.ras,
                         onchange: (value) {
-                          controller.model.selectedRas = value;
+                          controller.personalDetails.ras = value;
                         },
                         list: rasList);
                   },
@@ -115,17 +116,17 @@ class PersonalInformationScreen extends StatelessWidget {
                 10.heightBox,
                 heightPicker(
                   context,
-                  feetController: controller.model.heightInFeetController,
-                  inchController: controller.model.heightInInchesController,
+                  feetController: controller.personalDetails.heightInFeet,
+                  inchController: controller.personalDetails.heightInInches,
                 ),
                 Consumer<ProfileRegistrationController>(
                   builder: (context, controller, xxx) {
                     return customDropDownButton(
                         label: "Blood Group",
                         hint: "Select your blood group",
-                        selectedValue: controller.model.selectedBloodGrp,
+                        selectedValue: controller.personalDetails.bloodGroup,
                         onchange: (value) {
-                          controller.model.selectedBloodGrp = value;
+                          controller.personalDetails.bloodGroup = value;
                         },
                         list: bloodGroup);
                   },
@@ -135,9 +136,9 @@ class PersonalInformationScreen extends StatelessWidget {
                     return customDropDownButton(
                         label: "Caste",
                         hint: "Select your caste",
-                        selectedValue: controller.model.selectedCaste,
+                        selectedValue: controller.personalDetails.caste,
                         onchange: (value) {
-                          controller.model.selectedCaste = value;
+                          controller.personalDetails.caste = value;
                         },
                         list: casts);
                   },
@@ -147,9 +148,9 @@ class PersonalInformationScreen extends StatelessWidget {
                     return customDropDownButton(
                         label: "Marital Status",
                         hint: "Select your marital status",
-                        selectedValue: controller.model.selectedMaritalStatus,
+                        selectedValue: controller.personalDetails.maritalStatus,
                         onchange: (value) {
-                          controller.model.selectedMaritalStatus = value;
+                          controller.personalDetails.maritalStatus = value;
                         },
                         list: MaritalStatus);
                   },
@@ -159,7 +160,7 @@ class PersonalInformationScreen extends StatelessWidget {
                     return customDropDownButton(
                         label: "Physical Disabilities",
                         selectedValue:
-                            controller.model.selectedPhysicalDisabilities,
+                            controller.personalDetails.isPhysicallyDissabled,
                         onchange: (value) {
                           controller.updatePhysicalDisabilities = value;
                         },
@@ -168,11 +169,11 @@ class PersonalInformationScreen extends StatelessWidget {
                 ),
                 Consumer<ProfileRegistrationController>(
                   builder: (context, controller, xxx) {
-                    return controller.model.selectedPhysicalDisabilities ==
+                    return controller.personalDetails.isPhysicallyDissabled ==
                             'Yes'
                         ? customTextFormField(
                             controller:
-                                controller.model.physicalDisabilityController,
+                                controller.personalDetails.physicalDisability,
                             label: "Specify Disabilitiy",
                             hint: "Please specify your Disability",
                           )
@@ -185,13 +186,14 @@ class PersonalInformationScreen extends StatelessWidget {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await controller.updateRegistrationStatus(1);
+                        controller.personalDetails.store();
 
                         Get.off(
                           () => ProfessionalInfoScreen(),
                         );
                       }
                     },
-                    child: controller.is_loading
+                    child: controller.isLoading
                         ? const SizedBox(
                             width: 10,
                             height: 10,

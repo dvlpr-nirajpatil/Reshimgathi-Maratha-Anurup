@@ -34,34 +34,33 @@ class ResidentialInfoScreen extends StatelessWidget {
                 20.heightBox,
                 customTextFormField(
                   required: true,
-                  controller:
-                      controller.model.addressLine1ResidentialController,
+                  controller: controller.residentialDetails.address,
                   label: "Address-1",
                 ),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.areaResidentialController,
+                  controller: controller.residentialDetails.area,
                   label: "Area",
                 ),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.landmarkResidentialController,
+                  controller: controller.residentialDetails.landmark,
                   label: "Landmark",
                 ),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.cityResidentialController,
+                  controller: controller.residentialDetails.city,
                   label: "City",
                 ),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.stateResidentialController,
+                  controller: controller.residentialDetails.state,
                   label: "State",
                 ),
                 customTextFormField(
                   required: true,
                   textInput: TextInputType.number,
-                  controller: controller.model.pincodeResidentialController,
+                  controller: controller.residentialDetails.pincode,
                   label: "Pincode",
                 ),
                 Consumer<ProfileRegistrationController>(
@@ -70,10 +69,11 @@ class ResidentialInfoScreen extends StatelessWidget {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               await controller.updateRegistrationStatus(4);
+                              controller.residentialDetails.store();
                               Get.off(() => ContactInfoScreen());
                             }
                           },
-                          child: controller.is_loading
+                          child: controller.isLoading
                               ? Center(
                                   child: SizedBox(
                                     height: 10,

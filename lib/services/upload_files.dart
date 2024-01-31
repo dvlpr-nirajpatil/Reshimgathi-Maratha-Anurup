@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
-import 'package:image_picker/image_picker.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class FireStorage {
@@ -18,10 +16,10 @@ class FireStorage {
     return downloadURL;
   }
 
-  static Future<void> uploadImages(List<XFile> images) async {
+  static Future<void> uploadImages(PickedImages images) async {
     List<String> uploadedImagesUrl = [];
     try {
-      for (XFile image in images) {
+      for (XFile image in images.images!) {
         File file = File(image.path);
         // Get the file name
         String fileName = path.basename(file.path);
@@ -31,6 +29,7 @@ class FireStorage {
         await storageReference.putFile(file);
         // Get the download URL of the uploaded file
         String downloadURL = await storageReference.getDownloadURL();
+
         uploadedImagesUrl.add(downloadURL);
       }
 
@@ -54,7 +53,7 @@ class FireStorage {
     }
   }
 
-  static UploadDocuments(XFile adhar, XFile caste) async {
+  static UploadDocuments(PickedDocuments documents) async {
     try {
       DateTime dateTime = DateTime.now();
       String day = dateTime.day.toString().padLeft(2, '0');
@@ -69,9 +68,12 @@ class FireStorage {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
 
+        String? adharUrl = await fileUpload(documents.adharCard!, "documents");
+        String? casteProof =
+            await fileUpload(documents.leavingCertificate!, "documents");
         userData['documents'] = {
-          "adhar_card": await fileUpload(adhar, "documents"),
-          "caste_proof": await fileUpload(caste, "documents")
+          "adhar_card": adharUrl,
+          "caste_proof": casteProof
         };
 
         userData['registration_status']['upload_docs'] = true;
@@ -82,8 +84,6 @@ class FireStorage {
             .collection(registerCollection)
             .doc(user!.uid)
             .update(userData);
-
-        print("uploaded successfully");
       }
     } catch (e) {
       print(e);

@@ -37,3 +37,15 @@ export 'package:reshimgathi/views/profile_registration_form/personal_info_screen
 export 'package:reshimgathi/views/profile_registration_form/verification_waiting_screen.dart';
 export 'package:reshimgathi/views/home/home.dart';
 export 'package:secure_shared_preferences/secure_shared_pref.dart';
+export 'package:reshimgathi/models/mamasDetailsModel.dart';
+export 'package:reshimgathi/models/profileRegisterModels/contact_data_model.dart';
+export 'package:reshimgathi/models/profileRegisterModels/expectation_data_model.dart';
+export 'package:reshimgathi/models/profileRegisterModels/familly_data_model.dart';
+export 'package:reshimgathi/models/profileRegisterModels/personal_data_model.dart';
+export 'package:reshimgathi/models/profileRegisterModels/picked_document_model.dart';
+export 'package:reshimgathi/models/profileRegisterModels/picked_images_model.dart';
+export 'package:reshimgathi/models/profileRegisterModels/professional_data_model.dart';
+export 'package:reshimgathi/models/profileRegisterModels/residential_data_model.dart';
+export 'package:reshimgathi/models/registrationStatusModel.dart';
+export 'package:reshimgathi/models/siblingsDetailsModel.dart';
+export 'package:image_picker/image_picker.dart';

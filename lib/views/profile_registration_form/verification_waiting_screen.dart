@@ -1,12 +1,8 @@
-import 'dart:math';
-
-import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/strings.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/services/firestore_services.dart';
 import 'package:reshimgathi/views/home/home.dart';
-import 'package:reshimgathi/views/profile_registration_form/payment_getway_screen.dart';
 
 class VerificationPendingScreen extends StatefulWidget {
   const VerificationPendingScreen({super.key});
@@ -21,6 +17,20 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+        centerTitle: false,
+        actions: [
+          Icon(
+            Icons.logout_outlined,
+            color: pinkColor,
+          ).paddingOnly(right: 20).onTap(() async {
+            await Provider.of<AuthController>(context, listen: false)
+                .userSignOut();
+            Get.offAll(() => SignInScreen());
+          }),
+        ],
+      ),
       body: StreamBuilder(
           stream: FirestoreServices.getUser(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

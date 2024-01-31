@@ -16,7 +16,7 @@ class UploadDocumentScreen extends StatelessWidget {
           builder: (context, controller, xxx) {
         return progressHud(
           msg: "Uploading your documents\n please wait..",
-          vsync: controller.is_loading,
+          vsync: controller.isLoading,
           child: Container(
             padding: screenPadding,
             child: SingleChildScrollView(
@@ -43,7 +43,7 @@ class UploadDocumentScreen extends StatelessWidget {
                       key: _formKey,
                       child: Column(
                         children: [
-                          controller.model.adharCard == null
+                          controller.documents.adharCard == null
                               ? Container(
                                   color: faintPinkColor,
                                   width: double.infinity,
@@ -76,7 +76,8 @@ class UploadDocumentScreen extends StatelessWidget {
                                       width: double.infinity,
                                       height: context.height * 0.3,
                                       child: Image.file(
-                                        File(controller.model.adharCard!.path),
+                                        File(controller
+                                            .documents.adharCard!.path),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -114,7 +115,7 @@ class UploadDocumentScreen extends StatelessWidget {
                     30.heightBox,
                     Column(
                       children: [
-                        controller.model.casteCertificate == null
+                        controller.documents.leavingCertificate == null
                             ? Container(
                                 color: faintPinkColor,
                                 width: double.infinity,
@@ -147,7 +148,7 @@ class UploadDocumentScreen extends StatelessWidget {
                                     height: context.height * 0.3,
                                     child: Image.file(
                                       File(controller
-                                          .model.casteCertificate!.path),
+                                          .documents.leavingCertificate!.path),
                                       fit: BoxFit.contain,
                                     ),
                                   ),
@@ -179,17 +180,18 @@ class UploadDocumentScreen extends StatelessWidget {
                     FilledButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          if (controller.model.casteCertificate == null) {
+                          if (controller.documents.leavingCertificate == null) {
                             showSnackbar(context,
                                 "Please upload your caste certificate");
                           } else {
                             // await controller.storeDocuments();
                             controller.updateRegistrationStatus(8);
+                            controller.documents.store();
                             Get.back();
                           }
                         }
                       },
-                      child: controller.is_loading
+                      child: controller.isLoading
                           ? SizedBox(
                               height: 10,
                               width: 10,

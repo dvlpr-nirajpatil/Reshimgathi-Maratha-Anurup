@@ -1,5 +1,4 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/profile_registration_form/family_info_screen.dart';
 
 class ProfessionalInfoScreen extends StatelessWidget {
   ProfessionalInfoScreen({super.key});
@@ -29,7 +28,7 @@ class ProfessionalInfoScreen extends StatelessWidget {
                       Get.back();
                     }),
                     15.widthBox,
-                    "Personal Information"
+                    "Professional Information"
                         .text
                         .fontFamily(semiBold)
                         .size(18)
@@ -39,34 +38,34 @@ class ProfessionalInfoScreen extends StatelessWidget {
                 20.heightBox,
                 customTextFormField(
                     required: true,
-                    controller: controller.model.educationController,
+                    controller: controller.professionalDetails.education,
                     label: "Education",
                     hint: "B.E IT , B. Pharm , B.H.M.S"),
                 customTextFormField(
                     required: true,
-                    controller: controller.model.occupationController,
+                    controller: controller.professionalDetails.occupation,
                     label: "Occupation",
                     hint: "Engineer, Doctor, Business Man"),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.companyController,
+                  controller: controller.professionalDetails.company,
                   label: "Company or Business Name ",
                   hint: "TCS, Inofsys",
                 ),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.joblocationController,
+                  controller: controller.professionalDetails.joblocation,
                   label: "Job Location",
                   hint: "Mumbai, Pune, Banglore",
                 ),
                 customTextFormField(
                   required: true,
-                  controller: controller.model.annualincomeController,
+                  controller: controller.professionalDetails.annualincome,
                   label: "Annual Income",
                   hint: "5 LPA, 6 LPA",
                 ),
                 SizedBox(
-                  height: context.height * 0.15,
+                  height: context.height * 0.07,
                 ),
                 Consumer<ProfileRegistrationController>(
                     builder: (context, controller, xxx) {
@@ -74,10 +73,11 @@ class ProfessionalInfoScreen extends StatelessWidget {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               await controller.updateRegistrationStatus(2);
+                              controller.professionalDetails.store();
                               Get.off(() => FamilyInfoScreen());
                             }
                           },
-                          child: controller.is_loading
+                          child: controller.isLoading
                               ? SizedBox(
                                   width: 10,
                                   height: 10,
