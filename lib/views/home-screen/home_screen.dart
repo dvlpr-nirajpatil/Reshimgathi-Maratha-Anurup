@@ -82,7 +82,8 @@ class HomeScreen extends StatelessWidget {
                       stream: database
                           .collection('userRegister')
                           .where('profile_status', isEqualTo: {
-                        'membership_active': false,
+                        'membership_active': true,
+                        
                         'verification': true,
                         'registration': true,
                       }).snapshots(),

@@ -1,8 +1,8 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/strings.dart';
-import 'package:reshimgathi/consts/typography.dart';
+
 import 'package:reshimgathi/services/firestore_services.dart';
-import 'package:reshimgathi/views/home/home.dart';
+import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
 
 class VerificationPendingScreen extends StatefulWidget {
   const VerificationPendingScreen({super.key});
@@ -41,7 +41,9 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen> {
               var data = snapshot.data!.docs[0];
               if (data['profile_status']['verification'] == true) {
                 Future.delayed(
-                    const Duration(seconds: 1), () => Get.off(() => Home()));
+                  const Duration(seconds: 1),
+                  () => Get.off(() => PaymentGatewayScreen()),
+                );
               }
             }
             return Container(

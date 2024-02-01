@@ -1,7 +1,6 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/typography.dart';
+
 import 'package:reshimgathi/controllers/profile_screen_controller.dart';
-import 'package:reshimgathi/models/profile_details_model.dart';
 
 class ProfileDetailScreen extends StatelessWidget {
   ProfileDetailScreen({super.key, required this.data});
@@ -238,13 +237,22 @@ class ProfileDetailScreen extends StatelessWidget {
                       children: [
                         tableRowMethod(
                             key: "Education",
-                            value: "ENGINEER, POST GRADUATE, ANUROOP"),
-                        tableRowMethod(key: "Max Gap", value: "5 Years"),
-                        tableRowMethod(key: "Height", value: "0.5” Inch"),
+                            value: "${data['expectations']['education']}"),
                         tableRowMethod(
-                            key: "Marital status", value: "Unmarried"),
-                        tableRowMethod(key: "Horoscope needed?", value: "Yes"),
-                        tableRowMethod(key: "Mangal", value: "NO"),
+                            key: "Max Gap",
+                            value: "${data['expectations']['age_diff']}"),
+                        tableRowMethod(
+                            key: "Height",
+                            value:
+                                "${data['expectations']['height']['feet']}'${data['expectations']['height']['inch']}"),
+                        tableRowMethod(
+                            key: "Marital status",
+                            value: "${data['expectations']['marital_status']}"),
+                        // tableRowMethod(key: "Horoscope needed?", value: ""),
+                        tableRowMethod(
+                            key: "Mangal",
+                            value:
+                                "${data['expectations']['handicaped_accepted']}"),
                       ],
                     ),
                   ],

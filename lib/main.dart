@@ -1,5 +1,7 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/controllers/payment_gateway.dart';
 import 'package:reshimgathi/controllers/profile_screen_controller.dart';
+import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,18 +16,15 @@ class Reshimgathi extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => PaymentGatewayController()),
         ChangeNotifierProvider(create: (_) => AuthController()),
         ChangeNotifierProvider(create: (_) => HomeScreenController()),
         ChangeNotifierProvider(create: (_) => ProfileScreenController()),
         ChangeNotifierProvider(create: (_) => ProfileRegistrationController()),
       ],
       child: GetMaterialApp(
-        // home: const RegistrationScreen(),
-        home: SplashScreen(),
-        // home: LandingScreen(),
-        // home: ProfessionalInfoScreen(),
-        // home: FamilyInfoScreen(),
-        // home: ResidentialInfoScreen(),
+        home: const SplashScreen(),
+        // home: PaymentGatewayScreen(),
         debugShowCheckedModeBanner: false,
         theme: appThemeData,
       ),

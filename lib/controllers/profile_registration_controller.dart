@@ -125,14 +125,14 @@ class ProfileRegistrationController extends ChangeNotifier {
 
   submitUserDetails() async {
     loading = true;
-    // await UserRegistrationApi.SubmitUserDetails(
-    //     personal: personalDetails,
-    //     professional: professionalDetails,
-    //     family: familyDetails,
-    //     residential: residentialDetails,
-    //     contact: contactDetails,
-    //     expection: expectations);
-    // await FireStorage.uploadImages(images);
+    await UserRegistrationApi.SubmitUserDetails(
+        personal: personalDetails,
+        professional: professionalDetails,
+        family: familyDetails,
+        residential: residentialDetails,
+        contact: contactDetails,
+        expection: expectations);
+    await FireStorage.uploadImages(images);
     await FireStorage.UploadDocuments(documents);
     loading = false;
   }

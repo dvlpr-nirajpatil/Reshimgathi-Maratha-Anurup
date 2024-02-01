@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/utility/util_functions.dart';
 
 class UserRegistrationApi {
   // static Future<void> storePersonalDetails(ProfileRegisterModel model) async {
@@ -278,6 +279,38 @@ class UserRegistrationApi {
           "marital_status": expection.maritalStatus,
           "managal_accepted": expection.mangalAccepted,
           "handicap_accepted": expection.handicap,
+        };
+
+        userData['profile_status']['registration'] = true;
+        userData['registration_date'] = getDateInString();
+
+        userData['profile_status']['registration'] = true;
+
+        await database
+            .collection(registerCollection)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update(userData);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static verifyUser(paymentId, orderId) async {
+    try {
+      DocumentSnapshot documentSnapshot = await database
+          .collection(registerCollection)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> userData =
+            documentSnapshot.data() as Map<String, dynamic>;
+
+        userData['profile_status']['membership_active'] = true;
+        userData['payment_details'] = {
+          'payment_id': paymentId,
+          'payment_date': getDateInString(),
+          'order_id': orderId
         };
 
         await database

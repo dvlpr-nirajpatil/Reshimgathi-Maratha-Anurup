@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 
 class AuthController extends ChangeNotifier {
@@ -19,13 +20,11 @@ class AuthController extends ChangeNotifier {
       Get.offAll(() => RegistrationScreen());
     } else if (userDetails['profile_status']['verification'] == false) {
       Get.off(() => const VerificationPendingScreen());
+    } else if (userDetails['profile_status']['membership_active'] == false) {
+      Get.off(() => PaymentGatewayScreen());
     } else {
       Get.off(() => Home());
     }
-
-    // else if (userDetails['profile_status']['membership_active'] == false) {
-    //   Get.off(() => const PaymentGatwayScreen());
-    // }
   }
 
   void reset() {
