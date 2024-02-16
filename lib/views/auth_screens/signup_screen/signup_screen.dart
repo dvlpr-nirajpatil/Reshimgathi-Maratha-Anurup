@@ -98,7 +98,7 @@ class SignupScreen extends StatelessWidget {
                       }
                       controller.isLoading = false;
                     },
-                    child: controller.is_loading
+                    child: controller.isloading
                         ? SizedBox(
                             height: 10,
                             width: 10,

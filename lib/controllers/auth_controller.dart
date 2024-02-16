@@ -4,16 +4,16 @@ import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 
 class AuthController extends ChangeNotifier {
-  late var userDetails;
-  bool is_loading = false;
+  var userDetails = {};
+  bool isloading = false;
 
   set isLoading(bool value) {
-    is_loading = value;
+    isloading = value;
     notifyListeners();
   }
 
   navigateUser(context) async {
-    await fetchUserDetails();
+    await _fetchUserDetails();
     if (userDetails['profile_status']['registration'] == false) {
       Get.offAll(() => const RegistrationScreen());
     } else if (userDetails['profile_status']['verification'] == false) {
@@ -26,12 +26,12 @@ class AuthController extends ChangeNotifier {
   }
 
   void reset() {
-    userDetails = null;
-    is_loading = false;
+    userDetails = {};
+    isloading = false;
     notifyListeners();
   }
 
-  Future<void> fetchUserDetails() async {
+  Future<void> _fetchUserDetails() async {
     QuerySnapshot querySnapshot = await database
         .collection(registerCollection)
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -59,9 +59,9 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<String> generateRegistrationId() async {
-    var count;
+    var count = 0;
     await database.collection(registerCollection).count().get().then((value) {
-      count = value.count;
+      count = value.count ?? 0;
     });
 
     int numberOfDocuments = count + 1;
@@ -131,7 +131,6 @@ class AuthController extends ChangeNotifier {
       user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email!, password: password!);
     } on FirebaseAuthException catch (e) {
-      print(e.code);
       if (e.code == "invalid-email") {
         showSnackbar(context, "Invalid Email id.");
       } else if (e.code == "email-already-in-use") {

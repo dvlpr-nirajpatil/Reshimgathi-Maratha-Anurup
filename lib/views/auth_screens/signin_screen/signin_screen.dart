@@ -95,7 +95,7 @@ class SignInScreen extends StatelessWidget {
                         controller.isLoading = false;
                       });
                     },
-                    child: controller.is_loading
+                    child: controller.isloading
                         ? const SizedBox(
                             width: 20,
                             height: 20,
