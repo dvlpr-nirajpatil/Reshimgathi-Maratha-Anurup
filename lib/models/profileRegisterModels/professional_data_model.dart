@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/shared_storage.dart';
 
 class ProfessionalDataModel {
   TextEditingController education = TextEditingController();
@@ -12,20 +13,18 @@ class ProfessionalDataModel {
   }
 
   fetch() async {
-    var pref = await SecureSharedPref.getInstance();
-    education.text = await pref.getString('education') ?? "";
-    occupation.text = await pref.getString('occupation') ?? "";
-    company.text = await pref.getString('companyName') ?? "";
-    joblocation.text = await pref.getString('jobLocation') ?? "";
-    annualincome.text = await pref.getString('annualIncome') ?? "";
+    education.text = await shared_storage.read(key: 'education') ?? "";
+    occupation.text = await shared_storage.read(key: 'occupation') ?? "";
+    company.text = await shared_storage.read(key: 'companyName') ?? "";
+    joblocation.text = await shared_storage.read(key: 'jobLocation') ?? "";
+    annualincome.text = await shared_storage.read(key: 'annualIncome') ?? "";
   }
 
   store() async {
-    var pref = await SecureSharedPref.getInstance();
-    pref.putString("education", education.text);
-    pref.putString("occupation", occupation.text);
-    pref.putString("companyName", company.text);
-    pref.putString("jobLocation", joblocation.text);
-    pref.putString("annualIncome", annualincome.text);
+    await shared_storage.write(key: "education", value: education.text);
+    await shared_storage.write(key: "occupation", value: occupation.text);
+    await shared_storage.write(key: "companyName", value: company.text);
+    await shared_storage.write(key: "jobLocation", value: joblocation.text);
+    await shared_storage.write(key: "annualIncome", value: annualincome.text);
   }
 }

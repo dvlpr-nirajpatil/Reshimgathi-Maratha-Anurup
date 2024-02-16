@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/shared_storage.dart';
 import 'package:reshimgathi/services/store_user_data.dart';
 import 'package:reshimgathi/services/upload_files.dart';
 
@@ -23,18 +24,22 @@ class ProfileRegistrationController extends ChangeNotifier {
   }
 
   fetchProfileStatus() async {
-    var pref = await SecureSharedPref.getInstance();
-    registrationStatus.personal = await pref.getBool('r_personal') ?? false;
+    registrationStatus.personal =
+        await shared_storage.read(key: 'r_personal') ?? "";
     registrationStatus.professional =
-        await pref.getBool('r_professional') ?? false;
-    registrationStatus.family = await pref.getBool('r_family') ?? false;
+        await shared_storage.read(key: 'r_professional') ?? "";
+    registrationStatus.family =
+        await shared_storage.read(key: 'r_family') ?? "";
     registrationStatus.residential =
-        await pref.getBool('r_residential') ?? false;
-    registrationStatus.contact = await pref.getBool('r_contact') ?? false;
+        await shared_storage.read(key: 'r_residential') ?? "";
+    registrationStatus.contact =
+        await shared_storage.read(key: 'r_contact') ?? "";
     registrationStatus.expectations =
-        await pref.getBool('r_expectations') ?? false;
-    registrationStatus.photos = await pref.getBool('r_photos') ?? false;
-    registrationStatus.documents = await pref.getBool('r_documents') ?? false;
+        await shared_storage.read(key: 'r_expectations') ?? "";
+    registrationStatus.photos =
+        await shared_storage.read(key: 'r_photos') ?? "";
+    registrationStatus.documents =
+        await shared_storage.read(key: 'r_documents') ?? "";
     notifyListeners();
   }
 

@@ -1,7 +1,6 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/controllers/payment_gateway.dart';
 import 'package:reshimgathi/controllers/profile_screen_controller.dart';
-import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

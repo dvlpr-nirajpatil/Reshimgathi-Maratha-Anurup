@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/shared_storage.dart';
 
 class ExpectationDataModel {
   TextEditingController heightInFeet = TextEditingController();
@@ -16,28 +17,31 @@ class ExpectationDataModel {
   }
 
   fetch() async {
-    var pref = await SecureSharedPref.getInstance();
-    heightInFeet.text = await pref.getString("xHeightInFeet") ?? "";
-    heightInInches.text = await pref.getString("xHeightInInch") ?? "";
-    maxAgeDifference.text = await pref.getString("xMaxAgeDifference") ?? "";
-    education.text = await pref.getString("xEducation") ?? "";
-    occupation.text = await pref.getString("xOccupation") ?? "";
-    location.text = await pref.getString("xLocation") ?? "";
-    maritalStatus = await pref.getString("xMaritialStatus");
-    mangalAccepted = await pref.getString("xMangalAccepted");
-    handicap = await pref.getString("xHandicaped");
+    heightInFeet.text = await shared_storage.read(key: "xHeightInFeet") ?? "";
+    heightInInches.text = await shared_storage.read(key: "xHeightInInch") ?? "";
+    maxAgeDifference.text =
+        await shared_storage.read(key: "xMaxAgeDifference") ?? "";
+    education.text = await shared_storage.read(key: "xEducation") ?? "";
+    occupation.text = await shared_storage.read(key: "xOccupation") ?? "";
+    location.text = await shared_storage.read(key: "xLocation") ?? "";
+    maritalStatus = await shared_storage.read(key: "xMaritialStatus");
+    mangalAccepted = await shared_storage.read(key: "xMangalAccepted");
+    handicap = await shared_storage.read(key: "xHandicaped");
   }
 
   store() async {
-    var pref = await SecureSharedPref.getInstance();
-    pref.putString("xHeightInFeet", heightInFeet.text);
-    pref.putString("xHeightInInch", heightInInches.text);
-    pref.putString("xMaxAgeDifference", maxAgeDifference.text);
-    pref.putString("xEducation", education.text);
-    pref.putString("xOccupation", occupation.text);
-    pref.putString("xLocation", location.text);
-    pref.putString("xMaritialStatus", maritalStatus ?? "");
-    pref.putString("xMangalAccepted", mangalAccepted ?? "");
-    pref.putString("xHandicaped", handicap ?? "");
+    await shared_storage.write(key: "xHeightInFeet", value: heightInFeet.text);
+    await shared_storage.write(
+        key: "xHeightInInch", value: heightInInches.text);
+    await shared_storage.write(
+        key: "xMaxAgeDifference", value: maxAgeDifference.text);
+    await shared_storage.write(key: "xEducation", value: education.text);
+    await shared_storage.write(key: "xOccupation", value: occupation.text);
+    await shared_storage.write(key: "xLocation", value: location.text);
+    await shared_storage.write(
+        key: "xMaritialStatus", value: maritalStatus ?? "");
+    await shared_storage.write(
+        key: "xMangalAccepted", value: mangalAccepted ?? "");
+    await shared_storage.write(key: "xHandicaped", value: handicap ?? "");
   }
 }

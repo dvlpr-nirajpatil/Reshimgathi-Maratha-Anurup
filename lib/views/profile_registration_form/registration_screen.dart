@@ -42,56 +42,56 @@ class RegistrationScreen extends StatelessWidget {
                   optionsWidget(
                       title: "Personal Information",
                       is_completed:
-                          controller.registrationStatus.personal ?? false,
+                          controller.registrationStatus.personal == "YES",
                       onTap: () {
                         Get.to(() => PersonalInformationScreen());
                       }),
                   optionsWidget(
                       title: "Professional Information",
                       is_completed:
-                          controller.registrationStatus.professional ?? false,
+                          controller.registrationStatus.professional == "YES",
                       onTap: () {
                         Get.to(() => ProfessionalInfoScreen());
                       }),
                   optionsWidget(
                       title: "Family Background",
                       is_completed:
-                          controller.registrationStatus.family ?? false,
+                          controller.registrationStatus.family == "YES",
                       onTap: () {
                         Get.to(() => FamilyInfoScreen());
                       }),
                   optionsWidget(
                       title: "Residential Information",
                       is_completed:
-                          controller.registrationStatus.residential ?? false,
+                          controller.registrationStatus.residential == "YES",
                       onTap: () {
                         Get.to(() => ResidentialInfoScreen());
                       }),
                   optionsWidget(
                       title: "Contact Details",
                       is_completed:
-                          controller.registrationStatus.contact ?? false,
+                          controller.registrationStatus.contact == "YES",
                       onTap: () {
                         Get.to(() => ContactInfoScreen());
                       }),
                   optionsWidget(
                       title: "Expectations",
                       is_completed:
-                          controller.registrationStatus.expectations ?? false,
+                          controller.registrationStatus.expectations == "YES",
                       onTap: () {
                         Get.to(() => ExpectionScreen());
                       }),
                   optionsWidget(
                       title: "Upload Photos",
                       is_completed:
-                          controller.registrationStatus.photos ?? false,
+                          controller.registrationStatus.photos == "YES",
                       onTap: () {
                         Get.to(() => UploadPhotosScreen());
                       }),
                   optionsWidget(
                       title: "Upload Documents",
                       is_completed:
-                          controller.registrationStatus.documents ?? false,
+                          controller.registrationStatus.documents == "YES",
                       onTap: () {
                         Get.to(() => UploadDocumentScreen());
                       }),

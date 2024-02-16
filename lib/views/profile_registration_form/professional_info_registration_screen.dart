@@ -9,6 +9,7 @@ class ProfessionalInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller =
         Provider.of<ProfileRegistrationController>(context, listen: false);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -74,6 +75,7 @@ class ProfessionalInfoScreen extends StatelessWidget {
                             if (_formKey.currentState!.validate()) {
                               await controller.updateRegistrationStatus(2);
                               controller.professionalDetails.store();
+
                               Get.off(() => FamilyInfoScreen());
                             }
                           },

@@ -1,46 +1,77 @@
 import 'package:reshimgathi/consts/consts.dart';
 
 import 'package:reshimgathi/controllers/profile_screen_controller.dart';
+import 'package:reshimgathi/utility/util_functions.dart';
 
 class ProfileDetailScreen extends StatelessWidget {
-  ProfileDetailScreen({super.key, required this.data});
-
-  dynamic data;
-
-  String convertToYYYYMMDD(String inputDate) {
-    List<String> parts = inputDate.split("-");
-    if (parts.length == 3) {
-      String day = parts[0];
-      String month = parts[1];
-      String year = parts[2];
-      return "$year-$month-$day";
-    } else {
-      // Invalid date format
-      return inputDate;
-    }
+  ProfileDetailScreen({super.key, required this.data}) {
+    brothersList = data['brothers_info'];
+    sistersList = data['sisters_info'];
+    mamaList = data['mamas_info'];
   }
 
-  int calculateAge() {
-    // Parse the birthdate string into a DateTime object
+  dynamic data;
+  late List<dynamic> brothersList;
+  late List<dynamic> sistersList;
+  late List<dynamic> mamaList;
 
-    String dob = data['birth_date'];
+  sibblingsInfo({name, occu, mariStatus}) {
+    return Table(columnWidths: {
+      0: FlexColumnWidth(),
+      1: FlexColumnWidth(1.8),
+    }, children: [
+      tableRowMethod(key: "Name", value: name),
+      tableRowMethod(key: "Occupation", value: occu),
+      tableRowMethod(key: "Marital Status", value: mariStatus),
+    ]);
+  }
 
-    DateTime birthDate = DateTime.parse(convertToYYYYMMDD(dob));
+  mamaInfo({name, occu}) {
+    return Table(columnWidths: {
+      0: FlexColumnWidth(),
+      1: FlexColumnWidth(1.8),
+    }, children: [
+      tableRowMethod(key: "Name", value: name),
+      tableRowMethod(key: "Occupation", value: occu),
+    ]);
+  }
 
-    // Get the current date
-    DateTime currentDate = DateTime.now();
+  Column getMamas() {
+    return Column(
+      children: List.generate(
+        mamaList.length,
+        (index) => mamaInfo(
+          name: mamaList[index]['name'],
+          occu: mamaList[index]['occupation'],
+        ),
+      ),
+    );
+  }
 
-    // Calculate the difference in years
-    int age = currentDate.year - birthDate.year;
+  Column getBrothers() {
+    return Column(
+      children: List.generate(
+        brothersList.length,
+        (index) => sibblingsInfo(
+          name: brothersList[index]['name'],
+          occu: brothersList[index]['occupation'],
+          mariStatus: brothersList[index]['marital_status'],
+        ),
+      ),
+    );
+  }
 
-    // Check if the birthday has occurred this year
-    if (currentDate.month < birthDate.month ||
-        (currentDate.month == birthDate.month &&
-            currentDate.day < birthDate.day)) {
-      age--;
-    }
-
-    return age;
+  Column getSisters() {
+    return Column(
+      children: List.generate(
+        sistersList.length,
+        (index) => sibblingsInfo(
+          name: sistersList[index]['name'],
+          occu: sistersList[index]['occupation'],
+          mariStatus: sistersList[index]['marital_status'],
+        ),
+      ),
+    );
   }
 
   @override
@@ -149,7 +180,7 @@ class ProfileDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     20.heightBox,
-                    "${data['first_name']} ${data['last_name']}, ${calculateAge().toString()}"
+                    "${data['first_name']} ${data['last_name']}, ${calculateAge(data).toString()}"
                         .text
                         .size(18)
                         .semiBold
@@ -215,14 +246,39 @@ class ProfileDetailScreen extends StatelessWidget {
                             key: "Father", value: "${data['father_name']}"),
                         tableRowMethod(
                             key: "Mother", value: "${data['mother_name']}"),
-                        tableRowMethod(
-                            key: "Brother", value: "2, BOTH UNMARRIED"),
-                        tableRowMethod(key: "Sister", value: "-"),
-                        tableRowMethod(
-                            key: "Mama", value: "Mr.Jadhav (From Nashik)"),
                       ],
                     ),
                     15.heightBox,
+                    brothersList.length > 0
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              "Brothers".text.fontFamily(semiBold).make(),
+                              getBrothers(),
+                            ],
+                          )
+                        : SizedBox(),
+                    sistersList.length > 0
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              "Sisters".text.fontFamily(semiBold).make(),
+                              getSisters(),
+                            ],
+                          )
+                        : SizedBox(),
+                    mamaList.length > 0
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              "Mama".text.fontFamily(semiBold).make(),
+                              getMamas(),
+                              "Native Place : ${data['mama_native_place']}"
+                                  .text
+                                  .make()
+                            ],
+                          )
+                        : SizedBox(),
                     Divider(
                       thickness: 0.5,
                     ),
@@ -265,15 +321,15 @@ class ProfileDetailScreen extends StatelessWidget {
     );
   }
 
-  TableRow tableRowMethod({key, value}) {
+  tableRowMethod({key, value}) {
     return TableRow(
       children: [
         Padding(
             padding: EdgeInsets.symmetric(vertical: 7.5),
-            child: "${key} : ".text.color(darkGrayColor).make()),
+            child: "$key : ".text.color(darkGrayColor).make()),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 7.5),
-          child: "${value}".text.make(),
+          child: "$value".text.make(),
         ),
       ],
     );

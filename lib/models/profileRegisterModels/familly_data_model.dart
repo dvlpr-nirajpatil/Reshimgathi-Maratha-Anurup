@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/shared_storage.dart';
 
 class FamilyDataModel {
   TextEditingController fatherName = TextEditingController();
@@ -24,31 +27,103 @@ class FamilyDataModel {
   }
 
   fetch() async {
-    var pref = await SecureSharedPref.getInstance();
-    fatherName.text = await pref.getString('fatherName') ?? "";
-    fatherOccupation.text = await pref.getString('fatherOccupation') ?? "";
-    motherName.text = await pref.getString('motherName') ?? "";
-    motherOccupation.text = await pref.getString('motherOccupation') ?? "";
-    int noOfBrother = await pref.getInt('noOfBrother') ?? 0;
-    numberOfBrothers.text = noOfBrother.toString();
-    int noOfSister = await pref.getInt('noOfSister') ?? 0;
-    numberOfSisters.text = noOfSister.toString();
-    int noOfMama = await pref.getInt('noOfMama') ?? 0;
-    numberOfMama.text = noOfMama.toString();
+    fatherName.text = await shared_storage.read(key: 'fatherName') ?? "";
+    fatherOccupation.text =
+        await shared_storage.read(key: 'fatherOccupation') ?? "";
+    motherName.text = await shared_storage.read(key: 'motherName') ?? "";
+    motherOccupation.text =
+        await shared_storage.read(key: 'motherOccupation') ?? "";
+
+    String mamainf = await shared_storage.read(key: 'mamas_info') ?? "";
+    mamaNativePlace.text =
+        await shared_storage.read(key: 'mamaNativePlace') ?? "";
+    if (mamainf != "") {
+      List<dynamic> mamaDetails = jsonDecode(mamainf);
+      mamasInfo = mamaDetails
+          .map((e) => MamaDetails(
+              name: e['name'],
+              contact: e['contact'],
+              occupation: e['occupation']))
+          .toList();
+    }
+
+    noOfMama = mamasInfo.length;
+    numberOfMama.text = mamasInfo.length.toString();
+
+    String brotherInf = await shared_storage.read(key: 'brothers_info') ?? "";
+
+    if (brotherInf != "") {
+      List<dynamic> brotherDetails = jsonDecode(brotherInf);
+      brothersInfo = brotherDetails
+          .map((e) => SibblingsDetails(
+              name: e['name'],
+              occupation: e['occupation'],
+              mari: e['marital_status']))
+          .toList();
+    }
+
+    noOfBrother = brothersInfo.length;
+    numberOfBrothers.text = brothersInfo.length.toString();
+
+    String sistersInf = await shared_storage.read(key: 'sisters_info') ?? "";
+
+    if (sistersInf != "") {
+      List<dynamic> sistersDetails = jsonDecode(sistersInf);
+      sistersInfo = sistersDetails
+          .map((e) => SibblingsDetails(
+              name: e['name'],
+              occupation: e['occupation'],
+              mari: e['marital_status']))
+          .toList();
+    }
+
+    noOfSister = sistersInfo.length;
+    numberOfSisters.text = sistersInfo.length.toString();
   }
 
   store() async {
-    var pref = await SecureSharedPref.getInstance();
-    pref.putString("fatherName", fatherName.text);
-    pref.putString("fatherOccupation", fatherOccupation.text);
-    pref.putString("motherName", motherName.text);
-    pref.putString("motherOccupation", motherOccupation.text);
-    pref.putInt("noOfBrother", noOfBrother);
-    pref.putInt("noOfSister", noOfSister);
-    pref.putInt("noOfMama", noOfMama);
-    pref.putString('mamaNativePlace', mamaNativePlace.text);
+    await shared_storage.write(key: "fatherName", value: fatherName.text);
+    await shared_storage.write(
+        key: "fatherOccupation", value: fatherOccupation.text);
+    await shared_storage.write(key: "motherName", value: motherName.text);
+    await shared_storage.write(
+        key: "motherOccupation", value: motherOccupation.text);
+    await shared_storage.write(
+        key: "noOfBrother", value: noOfBrother.toString());
+    await shared_storage.write(key: "noOfSister", value: noOfSister.toString());
+    await shared_storage.write(key: "noOfMama", value: noOfMama.toString());
+    await shared_storage.write(
+        key: 'mamaNativePlace', value: mamaNativePlace.text);
 
     //TODO -  store brother sister & mamma Remaining
+
+    // Convert the list to a JSON-encoded string
+    String mamasInf = jsonEncode(mamasInfo
+        .map((e) => {
+              'name': e.name.text,
+              'occupation': e.occupation.text,
+              'contact': e.contactNo.text
+            })
+        .toList());
+    await shared_storage.write(key: "mamas_info", value: mamasInf);
+
+    String sistersInf = jsonEncode(sistersInfo
+        .map((e) => {
+              'name': e.name.text,
+              'occupation': e.occupation.text,
+              'marital_status': e.maritalStatus.text
+            })
+        .toList());
+    await shared_storage.write(key: "sisters_info", value: sistersInf);
+
+    String brothersInf = jsonEncode(brothersInfo
+        .map((e) => {
+              'name': e.name.text,
+              'occupation': e.occupation.text,
+              'marital_status': e.maritalStatus.text
+            })
+        .toList());
+    await shared_storage.write(key: "brothers_info", value: brothersInf);
   }
 
   List<Map<String, String>> getMamasDetails() {
@@ -56,9 +131,9 @@ class FamilyDataModel {
 
     for (MamaDetails i in mamasInfo) {
       mama.add({
-        "name": i.name!,
-        "contact_no": i.contactNo!,
-        "occupation": i.occupation!
+        "name": i.name.text,
+        "contact_no": i.contactNo.text,
+        "occupation": i.occupation.text
       });
     }
 
@@ -70,9 +145,9 @@ class FamilyDataModel {
 
     for (var i in brothersInfo) {
       brothers.add({
-        "name": i.name!,
-        "occupation": i.occupation!,
-        "marital_status": i.maritalStatus!
+        "name": i.name.text,
+        "occupation": i.occupation.text,
+        "marital_status": i.maritalStatus.text
       });
     }
 
@@ -84,9 +159,9 @@ class FamilyDataModel {
 
     for (var i in sistersInfo) {
       sisters.add({
-        "name": i.name!,
-        "occupation": i.occupation!,
-        "marital_status": i.maritalStatus!
+        "name": i.name.text,
+        "occupation": i.occupation.text,
+        "marital_status": i.maritalStatus.text
       });
     }
 

@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/shared_storage.dart';
 
 class ContactDataModel {
   // Contact information Screen variable
@@ -12,18 +13,20 @@ class ContactDataModel {
   }
 
   fetch() async {
-    var pref = await SecureSharedPref.getInstance();
-    fatherContactNo.text = await pref.getString("fatherContact") ?? "";
-    motherContactNo.text = await pref.getString("mothercontact") ?? "";
-    whatsappNumber.text = await pref.getString("whatsapp") ?? "";
-    emailAddress.text = await pref.getString("emailAddress") ?? "";
+    fatherContactNo.text =
+        await shared_storage.read(key: "fatherContact") ?? "";
+    motherContactNo.text =
+        await shared_storage.read(key: "mothercontact") ?? "";
+    whatsappNumber.text = await shared_storage.read(key: "whatsapp") ?? "";
+    emailAddress.text = await shared_storage.read(key: "emailAddress") ?? "";
   }
 
   store() async {
-    var pref = await SecureSharedPref.getInstance();
-    pref.putString("fatherContact", fatherContactNo.text);
-    pref.putString("mothercontact", motherContactNo.text);
-    pref.putString("whatsapp", whatsappNumber.text);
-    pref.putString("emailAddress", emailAddress.text);
+    await shared_storage.write(
+        key: "fatherContact", value: fatherContactNo.text);
+    await shared_storage.write(
+        key: "mothercontact", value: motherContactNo.text);
+    await shared_storage.write(key: "whatsapp", value: whatsappNumber.text);
+    await shared_storage.write(key: "emailAddress", value: emailAddress.text);
   }
 }

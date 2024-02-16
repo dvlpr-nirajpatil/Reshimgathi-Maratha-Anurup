@@ -1,7 +1,5 @@
-import 'dart:io';
-
-import 'package:path_provider/path_provider.dart';
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/shared_storage.dart';
 import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 
@@ -17,7 +15,7 @@ class AuthController extends ChangeNotifier {
   navigateUser(context) async {
     await fetchUserDetails();
     if (userDetails['profile_status']['registration'] == false) {
-      Get.offAll(() => RegistrationScreen());
+      Get.offAll(() => const RegistrationScreen());
     } else if (userDetails['profile_status']['verification'] == false) {
       Get.off(() => const VerificationPendingScreen());
     } else if (userDetails['profile_status']['membership_active'] == false) {
@@ -40,11 +38,6 @@ class AuthController extends ChangeNotifier {
         .get();
 
     userDetails = querySnapshot.docs[0].data() as Map<String, dynamic>;
-  }
-
-  Future<void> clearSharedPrerences() async {
-    SecureSharedPref pref = await SecureSharedPref.getInstance();
-    await pref.clearAll();
   }
 
   Future<void> mountUser() async {
@@ -151,26 +144,8 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> userSignOut() async {
+    await shared_storage.deleteAll();
     await FirebaseAuth.instance.signOut();
-    final pref = await SecureSharedPref.getInstance();
-    await pref.clearAll();
-    await clearLocalFiles();
-  }
-
-  Future<void> clearLocalFiles() async {
-    String localPath = (await getApplicationDocumentsDirectory()).path;
-
-    // Get the path to the file where the data is stored
-    String filePath = '$localPath/stored_files.txt';
-
-    // Check if the file exists
-    if (await File(filePath).exists()) {
-      // Delete the file
-
-      await File(filePath).delete();
-
-      print("Deleted Successfully");
-    }
   }
 
   Future<void> forgetPassword(context, email) async {

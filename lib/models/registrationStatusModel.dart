@@ -1,61 +1,61 @@
+import 'package:reshimgathi/consts/shared_storage.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
 
 class RegistrationStatusModel {
-  bool personal = false;
-  bool professional = false;
-  bool family = false;
-  bool residential = false;
-  bool contact = false;
-  bool expectations = false;
-  bool photos = false;
-  bool documents = false;
+  String personal = "NO";
+  String professional = "NO";
+  String family = "NO";
+  String residential = "NO";
+  String contact = "NO";
+  String expectations = "NO";
+  String photos = "NO";
+  String documents = "NO";
 
   store(val) async {
-    final pref = await SecureSharedPref.getInstance();
     switch (val) {
       case 1:
-        personal = true;
-        await pref.putBool('r_personal', true);
+        personal = "YES";
+        await shared_storage.write(key: 'r_personal', value: "YES");
         break;
       case 2:
-        professional = true;
-        await pref.putBool('r_professional', true);
+        professional = "YES";
+        await shared_storage.write(key: 'r_professional', value: "YES");
         break;
       case 3:
-        family = true;
-        await pref.putBool('r_family', true);
+        family = "YES";
+        await shared_storage.write(key: 'r_family', value: "YES");
         break;
       case 4:
-        residential = true;
-        await pref.putBool('r_residential', true);
+        residential = "YES";
+        await shared_storage.write(key: 'r_residential', value: "YES");
         break;
       case 5:
-        contact = true;
-        await pref.putBool('r_contact', true);
+        contact = "YES";
+        await shared_storage.write(key: 'r_contact', value: "YES");
         break;
       case 6:
-        expectations = true;
-        await pref.putBool('r_expectations', true);
+        expectations = "YES";
+        await shared_storage.write(key: 'r_expectations', value: "YES");
         break;
       case 7:
-        photos = true;
-        await pref.putBool('r_photos', true);
+        photos = "YES";
+        await shared_storage.write(key: 'r_photos', value: "YES");
         break;
       case 8:
-        documents = true;
-        await pref.putBool('r_documents', true);
+        documents = "YES";
+        await shared_storage.write(key: 'r_documents', value: "YES");
         break;
     }
   }
 
   checkProfileCompleted() {
-    return personal! &&
-        professional! &&
-        family! &&
-        residential! &&
-        contact! &&
-        expectations! &&
-        photos! &&
-        documents!;
+    return personal == "YES" &&
+        professional == "YES" &&
+        family == "YES" &&
+        residential == "YES" &&
+        contact == "YES" &&
+        expectations == "YES" &&
+        photos == "YES" &&
+        documents == "YES";
   }
 }

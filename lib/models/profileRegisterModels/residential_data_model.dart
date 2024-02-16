@@ -1,4 +1,5 @@
 import 'package:reshimgathi/consts/consts.dart';
+import 'package:reshimgathi/consts/shared_storage.dart';
 
 class ResidentialDataModel {
   // Residential information Screen variable
@@ -14,22 +15,20 @@ class ResidentialDataModel {
   }
 
   fetch() async {
-    var pref = await SecureSharedPref.getInstance();
-    address.text = await pref.getString("address") ?? "";
-    area.text = await pref.getString('area') ?? "";
-    landmark.text = await pref.getString("landmark") ?? "";
-    city.text = await pref.getString("city") ?? " ";
-    state.text = await pref.getString('state') ?? "";
-    pincode.text = await pref.getString('pincode') ?? "";
+    address.text = await shared_storage.read(key: "address") ?? "";
+    area.text = await shared_storage.read(key: 'area') ?? "";
+    landmark.text = await shared_storage.read(key: "landmark") ?? "";
+    city.text = await shared_storage.read(key: "city") ?? " ";
+    state.text = await shared_storage.read(key: 'state') ?? "";
+    pincode.text = await shared_storage.read(key: 'pincode') ?? "";
   }
 
   store() async {
-    var pref = await SecureSharedPref.getInstance();
-    pref.putString("address", address.text);
-    pref.putString("area", area.text);
-    pref.putString("landmark", landmark.text);
-    pref.putString("city", city.text);
-    pref.putString("state", state.text);
-    pref.putString("pincode", pincode.text);
+    await shared_storage.write(key: "address", value: address.text);
+    await shared_storage.write(key: "area", value: area.text);
+    await shared_storage.write(key: "landmark", value: landmark.text);
+    await shared_storage.write(key: "city", value: city.text);
+    await shared_storage.write(key: "state", value: state.text);
+    await shared_storage.write(key: "pincode", value: pincode.text);
   }
 }

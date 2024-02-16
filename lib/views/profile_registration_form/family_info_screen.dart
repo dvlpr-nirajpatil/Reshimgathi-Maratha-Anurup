@@ -106,18 +106,12 @@ class FamilyInfoScreen extends StatelessWidget {
                           children: List.generate(
                             controller.familyDetails.noOfBrother,
                             (index) => siblingsInforForm(
-                                occuChange: (value) {
-                                  controller.familyDetails.brothersInfo[index]
-                                      .occupation = value;
-                                },
-                                nameChange: (value) {
-                                  controller.familyDetails.brothersInfo[index]
-                                      .name = value;
-                                },
-                                mariChange: (value) {
-                                  controller.familyDetails.brothersInfo[index]
-                                      .maritalStatus = value;
-                                },
+                                name: controller
+                                    .familyDetails.brothersInfo[index].name,
+                                occu: controller.familyDetails
+                                    .brothersInfo[index].occupation,
+                                mari: controller.familyDetails
+                                    .brothersInfo[index].maritalStatus,
                                 title:
                                     "${index + 1}${getNumberSuffix(index + 1)}  Brother"),
                           ),
@@ -135,6 +129,7 @@ class FamilyInfoScreen extends StatelessWidget {
                       child: TextFormField(
                         controller: controller.familyDetails.numberOfSisters,
                         onChanged: (val) {
+                          print(val);
                           if (val != "") {
                             if (int.parse(val) <= 10) {
                               controller.setSisterCount = int.parse(val);
@@ -156,18 +151,12 @@ class FamilyInfoScreen extends StatelessWidget {
                           children: List.generate(
                             controller.familyDetails.noOfSister,
                             (index) => siblingsInforForm(
-                              occuChange: (value) {
-                                controller.familyDetails.sistersInfo[index]
-                                    .occupation = value;
-                              },
-                              nameChange: (value) {
-                                controller.familyDetails.sistersInfo[index]
-                                    .name = value;
-                              },
-                              mariChange: (value) {
-                                controller.familyDetails.sistersInfo[index]
-                                    .maritalStatus = value;
-                              },
+                              occu: controller
+                                  .familyDetails.sistersInfo[index].occupation,
+                              name: controller
+                                  .familyDetails.sistersInfo[index].name,
+                              mari: controller.familyDetails.sistersInfo[index]
+                                  .maritalStatus,
                               title:
                                   "${index + 1}${getNumberSuffix(index + 1)}  Sister",
                             ),
@@ -205,18 +194,12 @@ class FamilyInfoScreen extends StatelessWidget {
                           children: List.generate(
                             controller.familyDetails.noOfMama,
                             (index) => mamaInforForm(
-                              occuChange: (value) {
-                                controller.familyDetails.mamasInfo[index]
-                                    .occupation = value;
-                              },
-                              nameChange: (value) {
-                                controller.familyDetails.mamasInfo[index].name =
-                                    value;
-                              },
-                              mobChange: (value) {
-                                controller.familyDetails.mamasInfo[index]
-                                    .contactNo = value;
-                              },
+                              nameContro: controller
+                                  .familyDetails.mamasInfo[index].name,
+                              occuContro: controller
+                                  .familyDetails.mamasInfo[index].occupation,
+                              mobContro: controller
+                                  .familyDetails.mamasInfo[index].contactNo,
                               title:
                                   "${index + 1}${getNumberSuffix(index + 1)}  Mama's",
                             ),
@@ -228,6 +211,7 @@ class FamilyInfoScreen extends StatelessWidget {
                     builder: (context, controller, x) {
                   return controller.familyDetails.noOfMama > 0
                       ? customTextFormField(
+                          controller: controller.familyDetails.mamaNativePlace,
                           label: "Mama's Native Place",
                           hint: "Enter Native Place",
                         )
@@ -266,22 +250,22 @@ class FamilyInfoScreen extends StatelessWidget {
     );
   }
 
-  Column siblingsInforForm({title, nameChange, occuChange, mariChange}) {
+  Column siblingsInforForm({title, name, occu, mari}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         customTextFormField(
-          onchange: nameChange,
+          controller: name,
           label: "$title Name",
           hint: "Enter $title Name",
         ),
         customTextFormField(
-          onchange: occuChange,
+          controller: occu,
           label: "$title Occupation",
           hint: "Enter $title Name",
         ),
         customTextFormField(
-          onchange: mariChange,
+          controller: mari,
           label: "$title Marital Status",
           hint: "Yes / No",
         ),
@@ -289,21 +273,31 @@ class FamilyInfoScreen extends StatelessWidget {
     );
   }
 
-  Column mamaInforForm({title, nameChange, mobChange, occuChange}) {
+  Column mamaInforForm(
+      {title,
+      nameChange,
+      mobChange,
+      occuChange,
+      nameContro,
+      occuContro,
+      mobContro}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         customTextFormField(
+          controller: nameContro,
           onchange: nameChange,
           label: "$title Name",
           hint: "Enter $title Name",
         ),
         customTextFormField(
-          onchange: nameChange,
+          controller: occuContro,
+          onchange: occuChange,
           label: "$title occupation",
           hint: "Enter $title occupation",
         ),
         customTextFormField(
+          controller: mobContro,
           onchange: mobChange,
           label: "$title Mobile Number",
           hint: "Enter Mobile Number",
