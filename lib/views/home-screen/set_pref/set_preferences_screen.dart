@@ -168,11 +168,11 @@ class SetPreferencesScreen extends StatelessWidget {
                     spacing: 5,
                     runSpacing: 8,
                     children: List.generate(
-                      location.length,
+                      locationsList.length,
                       (index) => Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          "${location[index]}".text.white.make(),
+                          "${locationsList[index]}".text.white.make(),
                           5.widthBox,
                           Icon(Icons.close, color: Colors.white)
                         ],

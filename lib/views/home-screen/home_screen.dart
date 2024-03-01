@@ -1,8 +1,8 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/consts/typography.dart';
-import 'package:reshimgathi/controllers/home_screen_controller.dart';
+
 import 'package:reshimgathi/views/home-screen/components/profiles_widget.dart';
 import 'package:reshimgathi/views/home-screen/set_pref/set_preferences_screen.dart';
+import 'package:reshimgathi/views/search_screen/search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Provider.of<HomeScreenController>(context, listen: false);
-    ;
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 80, left: 20, right: 20),
@@ -26,13 +26,19 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.search,
-                        size: 35,
+                        size: 25,
                         color: borderColor,
                       ),
-                      20.widthBox,
+                      10.widthBox,
                       Expanded(
                         child: TextField(
+                          readOnly: true,
+                          cursorHeight: 18,
+                          onTap: () {
+                            Get.to(() => SearchScreen());
+                          },
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(0),
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             hintText: "Search",
@@ -83,7 +89,6 @@ class HomeScreen extends StatelessWidget {
                           .collection('userRegister')
                           .where('profile_status', isEqualTo: {
                         'membership_active': true,
-                        
                         'verification': true,
                         'registration': true,
                       }).snapshots(),

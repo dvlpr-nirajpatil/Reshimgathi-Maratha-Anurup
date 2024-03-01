@@ -9,3 +9,5 @@ FirebaseStorage storage = FirebaseStorage.instance;
 // collection
 const String registerCollection = "userRegister";
 const String adminCollection = "adminRegister";
+const String saveProfilesCollection = "savedProfiles";
+const String infoRequestCollection = "infoRequests";

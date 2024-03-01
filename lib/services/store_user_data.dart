@@ -90,7 +90,7 @@ class UserRegistrationApi {
         };
 
         userData['profile_status']['registration'] = true;
-        userData['registration_date'] = getDateInString();
+        userData['registration_date'] = getDateTimeInString();
 
         userData['profile_status']['registration'] = true;
 
@@ -117,7 +117,7 @@ class UserRegistrationApi {
         userData['profile_status']['membership_active'] = true;
         userData['payment_details'] = {
           'payment_id': paymentId,
-          'payment_date': getDateInString(),
+          'payment_date': getDateTimeInString(),
           'order_id': orderId
         };
 

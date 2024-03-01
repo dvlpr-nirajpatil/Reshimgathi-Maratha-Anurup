@@ -5,7 +5,9 @@ import 'package:reshimgathi/models/profile_details_model.dart';
 
 List bottomNavigationBarItems = [
   {"icon": Icons.home, "title": "Home"},
-  {"icon": Icons.person, "title": "Profile"},
+  {"icon": Icons.supervisor_account, "title": "Requests"},
+  {"icon": Icons.favorite, "title": "Favourites"},
+  {"icon": Icons.face, "title": "Profile"},
 ];
 
 List<String> feets = [
@@ -89,7 +91,7 @@ List<ProfileDetails> Matches = [
 ];
 
 List occupation = ["Engineer", "Doctor", "MBA"];
-List location = ["Pune", "Mumbai", "Nashik", "Dhule"];
+List locationsList = ["Pune", "Mumbai", "Nashik", "Dhule"];
 final RegExp emailRegex = RegExp(
   r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
 );

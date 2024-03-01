@@ -4,7 +4,7 @@ import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 
 class AuthController extends ChangeNotifier {
-  var userDetails = {};
+  var userDetails;
   bool isloading = false;
 
   set isLoading(bool value) {
@@ -14,7 +14,9 @@ class AuthController extends ChangeNotifier {
 
   navigateUser(context) async {
     await _fetchUserDetails();
-    if (userDetails['profile_status']['registration'] == false) {
+    if (userDetails == null) {
+      Get.off(() => SignInScreen());
+    } else if (userDetails['profile_status']['registration'] == false) {
       Get.offAll(() => const RegistrationScreen());
     } else if (userDetails['profile_status']['verification'] == false) {
       Get.off(() => const VerificationPendingScreen());
@@ -37,7 +39,9 @@ class AuthController extends ChangeNotifier {
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get();
 
-    userDetails = querySnapshot.docs[0].data() as Map<String, dynamic>;
+    if (querySnapshot.docs.isNotEmpty) {
+      userDetails = querySnapshot.docs[0].data() as Map<String, dynamic>;
+    }
   }
 
   Future<void> mountUser() async {

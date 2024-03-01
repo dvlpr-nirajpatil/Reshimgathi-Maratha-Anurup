@@ -1,7 +1,6 @@
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/profile/change_password/change_password_screen.dart';
 import 'package:reshimgathi/views/profile/contact_screen/contact_us_sceen.dart';
-import 'package:reshimgathi/views/profile/saved_profiles/saved_profiles_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -52,17 +51,6 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 ListTile(
                   title: "Edit Information".text.make(),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    color: lightPinkColor,
-                  ),
-                ),
-                const Divider(),
-                ListTile(
-                  onTap: () {
-                    Get.to(() => SavedProfilesScreen());
-                  },
-                  title: "Saved Profiles".text.make(),
                   trailing: Icon(
                     Icons.arrow_forward_ios,
                     color: lightPinkColor,
