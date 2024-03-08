@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/shared-widget/pregress_hud.dart';
 
 class UploadPhotosScreen extends StatelessWidget {
   const UploadPhotosScreen({super.key});
+  static const String id = "UploadPhotos";
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class UploadPhotosScreen extends StatelessWidget {
                   Row(
                     children: [
                       Icon(Icons.arrow_back).onTap(() {
-                        Get.back();
+                        GoRouter.of(context).pop();
                       }),
                       15.widthBox,
                       "Upload Photos".text.fontFamily(semiBold).size(18).make(),
@@ -130,7 +132,8 @@ class UploadPhotosScreen extends StatelessWidget {
                         // controller.storeImages();
                         controller.updateRegistrationStatus(7);
                         controller.images.store();
-                        Get.off(() => UploadDocumentScreen());
+                        GoRouter.of(context)
+                            .pushReplacementNamed(UploadDocumentScreen.id);
                       }
 
                       controller.loading = false;

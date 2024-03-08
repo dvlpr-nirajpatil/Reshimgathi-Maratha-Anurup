@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class ContactInfoScreen extends StatelessWidget {
   ContactInfoScreen({super.key});
+  static const String id = "ContactInfoScreen";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -31,7 +33,7 @@ class ContactInfoScreen extends StatelessWidget {
                         Row(
                           children: [
                             Icon(Icons.arrow_back).onTap(() {
-                              Get.back();
+                              GoRouter.of(context).pop();
                             }),
                             15.widthBox,
                             "Contact Information"
@@ -76,7 +78,9 @@ class ContactInfoScreen extends StatelessWidget {
                         if (_formKey.currentState!.validate()) {
                           await controller.updateRegistrationStatus(5);
                           controller.contactDetails.store();
-                          Get.off(() => ExpectionScreen());
+
+                          GoRouter.of(context)
+                              .pushReplacementNamed(ExpectionScreen.id);
                         }
                       },
                       child: controller.isLoading

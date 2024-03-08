@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class ExpectionScreen extends StatelessWidget {
   ExpectionScreen({super.key});
+  static const String id = "Expectations";
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -21,7 +23,7 @@ class ExpectionScreen extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.arrow_back).onTap(() {
-                    Get.back();
+                    GoRouter.of(context).pop();
                   }),
                   15.widthBox,
                   "Expectations".text.fontFamily(semiBold).size(18).make(),
@@ -105,7 +107,9 @@ class ExpectionScreen extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             await controller.updateRegistrationStatus(6);
                             controller.expectations.store();
-                            Get.off(() => UploadPhotosScreen());
+
+                            GoRouter.of(context)
+                                .pushReplacementNamed(UploadPhotosScreen.id);
                           }
                         },
                         child: controller.isLoading

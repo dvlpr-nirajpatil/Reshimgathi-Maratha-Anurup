@@ -3,14 +3,16 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/controllers/payment_gateway.dart';
 import 'package:reshimgathi/services/store_user_data.dart';
 
-class PaymentGatewayScreen extends StatefulWidget {
-  PaymentGatewayScreen({super.key});
+class MembershipScreen extends StatefulWidget {
+  MembershipScreen({super.key});
+
+  static const String id = "membership";
 
   @override
-  State<PaymentGatewayScreen> createState() => _PaymentGatewayScreenState();
+  State<MembershipScreen> createState() => _MembershipScreenState();
 }
 
-class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
+class _MembershipScreenState extends State<MembershipScreen> {
   Razorpay _razorpay = Razorpay();
 
   @override

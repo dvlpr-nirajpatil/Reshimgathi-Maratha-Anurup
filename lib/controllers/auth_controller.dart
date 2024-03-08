@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/shared_storage.dart';
 import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
@@ -15,15 +16,15 @@ class AuthController extends ChangeNotifier {
   navigateUser(context) async {
     await _fetchUserDetails();
     if (userDetails == null) {
-      Get.off(() => SignInScreen());
+      GoRouter.of(context).goNamed(SignInScreen.id);
     } else if (userDetails['profile_status']['registration'] == false) {
-      Get.offAll(() => const RegistrationScreen());
+      GoRouter.of(context).goNamed(RegistrationScreen.id);
     } else if (userDetails['profile_status']['verification'] == false) {
-      Get.off(() => const VerificationPendingScreen());
+      GoRouter.of(context).goNamed(VerificationPendingScreen.id);
     } else if (userDetails['profile_status']['membership_active'] == false) {
-      Get.off(() => PaymentGatewayScreen());
+      GoRouter.of(context).goNamed(MembershipScreen.id);
     } else {
-      Get.off(() => Home());
+      GoRouter.of(context).goNamed(Home.id);
     }
   }
 

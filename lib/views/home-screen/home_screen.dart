@@ -1,16 +1,43 @@
+import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reshimgathi/consts/consts.dart';
-
 import 'package:reshimgathi/views/home-screen/components/profiles_widget.dart';
 import 'package:reshimgathi/views/home-screen/set_pref/set_preferences_screen.dart';
 import 'package:reshimgathi/views/search_screen/search_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollController.addListener(() {
+      double maxScroll = scrollController.position.maxScrollExtent;
+      double currentScroll = scrollController.position.pixels;
+
+      double delta = context.height * 0.25;
+
+      if (maxScroll - currentScroll <= delta) {
+        loadMoreProfiles();
+      }
+    });
+  }
+
+  loadMoreProfiles() {
+    var controller = Provider.of<HomeScreenController>(context, listen: false);
+    controller.getMoreProfiles();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<HomeScreenController>(context, listen: false);
-
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 80, left: 20, right: 20),
@@ -35,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                           readOnly: true,
                           cursorHeight: 18,
                           onTap: () {
-                            Get.to(() => SearchScreen());
+                            GoRouter.of(context).goNamed(SearchScreen.id);
                           },
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(0),
@@ -71,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                     .make()
                     .onTap(
                   () {
-                    Get.to(() => SetPreferencesScreen());
+                    GoRouter.of(context).goNamed(SetPreferencesScreen.id);
                   },
                 )
               ],
@@ -79,46 +106,41 @@ class HomeScreen extends StatelessWidget {
             20.heightBox,
             Expanded(
               child: SingleChildScrollView(
+                controller: scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     "Matches".text.size(22).fontFamily(semiBold).make(),
                     20.heightBox,
-                    StreamBuilder<QuerySnapshot>(
-                      stream: database
-                          .collection('userRegister')
-                          .where('profile_status', isEqualTo: {
-                        'membership_active': true,
-                        'verification': true,
-                        'registration': true,
-                      }).snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.docs.isEmpty) {
-                          return Center(
-                              child: Text('No user registers found.'));
-                        } else {
-                          return ListView.builder(
-                            padding: EdgeInsets.all(0),
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var document = snapshot.data!.docs[index].data();
-
-                              // Customize this widget based on your document structure
-                              return ProfileCardWidget(data: document);
-                            },
-                          );
-                        }
-                      },
-                    ),
+                    Consumer<HomeScreenController>(
+                        builder: (context, controller, _) {
+                      return controller.isLoading
+                          ? SizedBox(
+                              width: double.infinity,
+                              height: context.height * 0.6,
+                              child: LoadingAnimationWidget.fourRotatingDots(
+                                      color: pinkColor, size: 50)
+                                  .centered(),
+                            )
+                          : controller.profiles.length == 0
+                              ? Center(
+                                  child: "No Profiles Available".text.make(),
+                                )
+                              : ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.all(0),
+                                  shrinkWrap: true,
+                                  itemCount: controller.profiles.length - 1,
+                                  itemBuilder: (context, index) {
+                                    var document = controller.profiles[index]
+                                        .data() as Map<String, dynamic>;
+                                    // Customize this widget based on your document structure
+                                    return ProfileCardWidget(
+                                      data: document,
+                                    );
+                                  },
+                                );
+                    })
                   ],
                 ),
               ),
@@ -129,3 +151,44 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+  // FutureBuilder<QuerySnapshot>(
+  //                     future: database
+  //                         .collection('userRegister')
+  //                         .where('profile_status', isEqualTo: {
+  //                       'membership_active': true,
+  //                       'verification': true,
+  //                       'registration': true,
+  //                     }).get(),
+  //                     builder: (context, snapshot) {
+  //                       if (snapshot.connectionState ==
+  //                           ConnectionState.waiting) {
+  //                         return Center(child: CircularProgressIndicator());
+  //                       } else if (snapshot.hasError) {
+  //                         return Center(
+  //                             child: Text('Error: ${snapshot.error}'));
+  //                       } else if (!snapshot.hasData ||
+  //                           snapshot.data!.docs.isEmpty) {
+  //                         return Center(
+  //                             child: Text('No user registers found.'));
+  //                       } else {
+  //                         return ListView.builder(
+  //                           padding: EdgeInsets.all(0),
+  //                           physics: NeverScrollableScrollPhysics(),
+  //                           shrinkWrap: true,
+  //                           itemCount: snapshot.data!.docs.length,
+  //                           itemBuilder: (context, index) {
+  //                             var document = snapshot.data!.docs[index].data()
+  //                                 as Map<String, dynamic>;
+  //                             ;
+
+  //                             // Customize this widget based on your document structure
+  //                             return ProfileCardWidget(
+  //                               data: document,
+  //                             );
+  //                           },
+  //                         );
+  //                       }
+  //                     },
+  //                   ),

@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/auth_screens/forget_password/forget_password.dart';
 import 'package:reshimgathi/views/auth_screens/signup_screen/signup_screen.dart';
@@ -117,7 +118,7 @@ class SignInScreen extends StatelessWidget {
                       .fontFamily(semiBold)
                       .make()
                       .onTap(() {
-                    Get.to(() => SignupScreen());
+                    GoRouter.of(context).pushNamed(SignupScreen.id);
                   })
                 ],
               ),

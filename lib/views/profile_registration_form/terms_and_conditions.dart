@@ -1,10 +1,11 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/terms_and_conditions.dart';
-import 'package:reshimgathi/views/home-screen/set_pref/set_preferences_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/registration_screen.dart';
 
-class TermsAndContions extends StatelessWidget {
-  const TermsAndContions({super.key});
+class TermsAndConditions extends StatelessWidget {
+  const TermsAndConditions({super.key});
+  static const String id = "TermsAndCondition";
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class TermsAndContions extends StatelessWidget {
           ).paddingOnly(right: 20).onTap(() async {
             await Provider.of<AuthController>(context, listen: false)
                 .userSignOut();
-            Get.offAll(() => SignInScreen());
+            GoRouter.of(context).goNamed(SignInScreen.id);
           }),
         ],
       ),
@@ -67,7 +68,8 @@ class TermsAndContions extends StatelessWidget {
                     FilledButton(
                             onPressed: controller.tAndC
                                 ? () {
-                                    Get.off(() => RegistrationScreen());
+                                    GoRouter.of(context)
+                                        .goNamed(RegistrationScreen.id);
                                   }
                                 : null,
                             child: "Continue"

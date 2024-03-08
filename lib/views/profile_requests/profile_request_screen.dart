@@ -84,7 +84,6 @@ class ProfileRequestScreen extends StatelessWidget {
                     } else {
                       return ListView.builder(
                         padding: const EdgeInsets.all(0),
-                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {

@@ -42,7 +42,7 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen> {
               if (data['profile_status']['verification'] == true) {
                 Future.delayed(
                   const Duration(seconds: 1),
-                  () => Get.off(() => PaymentGatewayScreen()),
+                  () => Get.off(() => MembershipScreen()),
                 );
               }
             }

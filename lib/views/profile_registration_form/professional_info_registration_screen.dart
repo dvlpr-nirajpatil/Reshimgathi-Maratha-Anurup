@@ -1,7 +1,10 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class ProfessionalInfoScreen extends StatelessWidget {
   ProfessionalInfoScreen({super.key});
+
+  static const String id = "ProfessionalInfoScreen";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -26,7 +29,7 @@ class ProfessionalInfoScreen extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.arrow_back).onTap(() {
-                      Get.back();
+                      GoRouter.of(context).pop();
                     }),
                     15.widthBox,
                     "Professional Information"
@@ -76,7 +79,8 @@ class ProfessionalInfoScreen extends StatelessWidget {
                               await controller.updateRegistrationStatus(2);
                               controller.professionalDetails.store();
 
-                              Get.off(() => FamilyInfoScreen());
+                              GoRouter.of(context)
+                                  .pushReplacementNamed(FamilyInfoScreen.id);
                             }
                           },
                           child: controller.isLoading

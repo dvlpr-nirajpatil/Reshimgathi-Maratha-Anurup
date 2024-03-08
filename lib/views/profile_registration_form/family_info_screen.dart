@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
 
 class FamilyInfoScreen extends StatelessWidget {
+  static const String id = "FamilyInfoScreen";
   FamilyInfoScreen({super.key});
   String getNumberSuffix(int number) {
     if (number >= 11 && number <= 13) {
@@ -42,7 +44,7 @@ class FamilyInfoScreen extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.arrow_back).onTap(() {
-                      Get.back();
+                      GoRouter.of(context).pop();
                     }),
                     15.widthBox,
                     "Family Background"
@@ -225,7 +227,9 @@ class FamilyInfoScreen extends StatelessWidget {
                             if (_formKey.currentState!.validate()) {
                               await controller.updateRegistrationStatus(3);
                               controller.familyDetails.store();
-                              Get.off(() => ResidentialInfoScreen());
+
+                              GoRouter.of(context).pushReplacementNamed(
+                                  ResidentialInfoScreen.id);
                             }
                           },
                           child: controller.isLoading

@@ -4,10 +4,13 @@ import 'package:reshimgathi/controllers/profile_screen_controller.dart';
 import 'package:reshimgathi/controllers/request_info_controller.dart';
 import 'package:reshimgathi/controllers/saved_profile_controller.dart';
 import 'package:reshimgathi/controllers/search_controller.dart';
+import 'package:reshimgathi/utility/app_routes.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const Reshimgathi());
 }
 
@@ -27,10 +30,10 @@ class Reshimgathi extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RequestInfoController()),
         ChangeNotifierProvider(create: (_) => SearchProfilesController())
       ],
-      child: GetMaterialApp(
-        home: const SplashScreen(),
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: appThemeData,
+        routerConfig: AppRoutes.router,
       ),
     );
   }

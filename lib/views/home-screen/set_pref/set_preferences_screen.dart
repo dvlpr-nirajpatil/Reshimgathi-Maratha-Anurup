@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/consts/typography.dart';
@@ -6,6 +7,7 @@ import 'package:reshimgathi/views/home/home.dart';
 
 class SetPreferencesScreen extends StatelessWidget {
   SetPreferencesScreen({super.key});
+  static String id = "SetPreferences";
 
   int minAge = 20;
   int maxAge = 30;
@@ -19,7 +21,7 @@ class SetPreferencesScreen extends StatelessWidget {
         scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
         leading: Icon(Icons.close).onTap(() {
-          Get.back();
+          GoRouter.of(context).pop();
         }),
         title: "Filter Matches".text.fontFamily(semiBold).size(18).make(),
       ),
@@ -64,7 +66,7 @@ class SetPreferencesScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child:
-                          "Between ${provider.min_age_value} to ${provider.max_age_value}"
+                          "Between ${provider.minAgeValue} to ${provider.maxAgeValue}"
                               .text
                               .make(),
                     ),
@@ -73,11 +75,11 @@ class SetPreferencesScreen extends StatelessWidget {
                       max: 65,
                       inactiveColor: lightGrey,
                       activeColor: pinkColor,
-                      values: RangeValues(provider.min_age_value.toDouble(),
-                          provider.max_age_value.toDouble()),
+                      values: RangeValues(provider.minAgeValue.toDouble(),
+                          provider.maxAgeValue.toDouble()),
                       onChanged: (value) {
-                        provider.min_age_value = value.start.toInt();
-                        provider.max_age_value = value.end.toInt();
+                        provider.minAgeValue = value.start.toInt();
+                        provider.maxAgeValue = value.end.toInt();
                         provider.notifyListeners();
                       },
                     ),

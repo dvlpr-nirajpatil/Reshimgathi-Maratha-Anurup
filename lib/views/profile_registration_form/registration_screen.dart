@@ -1,10 +1,11 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/profile_registration_form/residential_info_screen.dart';
 import 'package:reshimgathi/views/shared-widget/pregress_hud.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({super.key});
-
+  static const String id = "RegistrationScreen";
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileRegistrationController>(
@@ -29,7 +30,7 @@ class RegistrationScreen extends StatelessWidget {
               ).paddingOnly(right: 20).onTap(() async {
                 await Provider.of<AuthController>(context, listen: false)
                     .userSignOut();
-                Get.offAll(() => SignInScreen());
+                GoRouter.of(context).goNamed(SignInScreen.id);
               }),
             ],
           ),
@@ -44,56 +45,57 @@ class RegistrationScreen extends StatelessWidget {
                       is_completed:
                           controller.registrationStatus.personal == "YES",
                       onTap: () {
-                        Get.to(() => PersonalInformationScreen());
+                        GoRouter.of(context)
+                            .goNamed(PersonalInformationScreen.id);
                       }),
                   optionsWidget(
                       title: "Professional Information",
                       is_completed:
                           controller.registrationStatus.professional == "YES",
                       onTap: () {
-                        Get.to(() => ProfessionalInfoScreen());
+                        GoRouter.of(context).goNamed(ProfessionalInfoScreen.id);
                       }),
                   optionsWidget(
                       title: "Family Background",
                       is_completed:
                           controller.registrationStatus.family == "YES",
                       onTap: () {
-                        Get.to(() => FamilyInfoScreen());
+                        GoRouter.of(context).goNamed(FamilyInfoScreen.id);
                       }),
                   optionsWidget(
                       title: "Residential Information",
                       is_completed:
                           controller.registrationStatus.residential == "YES",
                       onTap: () {
-                        Get.to(() => ResidentialInfoScreen());
+                        GoRouter.of(context).goNamed(ResidentialInfoScreen.id);
                       }),
                   optionsWidget(
                       title: "Contact Details",
                       is_completed:
                           controller.registrationStatus.contact == "YES",
                       onTap: () {
-                        Get.to(() => ContactInfoScreen());
+                        GoRouter.of(context).goNamed(ContactInfoScreen.id);
                       }),
                   optionsWidget(
                       title: "Expectations",
                       is_completed:
                           controller.registrationStatus.expectations == "YES",
                       onTap: () {
-                        Get.to(() => ExpectionScreen());
+                        GoRouter.of(context).goNamed(ExpectionScreen.id);
                       }),
                   optionsWidget(
                       title: "Upload Photos",
                       is_completed:
                           controller.registrationStatus.photos == "YES",
                       onTap: () {
-                        Get.to(() => UploadPhotosScreen());
+                        GoRouter.of(context).goNamed(UploadPhotosScreen.id);
                       }),
                   optionsWidget(
                       title: "Upload Documents",
                       is_completed:
                           controller.registrationStatus.documents == "YES",
                       onTap: () {
-                        Get.to(() => UploadDocumentScreen());
+                        GoRouter.of(context).goNamed(UploadDocumentScreen.id);
                       }),
                   const Spacer(),
                   Consumer<ProfileRegistrationController>(

@@ -13,6 +13,5 @@ class PushNotificationService {
       sound: true,
     );
     final token = await messaging.getToken();
-    print(token);
   }
 }

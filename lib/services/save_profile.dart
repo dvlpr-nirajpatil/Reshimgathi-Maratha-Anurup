@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class SaveProfileService {
@@ -35,10 +36,10 @@ class SaveProfileService {
         // Update the document with the modified data
         await documentReference.update(currentData);
       }
-
-      print('Profile added successfully!');
     } catch (e) {
-      print('Error adding profile: $e');
+      if (kDebugMode) {
+        print('Error adding profile: $e');
+      }
     }
   }
 
@@ -65,10 +66,10 @@ class SaveProfileService {
 
       // Update the document with the modified data
       await documentReference.update(currentData);
-
-      print('Profile Deleted successfully!');
     } catch (e) {
-      print('Error Deleting profile: $e');
+      if (kDebugMode) {
+        print('Error Deleting profile: $e');
+      }
     }
   }
 }

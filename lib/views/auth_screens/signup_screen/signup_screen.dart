@@ -1,5 +1,5 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/views/profile_registration_form/terms_and_conditions.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -92,10 +92,11 @@ class SignupScreen extends StatelessWidget {
                           if (value != null) {
                             await authController.storeAuthDetails(
                                 name: name, email: email);
-                            Get.offAll(() => TermsAndContions());
+                            GoRouter.of(context).go('/termsandconditions');
                           }
                         });
                       }
+
                       controller.isLoading = false;
                     },
                     child: controller.isloading
@@ -121,7 +122,7 @@ class SignupScreen extends StatelessWidget {
                     "Sign in".text.fontFamily(semiBold).color(pinkColor).make()
                   ],
                 ).onTap(() {
-                  Get.back();
+                  GoRouter.of(context).pop();
                 }),
                 60.heightBox,
               ],

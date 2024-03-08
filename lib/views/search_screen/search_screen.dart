@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/controllers/search_controller.dart';
 import 'package:reshimgathi/utility/util_functions.dart';
+import 'package:reshimgathi/views/profile_details_screen/profile_detail_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen({super.key});
+  static const String id = "SearchScreen";
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -56,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Icons.arrow_back,
                   weight: 1,
                 ).onTap(() {
-                  Get.back();
+                  GoRouter.of(context).pop();
                 }),
                 10.widthBox,
                 Expanded(
@@ -100,41 +103,37 @@ class _SearchScreenState extends State<SearchScreen> {
               thickness: 0.5,
             ),
             Expanded(
-              child: Container(
-                child: Consumer<SearchProfilesController>(
-                    builder: (context, controller, x) {
-                  return controller.searchResults.isNotEmpty
-                      ? Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              20.heightBox,
-                              "Matched Result"
-                                  .text
-                                  .fontFamily(semiBold)
-                                  .make()
-                                  .paddingSymmetric(horizontal: 20),
-                              20.heightBox,
-                              Expanded(
-                                child: ListView.separated(
-                                  padding: EdgeInsets.all(0),
-                                  separatorBuilder: (context, index) => Divider(
-                                    thickness: 0.5,
-                                    color: borderColor,
-                                  ),
-                                  itemCount: controller.searchResults.length,
-                                  itemBuilder: (context, index) {
-                                    var data = controller.searchResults[index];
-                                    return searchResultTile(data);
-                                  },
-                                ),
+              child: Consumer<SearchProfilesController>(
+                  builder: (context, controller, x) {
+                return controller.searchResults.isNotEmpty
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          20.heightBox,
+                          "Matched Result"
+                              .text
+                              .fontFamily(semiBold)
+                              .make()
+                              .paddingSymmetric(horizontal: 20),
+                          20.heightBox,
+                          Expanded(
+                            child: ListView.separated(
+                              padding: EdgeInsets.all(0),
+                              separatorBuilder: (context, index) => Divider(
+                                thickness: 0.5,
+                                color: borderColor,
                               ),
-                            ],
+                              itemCount: controller.searchResults.length,
+                              itemBuilder: (context, index) {
+                                var data = controller.searchResults[index];
+                                return searchResultTile(data);
+                              },
+                            ),
                           ),
-                        )
-                      : "${controller.error}".text.make().centered();
-                }),
-              ),
+                        ],
+                      )
+                    : "${controller.error}".text.make().centered();
+              }),
             )
           ],
         ),
@@ -172,6 +171,11 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         )
       ],
-    ).paddingSymmetric(horizontal: 20);
+    ).paddingSymmetric(horizontal: 20).onTap(
+      () {
+        GoRouter.of(context).pushNamed(ProfileDetailScreen.id,
+            pathParameters: {'id': data['uid']});
+      },
+    );
   }
 }

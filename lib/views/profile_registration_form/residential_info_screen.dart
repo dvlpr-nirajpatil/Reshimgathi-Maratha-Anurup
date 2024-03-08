@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class ResidentialInfoScreen extends StatelessWidget {
   ResidentialInfoScreen({super.key});
+  static const String id = "ResidentialInfoScreen";
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -21,7 +23,7 @@ class ResidentialInfoScreen extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.arrow_back).onTap(() {
-                      Get.back();
+                      GoRouter.of(context).pop();
                     }),
                     15.widthBox,
                     "Residential Information"
@@ -70,7 +72,9 @@ class ResidentialInfoScreen extends StatelessWidget {
                             if (_formKey.currentState!.validate()) {
                               await controller.updateRegistrationStatus(4);
                               controller.residentialDetails.store();
-                              Get.off(() => ContactInfoScreen());
+
+                              GoRouter.of(context)
+                                  .pushReplacementNamed(ContactInfoScreen.id);
                             }
                           },
                           child: controller.isLoading

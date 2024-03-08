@@ -9,7 +9,7 @@ class SavedProfilesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller =
         Provider.of<SavedProfilesController>(context, listen: false);
-    var savedProfilesList = controller.savedProfiles.values.toList();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -23,6 +23,7 @@ class SavedProfilesScreen extends StatelessWidget {
           Expanded(
             child: Consumer<SavedProfilesController>(
                 builder: (context, controller, xxx) {
+              var savedProfilesList = controller.savedProfiles.values.toList();
               return controller.savedProfiles.length == 0
                   ? Center(
                       child: "No Saved Profiles Found".text.make(),

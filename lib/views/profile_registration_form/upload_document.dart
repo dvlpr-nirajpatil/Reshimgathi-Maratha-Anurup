@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'dart:io';
 
@@ -6,6 +7,7 @@ import 'package:reshimgathi/views/shared-widget/pregress_hud.dart';
 
 class UploadDocumentScreen extends StatelessWidget {
   UploadDocumentScreen({super.key});
+  static const String id = "UploadDocuments";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -28,7 +30,7 @@ class UploadDocumentScreen extends StatelessWidget {
                     Row(
                       children: [
                         Icon(Icons.arrow_back).onTap(() {
-                          Get.back();
+                          GoRouter.of(context).pop();
                         }),
                         15.widthBox,
                         "Upload Documents"
@@ -187,7 +189,8 @@ class UploadDocumentScreen extends StatelessWidget {
                             // await controller.storeDocuments();
                             controller.updateRegistrationStatus(8);
                             controller.documents.store();
-                            Get.back();
+
+                            GoRouter.of(context).pop();
                           }
                         }
                       },

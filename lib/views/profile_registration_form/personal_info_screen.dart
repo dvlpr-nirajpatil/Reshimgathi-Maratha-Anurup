@@ -1,6 +1,8 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class PersonalInformationScreen extends StatelessWidget {
+  static const String id = "PersonalInformation";
   PersonalInformationScreen({super.key});
   final _formKey = GlobalKey<FormState>();
   @override
@@ -21,7 +23,7 @@ class PersonalInformationScreen extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(Icons.arrow_back).onTap(() {
-                      Get.back();
+                      GoRouter.of(context).pop();
                     }),
                     15.widthBox,
                     "Personal Information"
@@ -184,14 +186,14 @@ class PersonalInformationScreen extends StatelessWidget {
                     builder: (context, controller, xxx) {
                   return FilledButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await controller.updateRegistrationStatus(1);
-                        controller.personalDetails.store();
+                      //TODO Implememny Navigation
+                      // if (_formKey.currentState!.validate()) {
+                      //   await controller.updateRegistrationStatus(1);
+                      //   controller.personalDetails.store();
 
-                        Get.off(
-                          () => ProfessionalInfoScreen(),
-                        );
-                      }
+                      // }
+                      GoRouter.of(context)
+                          .pushReplacementNamed(ProfessionalInfoScreen.id);
                     },
                     child: controller.isLoading
                         ? const SizedBox(

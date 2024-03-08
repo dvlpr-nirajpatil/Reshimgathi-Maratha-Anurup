@@ -6,7 +6,7 @@ import 'package:reshimgathi/views/saved_profiles/saved_profiles_screen.dart';
 import 'package:reshimgathi/views/profile_requests/profile_request_screen.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
   static String id = "Home";
 
   @override
@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List screens = [
-    const HomeScreen(),
+    HomeScreen(),
     ProfileRequestScreen(),
     const SavedProfilesScreen(),
     const ProfileScreen()
@@ -25,7 +25,6 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    PushNotificationService.init();
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -54,7 +55,7 @@ class LandingScreen extends StatelessWidget {
                   const Spacer(),
                   FilledButton(
                     onPressed: () {
-                      Get.off(() => SignInScreen());
+                      GoRouter.of(context).goNamed(SignInScreen.id);
                     },
                     child: "Create an account".text.fontFamily(semiBold).make(),
                   ),
