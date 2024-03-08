@@ -1,5 +1,4 @@
 import 'package:reshimgathi/consts/shared_storage.dart';
-import 'package:secure_shared_preferences/secure_shared_pref.dart';
 
 class RegistrationStatusModel {
   String personal = "NO";

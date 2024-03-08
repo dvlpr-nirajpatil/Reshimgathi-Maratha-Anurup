@@ -6,6 +6,7 @@ class LandingScreen extends StatelessWidget {
   static String id = "LandingScreen";
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var authController = Provider.of<AuthController>(context, listen: false);
 
     return Scaffold(

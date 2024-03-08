@@ -1,14 +1,13 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:go_router/go_router.dart';
 import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/views/auth_screens/splash_screen/components/splash_screen_poster.dart';
 
 // ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
-  static final String id = "SplashScreen";
-  String? profile;
-  SplashScreen({super.key, this.profile});
+  static String id = "SplashScreen";
 
-  // ignore: non_constant_identifier_names
+// ignore: unused_field
   ChangeScreen(context) {
     var controller = Provider.of<AuthController>(context, listen: false);
 

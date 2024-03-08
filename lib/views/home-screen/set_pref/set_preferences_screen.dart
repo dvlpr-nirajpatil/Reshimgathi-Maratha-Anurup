@@ -3,8 +3,8 @@ import 'package:reshimgathi/consts/consts.dart';
 import 'package:reshimgathi/consts/lists.dart';
 import 'package:reshimgathi/consts/typography.dart';
 import 'package:reshimgathi/controllers/home_screen_controller.dart';
-import 'package:reshimgathi/views/home/home.dart';
 
+// ignore: must_be_immutable
 class SetPreferencesScreen extends StatelessWidget {
   SetPreferencesScreen({super.key});
   static String id = "SetPreferences";

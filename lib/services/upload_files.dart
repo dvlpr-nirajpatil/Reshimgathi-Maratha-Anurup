@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/utility/util_functions.dart';
 
 class FireStorage {
   static Future<String> fileUpload(XFile doc, pat) async {
