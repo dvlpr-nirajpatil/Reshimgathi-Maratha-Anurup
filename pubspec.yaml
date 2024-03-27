@@ -95,6 +95,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins-SemiBold.ttf
 
+    - family: Medium
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf
+
     - family: Marathi
       fonts:
         - asset: assets/fonts/Sahitya-Regular.ttf

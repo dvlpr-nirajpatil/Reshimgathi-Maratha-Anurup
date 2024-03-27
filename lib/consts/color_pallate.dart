@@ -5,6 +5,8 @@ Color pinkColor = const Color(0xffFF4D82);
 Color lightPinkColor = const Color(0xffFF96B5);
 Color faintPinkColor = const Color(0xffFFC7D8);
 Color lightGrey = const Color(0xffECEDEF);
+Color kbgColor = const Color(0xffF9F9F9);
+Color greyTextColor = Color(0xffB5B6B7);
 
 Color greenColor = Color(0xff50AB42);
 Color redColor = Color(0xffFB4E36);

@@ -6,6 +6,9 @@ import 'package:reshimgathi/views/auth_screens/splash_screen/splash_screen.dart'
 import 'package:reshimgathi/views/home-screen/set_pref/set_preferences_screen.dart';
 import 'package:reshimgathi/views/home/home.dart';
 import 'package:reshimgathi/views/payment_gateway/payment_screen.dart';
+import 'package:reshimgathi/views/profile/change_password/change_password_screen.dart';
+import 'package:reshimgathi/views/profile/manage_membership/manage_membership_screen.dart';
+import 'package:reshimgathi/views/profile/update_information/update_information.dart';
 import 'package:reshimgathi/views/profile_details_screen/profile_detail_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/contact_info_screen.dart';
 import 'package:reshimgathi/views/profile_registration_form/expection_info_screen.dart';
@@ -113,8 +116,9 @@ class AppRoutes {
         name: MembershipScreen.id,
         builder: (context, state) => MembershipScreen(),
       ),
+
       GoRoute(
-        path: '/home',
+        path: '/homeScreen',
         name: Home.id,
         builder: (context, state) => Home(),
         routes: [
@@ -135,8 +139,23 @@ class AppRoutes {
               userid: state.pathParameters['id']!,
             ),
           ),
+          GoRoute(
+            path: 'updateinformation',
+            name: UpdateInformationScreen.id,
+            builder: (context, state) => UpdateInformationScreen(),
+          ),
+          GoRoute(
+            path: 'changepassword',
+            name: ChangePasswordScreen.id,
+            builder: (context, state) => ChangePasswordScreen(),
+          ),
+          GoRoute(
+            path: 'managemembership',
+            name: ManageMembershipScreen.id,
+            builder: (context, state) => ManageMembershipScreen(),
+          ),
         ],
-      )
+      ),
     ],
   );
 }

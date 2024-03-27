@@ -12,5 +12,5 @@ const igGradient = 'assets/images/blackGradient.png';
 const igLanding = 'assets/images/landing-background.png';
 const igLanding1 = 'assets/images/background_1.jpg';
 const igUnderVerification = 'assets/images/verification.gif';
-
+const igMembership = "assets/images/membership.svg";
 const icUpload = "assets/images/upload.svg";

@@ -1,5 +1,4 @@
 import 'package:reshimgathi/consts/consts.dart';
-import 'package:reshimgathi/services/push_notifications_service.dart';
 import 'package:reshimgathi/views/home-screen/home_screen.dart';
 import 'package:reshimgathi/views/profile/profile_screen.dart';
 import 'package:reshimgathi/views/saved_profiles/saved_profiles_screen.dart';
@@ -18,14 +17,8 @@ class _HomeState extends State<Home> {
     HomeScreen(),
     ProfileRequestScreen(),
     const SavedProfilesScreen(),
-    const ProfileScreen()
+    ProfileScreen()
   ];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

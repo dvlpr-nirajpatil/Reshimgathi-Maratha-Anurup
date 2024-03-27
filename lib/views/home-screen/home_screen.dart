@@ -31,6 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+  }
+
   loadMoreProfiles() {
     var controller = Provider.of<HomeScreenController>(context, listen: false);
     controller.getMoreProfiles();

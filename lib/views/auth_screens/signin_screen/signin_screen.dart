@@ -101,6 +101,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void initState() {
+    super.initState();
     //----------------
     user = FirebaseAuth.instance.currentUser;
     _firebaseMessaging.getToken().then((token) {
@@ -131,7 +132,13 @@ class _SignInScreenState extends State<SignInScreen> {
       });
     });
 
-    super.initState();
+    _emailField.text = "dev.nirajpatil@gmail.com";
+    _passField.text = "12345678";
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
